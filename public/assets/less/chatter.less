@@ -1,0 +1,364 @@
+.navbar{
+	margin-bottom:0px;
+}
+
+#chatter{
+
+	#chatter_hero{
+		background-image:url('../images/hero_bg.jpg');
+		width:100%;
+		min-height:350px;
+		position:relative;
+		background-size:cover;
+		background-position:center center;
+		margin-bottom:40px;
+
+		#chatter_hero_dimmer{
+			
+			background:rgba(0, 0, 0, 0.2);
+			position:absolute;
+			width:100%;
+			height:100%;
+			left:0px;
+			top:0px;
+		}
+
+		h1{
+			text-align:center;
+			position:relative;
+			color:#ffffff;
+			margin-top:0px;
+			padding-top: 155px;
+		}
+
+		p{
+			text-align:center;
+			color:#cccccc;
+			position:relative;
+			z-index:2;
+		}
+
+	}
+
+	.form-control{
+		padding: 25px 20px;
+    	font-size: 16px;
+    	border:0px;
+    	box-shadow:0px 0px 0px;
+    	border-radius:0px;
+	}
+
+	#new_discussion{
+		#title{
+			border:0px;
+		}
+	}
+
+	#chatter_header{
+		background:#263238;
+		width:100%;
+		min-height:80px;
+		margin-bottom:40px;
+
+		h1{
+			margin-top:0px;
+			margin-bottom:0px;
+			line-height:80px;
+			font-size:24px;
+			color:#f1f1f1;
+		}
+
+		a{
+			float: left;
+		    line-height: 40px;
+		    font-size: 15px;
+		    margin-right: 10px;
+		    border-radius: 50%;
+		    padding: 0px;
+		    background: rgba(0, 0, 0, 0.2);
+		    width: 34px;
+		    height: 34px;
+		    text-align: center;
+		    margin-top: 23px;
+		    color: rgba(255, 255, 255, 0.8);
+		    transition:background 0.3s ease, color 0.4s ease;
+
+		    &:hover{
+		    	text-decoration:none;
+		    	background: rgba(0, 0, 0, 0.4);
+		    	color:#ffffff;
+		    }
+
+		    &:focus, &:active{
+		    	text-decoration:none;
+		    }
+
+		    i{
+		    	position:relative;
+		    	left:-1px;
+		    }
+		}
+	}
+
+	.btn{
+		i{
+			position: relative;
+			top: 2px;
+		}
+		border:0px;
+		&:hover, &:visited, &:active{
+			border:0px;
+		}
+	}
+
+	.left-column{
+		>a.btn{
+			margin-bottom:15px;
+		}
+		.btn{
+			width:100%;
+		}
+		.nav-pills>li>a{
+			padding:5px;
+			padding-left:30px;
+			padding-right:0px;
+			position:relative;
+			.chatter-box{
+				width:10px;
+				height:10px;
+				border-radius:2px;
+				float:left;
+				position: absolute;
+				top: 50%;
+				margin-top: -5px;
+				left:10px;
+			}
+			
+		}
+		.nav-pills>li>a:focus, .nav-pills>li>a:hover{
+			background:none;
+		}
+	}
+
+	#cancel_discussion{
+		margin-right:15px;
+	}
+
+	#editor{
+		#body{
+			display:none;
+		}
+		.chatter_editor_loader{
+			margin:20px auto;
+		}
+		&.loaded{
+			#body{
+				display:block;
+			}
+			.chatter_editor_loader{
+				display:none;
+			}
+		}
+
+		>.mce-container.mce-panel{
+			border-width:0px !important;
+		}
+	}
+
+	#chatter_category_id{
+		height:50px;
+	}
+
+	.chatter_cat{
+		padding-left:10px;
+		padding-right:10px;
+	}
+
+	
+
+
+	/********** LOADER **********/
+
+	.la-ball-clip-rotate,
+	.la-ball-clip-rotate > div {
+	    position: relative;
+	    -webkit-box-sizing: border-box;
+	       -moz-box-sizing: border-box;
+	            box-sizing: border-box;
+	}
+	.la-ball-clip-rotate {
+	    display: block;
+	    font-size: 0;
+	    color: #fff;
+	}
+	.la-ball-clip-rotate.la-dark {
+	    color: #333;
+	}
+	.la-ball-clip-rotate > div {
+	    display: inline-block;
+	    float: none;
+	    background-color: currentColor;
+	    border: 0 solid currentColor;
+	}
+	.la-ball-clip-rotate {
+	    width: 32px;
+	    height: 32px;
+	}
+	.la-ball-clip-rotate > div {
+	    width: 32px;
+	    height: 32px;
+	    background: transparent;
+	    border-width: 2px;
+	    border-bottom-color: transparent;
+	    border-radius: 100%;
+	    -webkit-animation: ball-clip-rotate .75s linear infinite;
+	       -moz-animation: ball-clip-rotate .75s linear infinite;
+	         -o-animation: ball-clip-rotate .75s linear infinite;
+	            animation: ball-clip-rotate .75s linear infinite;
+	}
+	.la-ball-clip-rotate.la-sm {
+	    width: 16px;
+	    height: 16px;
+	}
+	.la-ball-clip-rotate.la-sm > div {
+	    width: 16px;
+	    height: 16px;
+	    border-width: 1px;
+	}
+	.la-ball-clip-rotate.la-2x {
+	    width: 64px;
+	    height: 64px;
+	}
+	.la-ball-clip-rotate.la-2x > div {
+	    width: 64px;
+	    height: 64px;
+	    border-width: 4px;
+	}
+	.la-ball-clip-rotate.la-3x {
+	    width: 96px;
+	    height: 96px;
+	}
+	.la-ball-clip-rotate.la-3x > div {
+	    width: 96px;
+	    height: 96px;
+	    border-width: 6px;
+	}
+	/*
+	 * Animation
+	 */
+	@-webkit-keyframes ball-clip-rotate {
+	    0% {
+	        -webkit-transform: rotate(0deg);
+	                transform: rotate(0deg);
+	    }
+	    50% {
+	        -webkit-transform: rotate(180deg);
+	                transform: rotate(180deg);
+	    }
+	    100% {
+	        -webkit-transform: rotate(360deg);
+	                transform: rotate(360deg);
+	    }
+	}
+	@-moz-keyframes ball-clip-rotate {
+	    0% {
+	        -moz-transform: rotate(0deg);
+	             transform: rotate(0deg);
+	    }
+	    50% {
+	        -moz-transform: rotate(180deg);
+	             transform: rotate(180deg);
+	    }
+	    100% {
+	        -moz-transform: rotate(360deg);
+	             transform: rotate(360deg);
+	    }
+	}
+	@-o-keyframes ball-clip-rotate {
+	    0% {
+	        -o-transform: rotate(0deg);
+	           transform: rotate(0deg);
+	    }
+	    50% {
+	        -o-transform: rotate(180deg);
+	           transform: rotate(180deg);
+	    }
+	    100% {
+	        -o-transform: rotate(360deg);
+	           transform: rotate(360deg);
+	    }
+	}
+	@keyframes ball-clip-rotate {
+	    0% {
+	        -webkit-transform: rotate(0deg);
+	           -moz-transform: rotate(0deg);
+	             -o-transform: rotate(0deg);
+	                transform: rotate(0deg);
+	    }
+	    50% {
+	        -webkit-transform: rotate(180deg);
+	           -moz-transform: rotate(180deg);
+	             -o-transform: rotate(180deg);
+	                transform: rotate(180deg);
+	    }
+	    100% {
+	        -webkit-transform: rotate(360deg);
+	           -moz-transform: rotate(360deg);
+	             -o-transform: rotate(360deg);
+	                transform: rotate(360deg);
+	    }
+	}
+
+	/********** END LOADER **********/
+
+}
+
+/********** TINYMCE Modifications **********/
+
+.mce-panel.mce-floatpanel{
+	border-radius:3px;
+	border-top-right-radius:5px;
+	border-top-left-radius:5px;
+	border:0px;
+	max-height:530px;
+}
+
+.mce-window-head{
+	background:#263238 !important;
+	border-top-left-radius:3px;
+	border-top-right-radius:3px;
+	border:1px solid #263238;
+}
+
+.mce-foot{
+	background-color: #f1f1f1 !important;
+    border: 0px !important;
+    position:absolute;
+    bottom:0px;
+}
+
+.mce-window-head .mce-title{
+	color:#fff;
+	font-size:14px !important;
+}
+
+.mce-container-body.mce-abs-layout{
+	max-height:440px;
+}
+
+.mce-panel.mce-floatpanel.mce-menu, .mce-btn:focus, .mce-btn:active, .mce-btn:hover{
+	border:1px solid #f1f1f1;
+	border-color:#f1f1f1 !important;
+}
+
+div.mce-edit-area{
+	padding-left:8px;
+	padding-right:8px;
+}
+
+.mce-textbox.mce-multiline{
+	height:350px !important;
+	resize: vertical !important;
+}
+
+/********** END TINYMCE Modifications **********/
