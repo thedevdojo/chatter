@@ -1,6 +1,6 @@
 <?php
 
-namespace DevDojo\Chatter\Controllers;
+namespace DevDojo\Chatter\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,6 +8,7 @@ class Post extends Model {
 
 	protected $table = 'chatter_post';
 	public $timestamps = true;
+	protected $fillable = ['chatter_discussion_id', 'user_id', 'body'];
 
 	public function discussion()
 	{

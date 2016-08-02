@@ -10,7 +10,6 @@ use DevDojo\Chatter\Models\Category;
 class ChatterController extends Controller
 {
     public function index(){
-    	$categories = Category::all();
-    	return view('chatter::index', compact('categories'));
+    	return view('chatter::index');
     }
 }

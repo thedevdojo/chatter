@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-
 @section(Config::get('chatter.yields.head'))
 	@include('chatter::partials.css')
 @stop
@@ -9,13 +8,12 @@
 
 <div id="chatter">
 
-	<div id="chatter_hero">
-
-		<div id="chatter_hero_dimmer"></div>
-		<h1>{{ Config::get('chatter.headline') }}</h1>
-		<p>{{ Config::get('chatter.description') }}</p>
+	<div id="chatter_header">
+		<div class="container">
+			<a href="/{{ Config::get('chatter.routes.home') }}"><i class="chatter-back"></i></a>
+			<h1>{{ $discussion->title }}</h1>
+		</div>
 	</div>
-
 
 	<div class="container">
 		
@@ -29,7 +27,7 @@
 	                <div class="panel-heading">Welcome to Chatter!</div>
 
 	                <div class="panel-body">
-	                    body contents
+	                    {{{ $discussion->body }}}
 	                </div>
 	            </div>
 	        </div>
@@ -38,4 +36,13 @@
 
 </div>
 
-@endsection
+
+@stop
+
+@section(Config::get('chatter.yields.footer'))
+
+<script src="/vendor/devdojo/chatter/assets/vendor/tinymce/tinymce.min.js"></script>
+<script src="/vendor/devdojo/chatter/assets/js/tinymce.js"></script>
+<script src="/vendor/devdojo/chatter/assets/js/chatter.js"></script>
+
+@stop

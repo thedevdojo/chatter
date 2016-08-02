@@ -26,18 +26,31 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | The main editor for users to add text into the forum
+    | The main headline and description of your forum
     |--------------------------------------------------------------------------
     |
-    | When a user creates a new discussion or responds to a thread/post this 
-    | is the editor that they will use. You can choose between 'tinymce',
-    | 'medium' (inline editor), or 'markdown'.
+    | Your headline and your description will be shown on the homepage of your
+    | forum, unless you change the default theme.
+    |
+    */
+    
+    'headline' => 'Welcome to Chatter',
+    'description' => 'A simple forum package for your Laravel app.',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Header and Footer Yield Inserts for your master file
+    |--------------------------------------------------------------------------
+    |
+    | Chatter needs to add css or javascript to the header and footer of your 
+    | master layout file. You can choose what these will be called. FYI, 
+    | chatter will only load resources when you hit a forum route.
     |
     */
 
-    'editor' => 'tinymce',
-    
-    'headline' => 'Welcome to Chatter',
-    'description' => 'A simple forum package for your Laravel app.'
+    'yields' => [
+        'head' => 'css',
+        'footer' => 'js'
+    ]
 
 ];
