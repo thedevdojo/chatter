@@ -16,7 +16,9 @@ return [
     'routes' => [
         'home' => 'forum',
         'discussion' => 'discussion',
-        'category' => 'category'
+        'category' => 'category',
+        'register' => 'register',
+        'login' => 'login'
     ],
 
     'titles' => [
@@ -51,6 +53,17 @@ return [
     'yields' => [
         'head' => 'css',
         'footer' => 'js'
+    ],
+
+    'user' => [
+        'namespace' => 'App\User'
+    ],
+
+    'alert_messages' => [
+        'success' => 'Well done!',
+        'info' => 'Heads Up!',
+        'warning' => 'Wuh Oh!',
+        'error' => 'Oh Snap!'
     ]
 
 ];

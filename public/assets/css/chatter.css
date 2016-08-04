@@ -1,6 +1,9 @@
 .navbar {
   margin-bottom: 0px;
 }
+body {
+  background: #fff;
+}
 #chatter {
   /********** LOADER **********/
   /*
@@ -8,10 +11,23 @@
 	 */
   /********** END LOADER **********/
 }
+#chatter .margin-top {
+  margin-top: 40px;
+}
+#chatter button.btn.btn-primary {
+  border: 2px solid #f1f5ff;
+  background: none;
+  color: #0098cb;
+}
+#chatter button.btn.btn-primary:hover,
+#chatter button.btn.btn-primary:active,
+#chatter button.btn.btn-primary:focus {
+  outline: none;
+}
 #chatter #chatter_hero {
   background-image: url('../images/hero_bg.jpg');
   width: 100%;
-  min-height: 350px;
+  min-height: 150px;
   position: relative;
   background-size: cover;
   background-position: center center;
@@ -30,7 +46,7 @@
   position: relative;
   color: #ffffff;
   margin-top: 0px;
-  padding-top: 155px;
+  padding-top: 40px;
 }
 #chatter #chatter_hero p {
   text-align: center;
@@ -45,14 +61,83 @@
   box-shadow: 0px 0px 0px;
   border-radius: 0px;
 }
-#chatter #new_discussion #title {
-  border: 0px;
+#chatter #new_discussion {
+  display: none;
+  border: 2px solid #0098cb;
+  border-bottom: 0px;
+  position: fixed;
+  bottom: 0px;
+  width: 750px;
+  margin-left: -375px;
+  left: 50%;
+  height: auto;
+  background: #fff;
+  z-index: 2;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  overflow: hidden;
+  /********** COLOR PICKER STYLE OVERRIDES **********/
+  /********** END COLOR PICKER STYLE OVERRIDES **********/
+}
+#chatter #new_discussion form {
+  display: none;
+}
+#chatter #new_discussion #new_discussion_footer {
+  border-top: 1px solid #f3f6f9;
+  padding: 10px 15px;
+}
+#chatter #new_discussion .chatter-close {
+  color: #7089A9;
+  position: relative;
+  top: 17px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 6px;
+  padding-bottom: 3px;
+  right: 5px;
+  cursor: pointer;
+  -webkit-transition: background 0.3s ease, color 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+#chatter #new_discussion .chatter-close:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+#chatter #new_discussion .select_color_text {
+  color: #ddd;
+  font-size: 12px;
+  margin-left: 10px;
+}
+#chatter #new_discussion .sp-preview-inner,
+#chatter #new_discussion .sp-alpha-inner,
+#chatter #new_discussion .sp-thumb-inner {
+  border-radius: 30px;
+  height: 26px;
+  width: 26px;
+}
+#chatter #new_discussion .sp-preview {
+  width: 28px;
+  height: 28px;
+  border-color: #7089A9;
+  border-radius: 30px;
+}
+#chatter #new_discussion .sp-replacer {
+  border-radius: 30px;
+  border: solid 2px #f1f5f9;
+  background: none;
+}
+#chatter #new_discussion .sp-dd {
+  margin-right: 4px;
+  line-height: 0px;
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  color: #7089A9;
+  top: 3px;
+  padding-left: 5px;
 }
 #chatter #chatter_header {
   background: #263238;
   width: 100%;
   min-height: 80px;
-  margin-bottom: 40px;
 }
 #chatter #chatter_header h1 {
   margin-top: 0px;
@@ -92,6 +177,7 @@
 }
 #chatter .btn {
   border: 0px;
+  border-radius: 30px;
 }
 #chatter .btn i {
   position: relative;
@@ -101,9 +187,11 @@
 #chatter .btn:visited,
 #chatter .btn:active {
   border: 0px;
+  outline: none;
 }
 #chatter .left-column > a.btn {
   margin-bottom: 15px;
+  border-radius: 30px;
 }
 #chatter .left-column .btn {
   width: 100%;
@@ -128,19 +216,183 @@
 #chatter .left-column .nav-pills > li > a:hover {
   background: none;
 }
+#chatter ul.discussions {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  background: #fff;
+}
+#chatter ul.discussions.no-bg {
+  background: none;
+}
+#chatter ul.discussions li a,
+#chatter ul.discussions li .chatter_posts {
+  background: #ffffff;
+  padding: 15px;
+  cursor: pointer;
+  -webkit-transition: background 0.3s ease;
+  transition: background 0.3s ease;
+  border-top: 1px solid #f1fcff;
+  text-decoration: none;
+  display: block;
+}
+#chatter ul.discussions li a .chatter_avatar,
+#chatter ul.discussions li .chatter_posts .chatter_avatar {
+  float: left;
+  margin: 5px;
+  margin-right: 15px;
+  position: absolute;
+}
+#chatter ul.discussions li a .chatter_avatar img,
+#chatter ul.discussions li .chatter_posts .chatter_avatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+#chatter ul.discussions li a .chatter_middle,
+#chatter ul.discussions li .chatter_posts .chatter_middle {
+  float: left;
+  margin-left: 90px;
+  margin-right: 90px;
+}
+#chatter ul.discussions li a .chatter_middle h3,
+#chatter ul.discussions li .chatter_posts .chatter_middle h3 {
+  margin: 0px;
+  padding: 0px;
+  color: #111;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+#chatter ul.discussions li a .chatter_middle h3 .chatter_cat,
+#chatter ul.discussions li .chatter_posts .chatter_middle h3 .chatter_cat {
+  background: #ccc;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 10px;
+  padding: 3px 7px;
+  display: inline;
+  color: #fff;
+  position: relative;
+  top: -2px;
+}
+#chatter ul.discussions li a .chatter_middle span,
+#chatter ul.discussions li .chatter_posts .chatter_middle span {
+  font-size: 10px;
+  color: #9DADC4;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+}
+#chatter ul.discussions li a .chatter_middle p,
+#chatter ul.discussions li .chatter_posts .chatter_middle p {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  color: #aaa;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+  font-size: 12px;
+}
+#chatter ul.discussions li a .chatter_right,
+#chatter ul.discussions li .chatter_posts .chatter_right {
+  float: right;
+  right: 25px;
+  text-align: right;
+  position: absolute;
+}
+#chatter ul.discussions li a .chatter_right .chatter_count,
+#chatter ul.discussions li .chatter_posts .chatter_right .chatter_count {
+  padding: 8px 20px;
+  border-radius: 3px;
+  margin-top: 10px;
+  font-size: 20px;
+  color: #9DADB4;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+  font-family: Arial, Helvetica, Times, Courier;
+}
+#chatter ul.discussions li a .chatter_right .chatter_count i,
+#chatter ul.discussions li .chatter_posts .chatter_right .chatter_count i {
+  position: relative;
+  top: 2px;
+}
+#chatter ul.discussions li a .chatter_clear,
+#chatter ul.discussions li .chatter_posts .chatter_clear {
+  clear: both;
+}
+#chatter ul.discussions li a:hover {
+  background: #F3F6F9;
+  text-decoration: none;
+}
+#chatter ul.discussions li a:hover .chatter_middle h3 {
+  color: #000;
+}
+#chatter ul.discussions li a:hover .chatter_middle span {
+  color: #7D8DA4;
+}
+#chatter ul.discussions li a:hover .chatter_middle p {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  color: #888;
+}
+#chatter ul.discussions li a:hover .chatter_right .chatter_count {
+  color: #7D8D94;
+}
+#chatter ul.discussions li .chatter_posts {
+  margin-bottom: 15px;
+}
+#chatter ul.discussions li .chatter_posts .chatter_middle > span {
+  font-weight: bold;
+  display: block;
+  padding-bottom: 10px;
+}
+#chatter ul.discussions li .chatter_posts .chatter_middle > span a {
+  font-weight: bold;
+  color: #131619;
+  font-size: 14px;
+}
+#chatter ul.discussions li .chatter_posts .chatter_middle > span .ago {
+  font-size: 14px;
+  color: #7089a9;
+  padding-left: 6px;
+  font-weight: 400;
+}
+#chatter ul.discussions li .chatter_posts .chatter_middle a {
+  display: inline-block;
+  background: none;
+  padding: 0;
+  text-decoration: none;
+  border-top: 0px;
+}
+#chatter ul.discussions li .chatter_posts .chatter_middle p {
+  font-size: 14px;
+  color: #151a1f;
+}
 #chatter #cancel_discussion {
   margin-right: 15px;
+}
+#chatter #editor #tinymce_placeholder {
+  position: absolute;
+  top: 89px;
+  left: 0px;
+  padding: 8px 14px;
+  width: 96%;
+  overflow: hidden;
+  white-space: pre-wrap;
+  color: #ccc;
+  font-weight: normal;
+  z-index: 9999;
+  cursor: text;
+  display: none;
 }
 #chatter #editor #body {
   display: none;
 }
-#chatter #editor .chatter_editor_loader {
-  margin: 20px auto;
-}
 #chatter #editor.loaded #body {
   display: block;
 }
-#chatter #editor.loaded .chatter_editor_loader {
+#chatter #editor.loaded .chatter_loader {
   display: none;
 }
 #chatter #editor > .mce-container.mce-panel {
@@ -148,35 +400,89 @@
 }
 #chatter #chatter_category_id {
   height: 50px;
+  color: #777;
+  position: relative;
+  left: -10px;
 }
 #chatter .chatter_cat {
   padding-left: 10px;
   padding-right: 10px;
 }
-#chatter .la-ball-clip-rotate,
-#chatter .la-ball-clip-rotate > div {
+#chatter .chatter-alert {
+  width: 100%;
+  margin-bottom: 0px;
+  border-radius: 0px;
+}
+#chatter .chatter-alert.alert-success {
+  background: #55B559;
+  border: 0px;
+  color: #fff;
+}
+#chatter .chatter-alert.alert-info {
+  background: #0ab1fc;
+  border: 0px;
+  color: #fff;
+}
+#chatter .chatter-alert.alert-warning {
+  background: #FBC53C;
+  border: 0px;
+  color: #fff;
+}
+#chatter .chatter-alert.alert-error {
+  background: #F55145;
+  border: 0px;
+  color: #fff;
+}
+#chatter .chatter-alert .chatter-close {
+  float: right;
+  position: relative;
+  top: 1px;
+  cursor: pointer;
+}
+#chatter .chatter_sidebar > a {
+  padding: 20px;
+  display: block;
+}
+#chatter .chatter_sidebar > a:hover {
+  text-decoration: none;
+}
+#chatter .chatter_sidebar ul {
+  margin-left: 10px;
+}
+#chatter .chatter_loader_container {
+  background: #fff;
+  border-radius: 3px;
+  padding: 2px;
+  width: 100%;
+}
+#chatter .chatter_loader,
+#chatter .chatter_loader > div {
   position: relative;
   box-sizing: border-box;
 }
-#chatter .la-ball-clip-rotate {
+#chatter .chatter_loader {
   display: block;
   font-size: 0;
+  margin: 20px auto;
   color: #fff;
 }
-#chatter .la-ball-clip-rotate.la-dark {
-  color: #333;
+#chatter .chatter_loader.loaded {
+  display: none;
 }
-#chatter .la-ball-clip-rotate > div {
+#chatter .chatter_loader.dark {
+  color: #0098cb;
+}
+#chatter .chatter_loader > div {
   display: inline-block;
   float: none;
   background-color: currentColor;
   border: 0 solid currentColor;
 }
-#chatter .la-ball-clip-rotate {
+#chatter .chatter_loader {
   width: 32px;
   height: 32px;
 }
-#chatter .la-ball-clip-rotate > div {
+#chatter .chatter_loader > div {
   width: 32px;
   height: 32px;
   background: transparent;
@@ -186,29 +492,29 @@
   -webkit-animation: ball-clip-rotate 0.75s linear infinite;
   animation: ball-clip-rotate 0.75s linear infinite;
 }
-#chatter .la-ball-clip-rotate.la-sm {
+#chatter .chatter_loader.la-sm {
   width: 16px;
   height: 16px;
 }
-#chatter .la-ball-clip-rotate.la-sm > div {
+#chatter .chatter_loader.la-sm > div {
   width: 16px;
   height: 16px;
   border-width: 1px;
 }
-#chatter .la-ball-clip-rotate.la-2x {
+#chatter .chatter_loader.la-2x {
   width: 64px;
   height: 64px;
 }
-#chatter .la-ball-clip-rotate.la-2x > div {
+#chatter .chatter_loader.la-2x > div {
   width: 64px;
   height: 64px;
   border-width: 4px;
 }
-#chatter .la-ball-clip-rotate.la-3x {
+#chatter .chatter_loader.la-3x {
   width: 96px;
   height: 96px;
 }
-#chatter .la-ball-clip-rotate.la-3x > div {
+#chatter .chatter_loader.la-3x > div {
   width: 96px;
   height: 96px;
   border-width: 6px;
@@ -241,7 +547,53 @@
     transform: rotate(360deg);
   }
 }
+/********** MORE COLOR PICKER STYLE OVERRIDES **********/
+.chatter-color-picker {
+  background: #ffffff;
+  border: 2px solid #f1f5f9;
+  border-radius: 10px;
+  margin-top: -5px;
+}
+.chatter-color-picker .sp-color,
+.chatter-color-picker .sp-hue,
+.chatter-color-picker .sp-clear {
+  border-color: #ddd;
+}
+.chatter-color-picker .sp-cancel {
+  display: none;
+  color: #aaa !important;
+}
+.sp-container,
+.sp-container button,
+.sp-container input,
+.sp-color,
+.sp-hue,
+.sp-clear {
+  font-family: inherit;
+}
+.sp-container button.sp-choose,
+.sp-container button.sp-choose:hover,
+.sp-container button.sp-choose:active,
+.sp-container button.sp-choose:focus {
+  background: none;
+  border: 1px solid #e5e9ef;
+  color: #ccc;
+  font-weight: normal;
+  font-size: 12px;
+  margin-top: 3px;
+  outline: none;
+  box-shadow: 0px 0px 0px;
+  text-shadow: 0px 0px 0px;
+}
+.sp-container button:hover {
+  text-shadow: 0px 0px 0px;
+}
+/********** END MORE COLOR PICKER STYLE OVERRIDES **********/
 /********** TINYMCE Modifications **********/
+#tinymce {
+  background: #ffffff !important;
+  padding: 10px 5px;
+}
 .mce-panel.mce-floatpanel {
   border-radius: 3px;
   border-top-right-radius: 5px;
@@ -250,10 +602,10 @@
   max-height: 530px;
 }
 .mce-window-head {
-  background: #263238 !important;
+  background: #0098cb !important;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
-  border: 1px solid #263238;
+  border: 1px solid #0098cb;
 }
 .mce-foot {
   background-color: #f1f1f1 !important;
@@ -278,10 +630,18 @@
 div.mce-edit-area {
   padding-left: 8px;
   padding-right: 8px;
+  border: 0px;
+}
+.mce-toolbar {
+  border-top: 1px solid #f3f6f9 !important;
+  border-bottom: 1px solid #f3f6f9 !important;
 }
 .mce-textbox.mce-multiline {
   height: 350px !important;
   resize: vertical !important;
+}
+#mce-modal-block {
+  background: #21292f !important;
 }
 /********** END TINYMCE Modifications **********/
 

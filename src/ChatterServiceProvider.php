@@ -25,7 +25,7 @@ class ChatterServiceProvider extends ServiceProvider
             __DIR__.'/../database/migrations/' => database_path('migrations')
         ], 'chatter_migrations');
         // include the routes file
-        include __DIR__.'/routes.php';
+        include __DIR__.'/Routes/web.php';
     }
 
     /**

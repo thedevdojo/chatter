@@ -17,9 +17,18 @@ class ChatterDiscussionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(Request $request)
+    {   
+        $total = 10;
+        $offset = 0;
+        if($request->total){
+            $total = $request->total;
+        }
+        if($request->offset){
+            $offset = $request->offset;
+        }
+        $discussions = Discussion::with('user')->with('post')->with('postsCount')->with('category')->orderBy('created_at', 'DESC')->take($total)->offset($offset)->get();
+        return response()->json($discussions);
     }
 
     /**
@@ -42,17 +51,33 @@ class ChatterDiscussionController extends Controller
     public function store(Request $request)
     {
 
-        $user_id = Auth::user()->id;
+        $user_id = Auth::user()->id;        
+
+        // *** Let's gaurantee that we always have a generic slug *** //
+        $slug = str_slug($request->title, '-');
+
+        $discussion_exists = Discussion::where('slug', '=', $slug)->first();
+        $incrementer = 1;
+        $new_slug = $slug;
+        while(isset($discussion_exists->id)){
+            $new_slug = $slug . '-' . $incrementer;
+            $discussion_exists = Discussion::where('slug', '=', $new_slug)->first();
+            $incrementer += 1;
+        }
+
+        if($slug != $new_slug){
+            $slug = $new_slug;
+        }
 
         $new_discussion = array(
             'title' => $request->title,
             'chatter_category_id' => $request->chatter_category_id,
-            'user_id' => $user_id
+            'user_id' => $user_id,
+            'slug' => $slug,
+            'color' => $request->color
             );
 
         $discussion = Discussion::create($new_discussion);
-
-        $new_id = 'asdf' . $discussion->id;
 
         $new_post = array(
             'chatter_discussion_id' => $discussion->id,
@@ -63,7 +88,7 @@ class ChatterDiscussionController extends Controller
         $post = Post::create($new_post);
 
         if($post->id){
-            echo 'successfully created discussion';
+            return redirect('/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $slug);
         } else {
             echo 'Whoops :( There seems to be a problem creating your discussion';
         }
@@ -77,11 +102,11 @@ class ChatterDiscussionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $id = intval($id);
-        $discussion = Discussion::find($id);
-        return view('chatter::discussion.show', compact('discussion'));
+        $discussion = Discussion::where('slug', '=', $slug)->first();
+        $posts = Post::with('user')->where('chatter_discussion_id', '=', $discussion->id)->orderBy('created_at', 'DESC')->paginate(10);
+        return view('chatter::discussion.show', compact('discussion', 'posts'));
     }
 
     /**

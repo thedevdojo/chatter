@@ -12,7 +12,11 @@ class Post extends Model {
 
 	public function discussion()
 	{
-		return $this->belongsTo('Discussion');
+		return $this->belongsTo('DevDojo\Chatter\Models\Discussion');
+	}
+
+	public function user(){
+		return $this->belongsTo( config('chatter.user.namespace') );
 	}
 
 }
