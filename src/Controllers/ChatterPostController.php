@@ -9,6 +9,7 @@ use DevDojo\Chatter\Models\Post;
 use DevDojo\Chatter\Models\Discussion;
 use Auth;
 use Carbon\Carbon;
+use Validator;
 
 class ChatterPostController extends Controller
 {
@@ -32,16 +33,6 @@ class ChatterPostController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -49,6 +40,14 @@ class ChatterPostController extends Controller
      */
     public function store(Request $request)
     {
+        $stripped_tags_body = array('body' => strip_tags($request->body));
+        $validator = Validator::make($stripped_tags_body, [
+            'body' => 'required|min:10',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
 
         if(config('chatter.security.limit_time_between_posts')){
 
@@ -58,7 +57,7 @@ class ChatterPostController extends Controller
                     'chatter_alert_type' => 'danger',
                     'chatter_alert' => 'In order to prevent spam, Please allow at least ' . config('chatter.security.time_between_posts') . $minute_copy . ' inbetween submitting content.'
                     );
-                return back()->with($chatter_alert);
+                return back()->with($chatter_alert)->withInput();
             }
         }
 
@@ -107,6 +106,15 @@ class ChatterPostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $stripped_tags_body = array('body' => strip_tags($request->body));
+        $validator = Validator::make($stripped_tags_body, [
+            'body' => 'required|min:10',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
         $post = Post::find($id);
         if(!Auth::guest() && (Auth::user()->id == $post->user_id)){
             $post->body = $request->body;

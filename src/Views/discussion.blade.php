@@ -28,7 +28,18 @@
 	    <div class="chatter-alert-spacer"></div>
 	@endif
 
-	
+	@if (count($errors) > 0)
+	    <div class="chatter-alert alert alert-danger">
+	    	<div class="container">
+	    		<p><strong><i class="chatter-alert-danger"></i> {{ Config::get('chatter.alert_messages.danger') }}</strong> Please fix the following errors:</p>
+		        <ul>
+		            @foreach ($errors->all() as $error)
+		                <li>{{ $error }}</li>
+		            @endforeach
+		        </ul>
+		    </div>
+	    </div>
+	@endif	
 
 	<div class="container margin-top">
 		
@@ -108,7 +119,7 @@
 						        <!-- BODY -->
 						    	<div id="editor">
 									<label id="tinymce_placeholder">Add the content for your Discussion here</label>
-									<textarea id="body" class="richText" name="body" placeholder=""></textarea>
+									<textarea id="body" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
 								</div>
 
 						        <input type="hidden" name="_token" value="{{ csrf_token() }}">

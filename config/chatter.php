@@ -126,7 +126,7 @@ return [
         'success' => 'Well done!',
         'info' => 'Heads Up!',
         'warning' => 'Wuh Oh!',
-        'error' => 'Oh Snap!'
+        'danger' => 'Oh Snap!'
     ],
 
     /*

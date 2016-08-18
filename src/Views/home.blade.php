@@ -27,6 +27,19 @@
 	    <div class="chatter-alert-spacer"></div>
 	@endif
 
+	@if (count($errors) > 0)
+	    <div class="chatter-alert alert alert-danger">
+	    	<div class="container">
+	    		<p><strong><i class="chatter-alert-danger"></i> {{ Config::get('chatter.alert_messages.danger') }}</strong> Please fix the following errors:</p>
+		        <ul>
+		            @foreach ($errors->all() as $error)
+		                <li>{{ $error }}</li>
+		            @endforeach
+		        </ul>
+		    </div>
+	    </div>
+	@endif
+
 	<div class="container chatter_container">
 		
 	    <div class="row">
@@ -99,15 +112,19 @@
         	<div class="row">
 	        	<div class="col-md-7">
 		        	<!-- TITLE -->
-	                <input type="text" class="form-control" id="title" name="title" placeholder="Title of {{ Config::get('chatter.titles.discussion') }}" v-model="title" value="" >
+	                <input type="text" class="form-control" id="title" name="title" placeholder="Title of {{ Config::get('chatter.titles.discussion') }}" v-model="title" value="{{ old('title') }}" >
 	            </div>
 
 	            <div class="col-md-4">
 		            <!-- CATEGORY -->
 			            <select id="chatter_category_id" class="form-control" name="chatter_category_id">
-			            	<option value="0">Select a Category</option>
+			            	<option value="">Select a Category</option>
 				            @foreach($categories as $category)
-				            	<option value="{{ $category->id }}">{{ $category->name }}</option>
+				            	@if(old('chatter_category_id') == $category->id)
+				            		<option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+				            	@else
+				            		<option value="{{ $category->id }}">{{ $category->name }}</option>
+				            	@endif
 				            @endforeach
 			            </select>
 		        </div>
@@ -120,7 +137,7 @@
             <!-- BODY -->
         	<div id="editor">
 				<label id="tinymce_placeholder">Add the content for your Discussion here</label>
-    			<textarea id="body" class="richText" name="body" placeholder=""></textarea>
+    			<textarea id="body" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
     		</div>
 
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -153,6 +170,7 @@
 <script>
 	var my_tinymce = tinyMCE;
 	$('document').ready(function(){
+
 		$('#tinymce_placeholder').click(function(){
 			my_tinymce.activeEditor.focus();
 		});
@@ -164,6 +182,7 @@
 				window.location.href = "/{{ Config::get('chatter.routes.home') }}/login";
 			@else
 				$('#new_discussion').slideDown();
+				$('#title').focus();
 			@endif
 		});
 
@@ -177,6 +196,13 @@
 				$("#color").val(color.toHexString());
 			}
 		});
+
+		@if (count($errors) > 0)
+			$('#new_discussion').slideDown();
+			$('#title').focus();
+		@endif
+
+
 	});
 </script>
 @stop

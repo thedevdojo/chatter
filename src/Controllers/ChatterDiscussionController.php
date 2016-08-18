@@ -10,6 +10,7 @@ use DevDojo\Chatter\Models\Discussion;
 use DevDojo\Chatter\Models\Post;
 use Auth;
 use Carbon\Carbon;
+use Validator;
 
 class ChatterDiscussionController extends Controller
 {
@@ -51,6 +52,16 @@ class ChatterDiscussionController extends Controller
      */
     public function store(Request $request)
     {
+        $request->request->add(array('body_content' => strip_tags($request->body)));
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|min:5|max:255',
+            'body_content' => 'required|min:10',
+            'chatter_category_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
 
         $user_id = Auth::user()->id;
 
@@ -62,7 +73,7 @@ class ChatterDiscussionController extends Controller
                     'chatter_alert_type' => 'danger',
                     'chatter_alert' => 'In order to prevent spam, Please allow at least ' . config('chatter.security.time_between_posts') . $minute_copy . ' inbetween submitting content.'
                     );
-                return redirect('/' . config('chatter.routes.home'))->with($chatter_alert);
+                return redirect('/' . config('chatter.routes.home'))->with($chatter_alert)->withInput();
             }
         }
 
@@ -109,7 +120,6 @@ class ChatterDiscussionController extends Controller
         } else {
             echo 'Whoops :( There seems to be a problem creating your discussion';
         }
-
 
     }
 

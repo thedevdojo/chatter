@@ -16,7 +16,9 @@ tinymce.init({
         editor.on('init', function(args) {
         	// The tinymce editor is ready
             document.getElementById('new_discussion_loader').style.display = "none";
-            document.getElementById('tinymce_placeholder').style.display = "block";
+            if(!editor.getContent()){
+                document.getElementById('tinymce_placeholder').style.display = "block";
+            }
 			document.getElementById('chatter_form_editor').style.display = "block";
         });
         editor.on('keyup', function(e) {
