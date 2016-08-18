@@ -25,7 +25,7 @@ class Discussion extends Model {
 	}
 
 	public function post(){
-		return $this->hasMany('DevDojo\Chatter\Models\Post', 'chatter_discussion_id')->orderBy('created_at', 'DESC');
+		return $this->hasMany('DevDojo\Chatter\Models\Post', 'chatter_discussion_id')->orderBy('created_at', 'ASC');
 	}
 
 	public function postsCount()
