@@ -63,7 +63,7 @@
 		        	<ul class="discussions">
 		        		@foreach($discussions as $discussion)
 				        	<li>
-				        		<a href="/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.discussion') }}/{{ $discussion->slug }}">
+				        		<a class="discussion_list" href="/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.discussion') }}/{{ $discussion->slug }}">
 					        		<div class="chatter_avatar">
 					        			@if(Config::get('chatter.user.avatar_image_database_field'))
 					        				<?php $db_field = Config::get('chatter.user.avatar_image_database_field'); ?>
@@ -78,7 +78,7 @@
 					        		<div class="chatter_middle">
 					        			<h3 class="chatter_middle_title">{{ $discussion->title }} <div class="chatter_cat" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</div></h3>
 					        			<span class="chatter_middle_details">Posted By: <span data-href="/user">{{ $discussion->user->name }}</span> {{ \Carbon\Carbon::createFromTimeStamp(strtotime($discussion->created_at))->diffForHumans() }}</span>
-					        			<p>{{ strip_tags($discussion->post[0]->body) }}</p>
+					        			<p>{{ substr(strip_tags($discussion->post[0]->body), 0, 200) }}@if(strlen(strip_tags($discussion->post[0]->body)) > 200){{ '...' }}@endif</p>
 					        		</div>
 
 					        		<div class="chatter_right">
