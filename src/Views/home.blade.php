@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
-
 @section(Config::get('chatter.yields.head'))
-	@include('chatter::partials.head')
+    <link href="/vendor/devdojo/chatter/assets/vendor/spectrum/spectrum.css" rel="stylesheet">
+	<link href="https://file.myfontastic.com/zhx5qC8YRHTb9FXSDdwL6B/icons.css" rel="stylesheet">
+	<link href="/vendor/devdojo/chatter/assets/css/chatter.css" rel="stylesheet">
 @stop
 
 @section('content')
 
-<div id="chatter">
+<div id="chatter" class="chatter_home">
 
 	<div id="chatter_hero">
 		<div id="chatter_hero_dimmer"></div>
@@ -15,12 +16,34 @@
 		<p>{{ Config::get('chatter.description') }}</p>
 	</div>
 
-	<div class="container">
+	@if(Session::has('chatter_alert'))
+		<div class="chatter-alert alert alert-{{ Session::get('chatter_alert_type') }}">
+			<div class="container">
+	        	<strong><i class="chatter-alert-{{ Session::get('chatter_alert_type') }}"></i> {{ Config::get('chatter.alert_messages.' . Session::get('chatter_alert_type')) }}</strong>
+	        	{{ Session::get('chatter_alert') }}
+	        	<i class="chatter-close"></i>
+	        </div>
+	    </div>
+	    <div class="chatter-alert-spacer"></div>
+	@endif
+
+	<div class="container chatter_container">
 		
 	    <div class="row">
 
 	    	<div class="col-md-3 left-column">
-	    		@include('chatter::partials.sidebar')
+	    		<!-- SIDEBAR -->
+	    		<div class="chatter_sidebar">
+					<button class="btn btn-primary" id="new_discussion_btn"><i class="chatter-new"></i> New {{ Config::get('chatter.titles.discussion') }}</button> 
+					<a href="/{{ Config::get('chatter.routes.home') }}"><i class="chatter-bubble"></i> All {{ Config::get('chatter.titles.discussion') }}</a>
+					<ul class="nav nav-pills nav-stacked">
+						<?php $categories = DevDojo\Chatter\Models\Category::all(); ?>
+						@foreach($categories as $category)
+							<li><a href="/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.category') }}/{{ $category->slug }}"><div class="chatter-box" style="background-color:{{ $category->color }}"></div> {{ $category->name }}</a></li>
+						@endforeach
+					</ul>
+				</div>
+				<!-- END SIDEBAR -->
 	    	</div>
 	        <div class="col-md-9 right-column">
 	        	<div class="panel">
@@ -29,12 +52,19 @@
 				        	<li>
 				        		<a href="/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.discussion') }}/{{ $discussion->slug }}">
 					        		<div class="chatter_avatar">
-					        			<img src="https://discuss.flarum.org/assets/avatars/9fra4tlmk50dmbqq.jpg">
+					        			@if(Config::get('chatter.user.avatar_image_database_field'))
+					        				<?php $db_field = Config::get('chatter.user.avatar_image_database_field'); ?>
+					        				<img src="{{ Config::get('chatter.user.relative_url_to_image_assets') . $discussion->user->{$db_field}  }}">
+					        			@else
+					        				<span class="chatter_avatar_circle" style="background-color:#<?= Chatter::stringToColorCode($discussion->user->email) ?>">
+					        					{{ strtoupper(substr($discussion->user->email, 0, 1)) }}
+					        				</span>
+					        			@endif
 					        		</div>
 
 					        		<div class="chatter_middle">
-					        			<h3>{{ $discussion->title }} <div class="chatter_cat" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</div></h3>
-					        			<span>Posted By: <span data-href="/user">{{ $discussion->user->name }}</span> {{ $discussion->created_at }}</span>
+					        			<h3 class="chatter_middle_title">{{ $discussion->title }} <div class="chatter_cat" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</div></h3>
+					        			<span class="chatter_middle_details">Posted By: <span data-href="/user">{{ $discussion->user->name }}</span> {{ \Carbon\Carbon::createFromTimeStamp(strtotime($discussion->created_at))->diffForHumans() }}</span>
 					        			<p>{{ strip_tags($discussion->post[0]->body) }}</p>
 					        		</div>
 
@@ -49,6 +79,11 @@
 			        	@endforeach
 		        	</ul>
 	        	</div>
+
+	        	<div id="pagination">
+	        		{{ $discussions->links() }}
+	        	</div>
+
 	        </div>
 	    </div>
 	</div>
@@ -100,9 +135,10 @@
 
     </div><!-- #new_discussion -->
 
-
-
 </div>
+
+<input type="hidden" id="chatter_tinymce_toolbar" value="{{ Config::get('chatter.tinymce.toolbar') }}">
+<input type="hidden" id="chatter_tinymce_plugins" value="{{ Config::get('chatter.tinymce.plugins') }}">
 
 @endsection
 

@@ -9,6 +9,7 @@ use DevDojo\Chatter\Models\Category;
 use DevDojo\Chatter\Models\Discussion;
 use DevDojo\Chatter\Models\Post;
 use Auth;
+use Carbon\Carbon;
 
 class ChatterDiscussionController extends Controller
 {
@@ -27,7 +28,7 @@ class ChatterDiscussionController extends Controller
         if($request->offset){
             $offset = $request->offset;
         }
-        $discussions = Discussion::with('user')->with('post')->with('postsCount')->with('category')->orderBy('created_at', 'DESC')->take($total)->offset($offset)->get();
+        $discussions = Discussion::with('user')->with('post')->with('postsCount')->with('category')->orderBy('created_at', 'ASC')->take($total)->offset($offset)->get();
         return response()->json($discussions);
     }
 
@@ -51,7 +52,19 @@ class ChatterDiscussionController extends Controller
     public function store(Request $request)
     {
 
-        $user_id = Auth::user()->id;        
+        $user_id = Auth::user()->id;
+
+        if(config('chatter.security.limit_time_between_posts')){
+
+            if($this->notEnoughTimeBetweenDiscussion()){
+                $minute_copy = (config('chatter.security.time_between_posts') == 1) ? ' minute' : ' minutes';
+                $chatter_alert = array(
+                    'chatter_alert_type' => 'danger',
+                    'chatter_alert' => 'In order to prevent spam, Please allow at least ' . config('chatter.security.time_between_posts') . $minute_copy . ' inbetween submitting content.'
+                    );
+                return redirect('/' . config('chatter.routes.home'))->with($chatter_alert);
+            }
+        }
 
         // *** Let's gaurantee that we always have a generic slug *** //
         $slug = str_slug($request->title, '-');
@@ -88,12 +101,30 @@ class ChatterDiscussionController extends Controller
         $post = Post::create($new_post);
 
         if($post->id){
-            return redirect('/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $slug);
+            $chatter_alert = array(
+                'chatter_alert_type' => 'success',
+                'chatter_alert' => 'Successfully created new ' . config('chatter.titles.discussion') . '.'
+                );
+            return redirect('/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $slug)->with($chatter_alert);
         } else {
             echo 'Whoops :( There seems to be a problem creating your discussion';
         }
 
 
+    }
+
+    private function notEnoughTimeBetweenDiscussion(){
+        $user = Auth::user();
+
+        $past = Carbon::now()->subMinutes(config('chatter.security.time_between_posts'));
+
+        $last_discussion = Discussion::where('user_id', '=', $user->id)->where('created_at', '>=', $past)->first();
+
+        if(isset($last_discussion)){
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -105,8 +136,8 @@ class ChatterDiscussionController extends Controller
     public function show($slug)
     {
         $discussion = Discussion::where('slug', '=', $slug)->first();
-        $posts = Post::with('user')->where('chatter_discussion_id', '=', $discussion->id)->orderBy('created_at', 'DESC')->paginate(10);
-        return view('chatter::discussion.show', compact('discussion', 'posts'));
+        $posts = Post::with('user')->where('chatter_discussion_id', '=', $discussion->id)->orderBy('created_at', 'ASC')->paginate(10);
+        return view('chatter::discussion', compact('discussion', 'posts'));
     }
 
     /**

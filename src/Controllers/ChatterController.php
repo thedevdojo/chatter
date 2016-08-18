@@ -13,17 +13,19 @@ class ChatterController extends Controller
 {
     public function index($slug = ''){
 
-    	$discussions = Discussion::with('user')->with('post')->with('postsCount')->with('category')->orderBy('created_at', 'DESC')->paginate(10);
+        $pagination_results = config('chatter.paginate.num_of_results');
+
+    	$discussions = Discussion::with('user')->with('post')->with('postsCount')->with('category')->orderBy('created_at', 'DESC')->paginate($pagination_results);
     	if(isset($slug)){
     		$category = Category::where('slug', '=', $slug)->first();
     		if(isset($category->id)){
-    			$discussions = Discussion::with('user')->with('post')->with('postsCount')->with('category')->where('chatter_category_id', '=', $category->id)->orderBy('created_at', 'DESC')->paginate(10);
+    			$discussions = Discussion::with('user')->with('post')->with('postsCount')->with('category')->where('chatter_category_id', '=', $category->id)->orderBy('created_at', 'DESC')->paginate($pagination_results);
     		} 
     		
     	}
 
     	$categories = Category::all();
-    	return view('chatter::index', compact('discussions', 'categories'));
+    	return view('chatter::home', compact('discussions', 'categories'));
     }
 
     public function login(){

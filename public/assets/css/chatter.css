@@ -5,6 +5,9 @@ body {
   background: #fff;
 }
 #chatter {
+  padding-bottom: 30px;
+  /********** Styles specific for discussion page **********/
+  /********** PAGINATION **********/
   /********** LOADER **********/
   /*
 	 * Animation
@@ -13,6 +16,9 @@ body {
 }
 #chatter .margin-top {
   margin-top: 40px;
+}
+#chatter .btn:focus {
+  outline: none;
 }
 #chatter button.btn.btn-primary {
   border: 2px solid #f1f5ff;
@@ -31,7 +37,6 @@ body {
   position: relative;
   background-size: cover;
   background-position: center center;
-  margin-bottom: 40px;
 }
 #chatter #chatter_hero #chatter_hero_dimmer {
   background: rgba(0, 0, 0, 0.2);
@@ -47,12 +52,17 @@ body {
   color: #ffffff;
   margin-top: 0px;
   padding-top: 40px;
+  margin-bottom: 0px;
 }
 #chatter #chatter_hero p {
   text-align: center;
   color: #cccccc;
   position: relative;
   z-index: 2;
+  margin-bottom: 0px;
+}
+#chatter .chatter_container {
+  margin-top: 40px;
 }
 #chatter .form-control {
   padding: 25px 20px;
@@ -145,8 +155,26 @@ body {
   line-height: 80px;
   font-size: 24px;
   color: #f1f1f1;
+  float: left;
 }
-#chatter #chatter_header a {
+#chatter #chatter_header span {
+  float: right;
+  line-height: 80px;
+  margin-left: 10px;
+  color: #ccc;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+}
+#chatter #chatter_header a.chatter_cat {
+  border-radius: 15px;
+  color: #fff;
+  padding: 5px 10px;
+  margin-left: 10px;
+}
+#chatter #chatter_header a.chatter_cat:hover {
+  text-decoration: none;
+}
+#chatter #chatter_header a.back_btn {
   float: left;
   line-height: 40px;
   font-size: 15px;
@@ -162,16 +190,16 @@ body {
   -webkit-transition: background 0.3s ease, color 0.4s ease;
   transition: background 0.3s ease, color 0.4s ease;
 }
-#chatter #chatter_header a:hover {
+#chatter #chatter_header a.back_btn:hover {
   text-decoration: none;
   background: rgba(0, 0, 0, 0.4);
   color: #ffffff;
 }
-#chatter #chatter_header a:focus,
-#chatter #chatter_header a:active {
+#chatter #chatter_header a.back_btn:focus,
+#chatter #chatter_header a.back_btn:active {
   text-decoration: none;
 }
-#chatter #chatter_header a i {
+#chatter #chatter_header a.back_btn i {
   position: relative;
   left: -1px;
 }
@@ -216,6 +244,29 @@ body {
 #chatter .left-column .nav-pills > li > a:hover {
   background: none;
 }
+#chatter .chatter_avatar {
+  float: left;
+  margin: 5px;
+  margin-right: 15px;
+  position: absolute;
+  left: 10px;
+}
+#chatter .chatter_avatar span.chatter_avatar_circle {
+  width: 60px;
+  height: 60px;
+  line-height: 62px;
+  text-align: center;
+  background: #263238;
+  display: inline-block;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 20px;
+}
+#chatter .chatter_avatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
 #chatter ul.discussions {
   list-style: none;
   margin: 0px;
@@ -229,34 +280,80 @@ body {
 #chatter ul.discussions li .chatter_posts {
   background: #ffffff;
   padding: 15px;
-  cursor: pointer;
   -webkit-transition: background 0.3s ease;
   transition: background 0.3s ease;
   border-top: 1px solid #f1fcff;
   text-decoration: none;
   display: block;
+  position: relative;
 }
-#chatter ul.discussions li a .chatter_avatar,
-#chatter ul.discussions li .chatter_posts .chatter_avatar {
-  float: left;
-  margin: 5px;
-  margin-right: 15px;
+#chatter ul.discussions li a .chatter_warning_delete,
+#chatter ul.discussions li .chatter_posts .chatter_warning_delete {
+  background: #f1f1f1;
+  z-index: 999;
+  display: none;
+  position: relative;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 30px;
+  color: #737B7F;
+}
+#chatter ul.discussions li a .chatter_warning_delete i,
+#chatter ul.discussions li .chatter_posts .chatter_warning_delete i {
+  position: relative;
+  top: 2px;
+  margin-right: 10px;
+}
+#chatter ul.discussions li a .chatter_warning_delete .btn,
+#chatter ul.discussions li .chatter_posts .chatter_warning_delete .btn {
+  position: relative;
+  top: -3px;
+}
+#chatter ul.discussions li a .chatter_warning_delete .btn-default,
+#chatter ul.discussions li .chatter_posts .chatter_warning_delete .btn-default {
+  margin-right: 5px;
+}
+#chatter ul.discussions li a .chatter_warning_delete .btn-danger,
+#chatter ul.discussions li .chatter_posts .chatter_warning_delete .btn-danger {
+  background: #D50105;
+}
+#chatter ul.discussions li a .chatter_post_actions,
+#chatter ul.discussions li .chatter_posts .chatter_post_actions {
   position: absolute;
+  right: 0px;
+  top: 15px;
 }
-#chatter ul.discussions li a .chatter_avatar img,
-#chatter ul.discussions li .chatter_posts .chatter_avatar img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+#chatter ul.discussions li a .chatter_post_actions p,
+#chatter ul.discussions li .chatter_posts .chatter_post_actions p {
+  margin: 0px;
+  float: right;
+  background: #f1fcff;
+  border-radius: 10px;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 3px 10px;
+  margin-right: 10px;
+  color: #B1BcBf;
+  -webkit-transition: color 0.3s linear;
+  transition: color 0.3s linear;
+}
+#chatter ul.discussions li a .chatter_post_actions p:hover,
+#chatter ul.discussions li .chatter_posts .chatter_post_actions p:hover {
+  color: #737B7F;
+}
+#chatter ul.discussions li a .chatter_post_actions p i,
+#chatter ul.discussions li .chatter_posts .chatter_post_actions p i {
+  position: relative;
+  top: 2px;
 }
 #chatter ul.discussions li a .chatter_middle,
 #chatter ul.discussions li .chatter_posts .chatter_middle {
   float: left;
-  margin-left: 90px;
+  margin-left: 80px;
   margin-right: 90px;
 }
-#chatter ul.discussions li a .chatter_middle h3,
-#chatter ul.discussions li .chatter_posts .chatter_middle h3 {
+#chatter ul.discussions li a .chatter_middle h3.chatter_middle_title,
+#chatter ul.discussions li .chatter_posts .chatter_middle h3.chatter_middle_title {
   margin: 0px;
   padding: 0px;
   color: #111;
@@ -266,8 +363,8 @@ body {
   font-weight: bold;
   margin-top: 5px;
 }
-#chatter ul.discussions li a .chatter_middle h3 .chatter_cat,
-#chatter ul.discussions li .chatter_posts .chatter_middle h3 .chatter_cat {
+#chatter ul.discussions li a .chatter_middle h3.chatter_middle_title .chatter_cat,
+#chatter ul.discussions li .chatter_posts .chatter_middle h3.chatter_middle_title .chatter_cat {
   background: #ccc;
   border-radius: 30px;
   font-weight: bold;
@@ -278,21 +375,16 @@ body {
   position: relative;
   top: -2px;
 }
-#chatter ul.discussions li a .chatter_middle span,
-#chatter ul.discussions li .chatter_posts .chatter_middle span {
+#chatter ul.discussions li a .chatter_middle span.chatter_middle_details,
+#chatter ul.discussions li .chatter_posts .chatter_middle span.chatter_middle_details {
   font-size: 10px;
   color: #9DADC4;
   -webkit-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }
-#chatter ul.discussions li a .chatter_middle p,
-#chatter ul.discussions li .chatter_posts .chatter_middle p {
-  margin-bottom: 0px;
-  padding-bottom: 0px;
-  color: #aaa;
-  -webkit-transition: color 0.3s ease;
-  transition: color 0.3s ease;
-  font-size: 12px;
+#chatter ul.discussions li a .chatter_middle .chatter_body,
+#chatter ul.discussions li .chatter_posts .chatter_middle .chatter_body {
+  padding-top: 5px;
 }
 #chatter ul.discussions li a .chatter_right,
 #chatter ul.discussions li .chatter_posts .chatter_right {
@@ -358,7 +450,7 @@ body {
   padding-left: 6px;
   font-weight: 400;
 }
-#chatter ul.discussions li .chatter_posts .chatter_middle a {
+#chatter ul.discussions li .chatter_posts .chatter_middle .chatter_middle_details a {
   display: inline-block;
   background: none;
   padding: 0;
@@ -368,6 +460,56 @@ body {
 #chatter ul.discussions li .chatter_posts .chatter_middle p {
   font-size: 14px;
   color: #151a1f;
+}
+#chatter ul.discussions li.editing {
+  overflow: hidden;
+}
+#chatter ul.discussions li.editing .chatter_middle_details,
+#chatter ul.discussions li.editing .chatter_body,
+#chatter ul.discussions li.editing .chatter_post_actions,
+#chatter ul.discussions li.editing .chatter_middle > span.chatter_middle_details a {
+  display: none;
+}
+#chatter ul.discussions li.editing .mce-toolbar-grp.mce-container.mce-panel {
+  padding-top: 0px;
+}
+#chatter ul.discussions li.editing .mce-stack-layout-item {
+  border-top: 0px !important;
+}
+#chatter ul.discussions li.editing textarea {
+  width: 100%;
+}
+#chatter ul.discussions li.editing .chatter_middle {
+  width: 100%;
+  padding-right: 80px;
+}
+#chatter ul.discussions li.editing .chatter_update_actions {
+  background: #fcfcfc;
+  display: block;
+  height: 50px;
+  padding: 7px;
+  top: -5px;
+  position: relative;
+  border: 1px solid #f1f1f1;
+  border-top: 0px;
+}
+#chatter ul.discussions li.editing .chatter_update_actions .cancel_chatter_edit {
+  margin-right: 5px;
+}
+#chatter ul.discussions li.delete_warning .chatter_post_actions {
+  top: 75px;
+}
+#chatter.chatter_home .chatter_middle p {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  color: #aaa;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+  font-size: 12px;
+}
+#chatter .conversation {
+  border-bottom: 1px solid #f1fcff;
+  margin-bottom: 20px;
 }
 #chatter #cancel_discussion {
   margin-right: 15px;
@@ -428,7 +570,7 @@ body {
   border: 0px;
   color: #fff;
 }
-#chatter .chatter-alert.alert-error {
+#chatter .chatter-alert.alert-danger {
   background: #F55145;
   border: 0px;
   color: #fff;
@@ -448,6 +590,48 @@ body {
 }
 #chatter .chatter_sidebar ul {
   margin-left: 10px;
+}
+#chatter.discussion #editor .mce-toolbar-grp {
+  padding: 0px;
+}
+#chatter.discussion #editor .mce-toolbar {
+  border-top: 0px !important;
+}
+#chatter.discussion #editor #tinymce_placeholder {
+  top: 35px;
+}
+#chatter.discussion #new_response {
+  padding-left: 100px;
+  padding-right: 15px;
+}
+#chatter.discussion #new_response #new_discussion {
+  display: block;
+  position: relative;
+  left: 0px;
+  margin-left: 0px;
+  bottom: 0px;
+  margin-top: 0px;
+  border: 1px solid #f1f5ff;
+  width: 100%;
+  border-radius: 2px;
+}
+#chatter.discussion ul.discussions li .chatter_posts .chatter_middle > span {
+  padding-bottom: 0px;
+}
+#chatter.discussion span.chatter_middle_details {
+  padding-top: 5px;
+}
+#chatter.discussion .chatter_middle {
+  margin-right: 0px !important;
+}
+#chatter.discussion #login_or_register p {
+  text-align: center;
+}
+#chatter.discussion #submit_response {
+  margin-top: 20px;
+}
+#chatter #pagination {
+  text-align: center;
 }
 #chatter .chatter_loader_container {
   background: #fff;
@@ -600,6 +784,10 @@ body {
   border-top-left-radius: 5px;
   border: 0px;
   max-height: 530px;
+}
+#mceu_23.mce-panel.mce-floatpanel {
+  top: 50% !important;
+  margin-top: -265px !important;
 }
 .mce-window-head {
   background: #0098cb !important;

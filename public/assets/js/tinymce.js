@@ -1,10 +1,12 @@
+var chatter_tinymce_toolbar = $('#chatter_tinymce_toolbar').val();
+var chatter_tinymce_plugins = $('#chatter_tinymce_plugins').val();
 
 // Initiate the tinymce editor on any textarea with a class of richText
 tinymce.init({ 
 	selector:'textarea.richText',
 	skin: 'chatter',
-	plugins: 'link, image, codesample',
-	toolbar: 'styleselect bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | link image | codesample ',
+	plugins: chatter_tinymce_plugins,
+	toolbar: chatter_tinymce_toolbar,
 	menubar: false,
 	statusbar: false,
 	height : "220",
@@ -29,3 +31,17 @@ tinymce.init({
         });
     }
 });
+
+function initializeNewEditor(id){
+    tinymce.init({ 
+        selector:'#'+id,
+        skin: 'chatter',
+        plugins: chatter_tinymce_plugins,
+        toolbar: chatter_tinymce_toolbar,
+        menubar: false,
+        statusbar: false,
+        height : "300",
+        content_css : "/css/app.css, /vendor/devdojo/chatter/assets/css/chatter.css",
+        template_popup_height: 380
+    });
+}
