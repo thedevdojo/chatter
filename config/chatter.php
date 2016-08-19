@@ -99,7 +99,7 @@ return [
     |
     |   *namespace*: This is the user namespace for your User Model.
     |
-    |   *database_filed_with_user_name*: This is the database field that 
+    |   *database_field_with_user_name*: This is the database field that 
     |       is used for the users 'Name', could be 'username', 'first_name'.
     |       This will appear next to the users avatar in disucssions
     |
@@ -127,7 +127,7 @@ return [
 
     'user' => [
         'namespace' => 'App\User',
-        'database_filed_with_user_name' => 'name',
+        'database_field_with_user_name' => 'name',
         'relative_url_to_profile' => '',
         'relative_url_to_image_assets' => '',
         'avatar_image_database_field' => ''
