@@ -9,7 +9,7 @@ Quick Note: If this is a new project, make sure to insall the default user authe
 1. Include the package in your project
 
     ```
-    composer require devdojo/chatter
+    composer require "devdojo/chatter=0.1.*"
     ```
 
 2. Add the service provider to your `config/app.php` providers array:
