@@ -12,6 +12,23 @@ class ChatterTableSeeder extends Seeder
      */
     public function run()
     {
+
+        // CREATE THE USER
+
+        \DB::table('users')->delete();
+        
+        \DB::table('users')->insert(array (
+            0 => 
+            array (
+                'id' => 1,
+                'name' => 'Tony Lea',
+                'email' => 'tony@hello.com',
+                'password' => '$2y$10$9ED4Exe2raEeaeOzk.EW6uMBKn3Ib5Q.7kABWaf4QHagOgYHU8ca.',
+                'remember_token' => 'RvlORzs8dyG8IYqssJGcuOY2F0vnjBy2PnHHTX2MoV7Hh6udjJd6hcTox3un',
+                'created_at' => '2016-07-29 15:13:02',
+                'updated_at' => '2016-08-18 14:33:50',
+            ),
+        ));
         
         // CREATE THE CATEGORIES
 
@@ -239,23 +256,6 @@ class ChatterTableSeeder extends Seeder
             'created_at' => '2016-08-18 15:01:25',
             'updated_at' => '2016-08-18 15:01:25',
         ),
-        ));
-
-        // CREATE THE USER
-
-        \DB::table('users')->delete();
-        
-        \DB::table('users')->insert(array (
-            0 => 
-            array (
-                'id' => 1,
-                'name' => 'Tony Lea',
-                'email' => 'tony@hello.com',
-                'password' => '$2y$10$9ED4Exe2raEeaeOzk.EW6uMBKn3Ib5Q.7kABWaf4QHagOgYHU8ca.',
-                'remember_token' => 'RvlORzs8dyG8IYqssJGcuOY2F0vnjBy2PnHHTX2MoV7Hh6udjJd6hcTox3un',
-                'created_at' => '2016-07-29 15:13:02',
-                'updated_at' => '2016-08-18 14:33:50',
-            ),
         ));
         
         
