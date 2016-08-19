@@ -7,5 +7,10 @@
             "email": "tony@devdojo.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+	    "psr-4": {
+	      "DevDojo\\Chatter\\": "/src"
+		}
+	}
 }
