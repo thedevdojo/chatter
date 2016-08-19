@@ -12,6 +12,7 @@ Route::group(['middleware' => 'web'], function () {
 
 	$discussion_url = Config::get('chatter.routes.home') . '/' . Config::get('chatter.routes.discussion');
 	Route::resource($discussion_url, 'DevDojo\Chatter\Controllers\ChatterDiscussionController');
+	Route::get($discussion_url . '/{category}/{slug}', 'DevDojo\Chatter\Controllers\ChatterDiscussionController@show');
 
 	$posts_url = Config::get('chatter.routes.home') . '/posts';
 	Route::resource($posts_url, 'DevDojo\Chatter\Controllers\ChatterPostController');
