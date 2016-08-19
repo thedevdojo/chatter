@@ -3,8 +3,7 @@
 namespace DevDojo\Chatter\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller as Controller;
 use DevDojo\Chatter\Models\Post;
 use DevDojo\Chatter\Models\Discussion;
 use Auth;
