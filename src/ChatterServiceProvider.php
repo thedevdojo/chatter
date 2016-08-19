@@ -24,6 +24,10 @@ class ChatterServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../database/migrations/' => database_path('migrations')
         ], 'chatter_migrations');
+
+        $this->publishes([
+            __DIR__.'/../database/seeds/' => database_path('seeds')
+        ], 'chatter_seeds');
         // include the routes file
         include __DIR__.'/Helpers/Chatter.php';
         include __DIR__.'/Routes/web.php';
