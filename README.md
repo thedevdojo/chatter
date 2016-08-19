@@ -58,6 +58,21 @@ Quick Note: If this is a new project, make sure to insall the default user authe
 
 Now, visit your site.com/forums and you should see your new forum in front of you!
 
+### Configuration
+
+When you published the vendor assets you added a new file inside of your `config` folder which is called `config/chatter.php`. This file contains a bunch of configuration you can use to configure your forums
+
+### Customization
+
+If you want to add additional style changes you can simply add another stylesheet at the end of your `@yield('css')` statement in the head of your master file. In order to only load this file when a user is accessing your forums you can include your stylesheet in the following `if` statement:
+
+```
+@if(Request::is( Config::get('chatter.routes.home') ) || Request::is( Config::get('chatter.routes.home') . '/*' ))
+    <!-- LINK TO YOUR CUSTOM STYLESHEET -->
+    <link rel="stylesheet" href="/assets/css/forums.css" />
+@endif
+```
+
 ### Screenshots
 
 ![](https://raw.githubusercontent.com/thedevdojo/chatter/master/public/assets/images/chatter-screenshot-1.jpg)
