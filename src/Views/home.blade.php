@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends(Config::get('chatter.master_file_extend'))
 
 @section(Config::get('chatter.yields.head'))
     <link href="/vendor/devdojo/chatter/assets/vendor/spectrum/spectrum.css" rel="stylesheet">

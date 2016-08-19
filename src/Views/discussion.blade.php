@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends(Config::get('chatter.master_file_extend'))
 
 @section(Config::get('chatter.yields.head'))
 	<link href="https://file.myfontastic.com/zhx5qC8YRHTb9FXSDdwL6B/icons.css" rel="stylesheet">

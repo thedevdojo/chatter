@@ -74,6 +74,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | The master layout file for your site
+    |--------------------------------------------------------------------------
+    |
+    | By default laravels master file is the layouts.app file, but if your
+    | master layout file is somewhere else, you can specify it below
+    |
+    */
+
+    'master_file_extend' => 'layouts.app',
+
+    /*
+    |--------------------------------------------------------------------------
     | Information about the forum User
     |--------------------------------------------------------------------------
     |
