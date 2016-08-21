@@ -4,6 +4,7 @@ namespace DevDojo\Chatter\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as Controller;
+use DevDojo\Chatter\Models\Category;
 use DevDojo\Chatter\Models\Post;
 use DevDojo\Chatter\Models\Discussion;
 use Auth;
@@ -39,6 +40,9 @@ class ChatterPostController extends Controller
      */
     public function store(Request $request)
     {
+        if(function_exists('chatter_before_new_response')){
+          chatter_before_new_response($request);
+        }
         $stripped_tags_body = array('body' => strip_tags($request->body));
         $validator = Validator::make($stripped_tags_body, [
             'body' => 'required|min:10',
@@ -65,18 +69,26 @@ class ChatterPostController extends Controller
         
         $discussion = Discussion::find($request->chatter_discussion_id);
 
+        $category = Category::find($discussion->chatter_category_id);
+        if(!isset($category->slug)){
+          $category = Category::first();
+        }
+
         if($new_post->id){
+            if(function_exists('chatter_after_new_response')){
+              chatter_after_new_response($request);
+            }
             $chatter_alert = array(
                 'chatter_alert_type' => 'success',
                 'chatter_alert' => 'Response successfully submitted to ' . config('chatter.titles.discussion') . '.'
                 );
-            return redirect('/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $discussion->slug)->with($chatter_alert);
+            return redirect('/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $category->slug . '/'  . $discussion->slug)->with($chatter_alert);
         } else {
             $chatter_alert = array(
                 'chatter_alert_type' => 'danger',
                 'chatter_alert' => 'Sorry, there seems to have been a problem submitting your response.'
                 );
-            return redirect('/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $discussion->slug)->with($chatter_alert);
+            return redirect('/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $category->slug . '/' . $discussion->slug)->with($chatter_alert);
         }   
     }
 

@@ -51,6 +51,9 @@ class ChatterDiscussionController extends Controller
      */
     public function store(Request $request)
     {
+        if(function_exists('chatter_before_new_discussion')){
+          chatter_before_new_discussion($request);
+        }
         $request->request->add(array('body_content' => strip_tags($request->body)));
         $validator = Validator::make($request->all(), [
             'title' => 'required|min:5|max:255',
@@ -100,6 +103,11 @@ class ChatterDiscussionController extends Controller
             'color' => $request->color
             );
 
+        $category = Category::find($request->chatter_category_id);
+        if(!isset($category->slug)){
+          $category = Category::first();
+        }
+
         $discussion = Discussion::create($new_discussion);
 
         $new_post = array(
@@ -111,13 +119,20 @@ class ChatterDiscussionController extends Controller
         $post = Post::create($new_post);
 
         if($post->id){
+            if(function_exists('chatter_after_new_discussion')){
+              chatter_after_new_discussion($request);
+            }
             $chatter_alert = array(
                 'chatter_alert_type' => 'success',
                 'chatter_alert' => 'Successfully created new ' . config('chatter.titles.discussion') . '.'
                 );
-            return redirect('/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $slug)->with($chatter_alert);
+            return redirect('/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $category->slug . '/' . $slug)->with($chatter_alert);
         } else {
-            echo 'Whoops :( There seems to be a problem creating your discussion';
+            $chatter_alert = array(
+                'chatter_alert_type' => 'danger',
+                'chatter_alert' => 'Whoops :( There seems to be a problem creating your ' . config('chatter.titles.discussion') . '.'
+                );
+            return redirect('/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $category->slug . '/' . $slug)->with($chatter_alert);
         }
 
     }

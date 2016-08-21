@@ -1,7 +1,6 @@
 @extends(Config::get('chatter.master_file_extend'))
 
 @section(Config::get('chatter.yields.head'))
-	<link href="https://file.myfontastic.com/zhx5qC8YRHTb9FXSDdwL6B/icons.css" rel="stylesheet">
 	<link href="/vendor/devdojo/chatter/assets/css/chatter.css" rel="stylesheet">
 @stop
 
@@ -73,13 +72,13 @@
 					        				<img src="{{ Config::get('chatter.user.relative_url_to_image_assets') . $post->user->{$db_field}  }}">
 					        			@else
 					        				<span class="chatter_avatar_circle" style="background-color:#<?= Chatter::stringToColorCode($post->user->email) ?>">
-					        					{{ strtoupper(substr($post->user->email, 0, 1)) }}
+					        					{{ ucfirst(substr($post->user->email, 0, 1)) }}
 					        				</span>
 					        			@endif
 					        		</div>
 
 					        		<div class="chatter_middle">
-					        			<span class="chatter_middle_details"><a href="/user">{{ strtoupper($post->user->{Config::get('chatter.user.database_field_with_user_name')}) }}</a> <span class="ago chatter_middle_details">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</span></span>
+					        			<span class="chatter_middle_details"><a href="/user">{{ ucfirst($post->user->{Config::get('chatter.user.database_field_with_user_name')}) }}</a> <span class="ago chatter_middle_details">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</span></span>
 					        			<div class="chatter_body"><?= $post->body ?></div>
 					        		</div>
 

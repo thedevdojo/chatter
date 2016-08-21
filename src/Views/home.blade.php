@@ -2,7 +2,6 @@
 
 @section(Config::get('chatter.yields.head'))
     <link href="/vendor/devdojo/chatter/assets/vendor/spectrum/spectrum.css" rel="stylesheet">
-	<link href="https://file.myfontastic.com/zhx5qC8YRHTb9FXSDdwL6B/icons.css" rel="stylesheet">
 	<link href="/vendor/devdojo/chatter/assets/css/chatter.css" rel="stylesheet">
 @stop
 

@@ -73,6 +73,44 @@ If you want to add additional style changes you can simply add another styleshee
 @endif
 ```
 
+### Custom Function Hooks for the forum
+
+Sometimes you may want to add some additional functionality when a user creates a new discussion or adds a new response. Well, there are a few built in functions that you can create in your script to access this functionality:
+
+*Before User Adds New Discussion*
+Create a new global function in your script called:
+```
+function chatter_before_new_discussion($request){
+
+}
+```
+
+Note: that the `$request` object is passed with the user input for each webhook. You can use it if you would like :) If not, no worries just add your custom functionality.
+
+*After User Adds New Discussion*
+Create a new global function in your script called:
+```
+function chatter_after_new_discussion($request){
+
+}
+```
+
+*Before User Adds New Response*
+Create a new global function in your script called:
+```
+function chatter_before_new_response($request){
+
+}
+```
+
+*After User Adds New Response*
+Create a new global function in your script called:
+```
+function chatter_after_new_response($request){
+
+}
+```
+
 ### Screenshots
 
 ![](https://raw.githubusercontent.com/thedevdojo/chatter/master/public/assets/images/chatter-screenshot-1.jpg)

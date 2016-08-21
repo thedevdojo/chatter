@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .navbar {
   margin-bottom: 0px;
 }
@@ -52,7 +53,7 @@ body {
   color: #ffffff;
   margin-top: 0px;
   padding-top: 40px;
-  margin-bottom: 0px;
+  margin-bottom: 10px;
 }
 #chatter #chatter_hero p {
   text-align: center;
@@ -604,6 +605,9 @@ body {
   padding-left: 100px;
   padding-right: 15px;
 }
+#chatter.discussion #new_response .chatter_avatar {
+  margin-left: 20px;
+}
 #chatter.discussion #new_response #new_discussion {
   display: block;
   position: relative;
@@ -832,5 +836,65 @@ div.mce-edit-area {
   background: #21292f !important;
 }
 /********** END TINYMCE Modifications **********/
+/********** FONTS USED FOR CHATTER **********/
+@font-face {
+  font-family: "chatter";
+  src: url("../fonts/chatter.eot");
+  src: url("../fonts/chatter.eot?#iefix") format("embedded-opentype"), url("../fonts/chatter.woff") format("woff"), url("../fonts/chatter.ttf") format("truetype"), url("../fonts/chatter.svg#chatter") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+[data-icon]:before {
+  font-family: "chatter" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+[class^="chatter-"]:before,
+[class*=" chatter-"]:before {
+  font-family: "chatter" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.chatter-bubble:before {
+  content: "\61";
+}
+.chatter-thumbtack:before {
+  content: "\62";
+}
+.chatter-check:before {
+  content: "\63";
+}
+.chatter-new:before {
+  content: "\64";
+}
+.chatter-back:before {
+  content: "\65";
+}
+.chatter-close:before {
+  content: "\66";
+}
+.chatter-delete:before {
+  content: "\69";
+}
+.chatter-edit:before {
+  content: "\68";
+}
+.chatter-warning:before {
+  content: "\67";
+}
+/********** END FONTS USED FOR CHATTER **********/
 
 /*# sourceMappingURL=chatter.css.map */
