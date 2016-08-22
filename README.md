@@ -80,9 +80,7 @@ Sometimes you may want to add some additional functionality when a user creates 
 *Before User Adds New Discussion*
 Create a new global function in your script called:
 ```
-function chatter_before_new_discussion($request){
-
-}
+function chatter_before_new_discussion($request, $validator){}
 ```
 
 Note: that the `$request` object is passed with the user input for each webhook. You can use it if you would like :) If not, no worries just add your custom functionality.
@@ -90,25 +88,19 @@ Note: that the `$request` object is passed with the user input for each webhook.
 *After User Adds New Discussion*
 Create a new global function in your script called:
 ```
-function chatter_after_new_discussion($request){
-
-}
+function chatter_after_new_discussion($request){}
 ```
 
 *Before User Adds New Response*
 Create a new global function in your script called:
 ```
-function chatter_before_new_response($request){
-
-}
+function chatter_before_new_response($request, $validator){}
 ```
 
 *After User Adds New Response*
 Create a new global function in your script called:
 ```
-function chatter_after_new_response($request){
-
-}
+function chatter_after_new_response($request){}
 ```
 
 ### Screenshots

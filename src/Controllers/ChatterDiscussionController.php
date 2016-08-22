@@ -51,15 +51,17 @@ class ChatterDiscussionController extends Controller
      */
     public function store(Request $request)
     {
-        if(function_exists('chatter_before_new_discussion')){
-          chatter_before_new_discussion($request);
-        }
         $request->request->add(array('body_content' => strip_tags($request->body)));
+
         $validator = Validator::make($request->all(), [
             'title' => 'required|min:5|max:255',
             'body_content' => 'required|min:10',
             'chatter_category_id' => 'required',
         ]);
+
+        if(function_exists('chatter_before_new_discussion')){
+          chatter_before_new_discussion($request, $validator);
+        }
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();

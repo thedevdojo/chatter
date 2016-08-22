@@ -40,13 +40,14 @@ class ChatterPostController extends Controller
      */
     public function store(Request $request)
     {
-        if(function_exists('chatter_before_new_response')){
-          chatter_before_new_response($request);
-        }
         $stripped_tags_body = array('body' => strip_tags($request->body));
         $validator = Validator::make($stripped_tags_body, [
             'body' => 'required|min:10',
         ]);
+
+        if(function_exists('chatter_before_new_response')){
+          chatter_before_new_response($request, $validator);
+        }
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
