@@ -134,11 +134,16 @@ class ChatterPostController extends Controller
 
             $discussion = Discussion::find($post->chatter_discussion_id);
 
+            $category = Category::find($discussion->chatter_category_id);
+            if(!isset($category->slug)){
+              $category = Category::first();
+            }
+
             $chatter_alert = array(
                 'chatter_alert_type' => 'success',
                 'chatter_alert' => 'Successfully updated the ' . config('chatter.titles.discussion') . '.'
                 );
-            return redirect('/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $discussion->slug)->with($chatter_alert);
+            return redirect('/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $category->slug . '/' . $discussion->slug)->with($chatter_alert);
 
         } else {
 
