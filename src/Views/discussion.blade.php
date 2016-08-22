@@ -105,8 +105,16 @@
 
 	            		<div class="chatter_avatar">
 		        			@if(Config::get('chatter.user.avatar_image_database_field'))
+		        				
 		        				<?php $db_field = Config::get('chatter.user.avatar_image_database_field'); ?>
-		        				<img src="{{ Config::get('chatter.user.relative_url_to_image_assets') . Auth::user()->{$db_field}  }}">
+					        				
+		        				<!-- If the user db field contains http:// or https:// we don't need to use the relative path to the image assets -->
+		        				@if( (substr($discussion->user->{$db_field}, 0, 7) == 'http://') || (substr($discussion->user->{$db_field}, 0, 8) == 'https://') )
+		        					<img src="{{ $discussion->user->{$db_field}  }}">
+		        				@else
+		        					<img src="{{ Config::get('chatter.user.relative_url_to_image_assets') . $discussion->user->{$db_field}  }}">
+		        				@endif
+
 		        			@else
 		        				<span class="chatter_avatar_circle" style="background-color:#<?= Chatter::stringToColorCode(Auth::user()->email) ?>">
 		        					{{ strtoupper(substr(Auth::user()->email, 0, 1)) }}
