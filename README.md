@@ -1,5 +1,7 @@
 # Chatter
 
+[![forthebadge](http://forthebadge.com/images/badges/contains-cat-gifs.svg)](http://forthebadge.com) [![Build Status](https://travis-ci.org/thedevdojo/chatter.svg?branch=master)](https://travis-ci.org/thedevdojo/chatter)
+
 ![](https://raw.githubusercontent.com/thedevdojo/chatter/master/public/assets/images/chatter.jpg)
 
 ### Installation
