@@ -1,6 +1,7 @@
 # Chatter
 
-[![forthebadge](http://forthebadge.com/images/badges/contains-cat-gifs.svg)](http://forthebadge.com) [![Build Status](https://travis-ci.org/thedevdojo/chatter.svg?branch=master)](https://travis-ci.org/thedevdojo/chatter)
+[![Build Status](https://travis-ci.org/thedevdojo/chatter.svg?branch=master)](https://travis-ci.org/thedevdojo/chatter)
+[![Built For Laravel](https://img.shields.io/badge/Built%20For-Laravel-blue.svg)](http://laravel.com)
 
 ![](https://raw.githubusercontent.com/thedevdojo/chatter/master/public/assets/images/chatter.jpg)
 
