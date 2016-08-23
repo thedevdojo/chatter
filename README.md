@@ -1,7 +1,7 @@
 # Chatter
 
 [![Build Status](https://travis-ci.org/thedevdojo/chatter.svg?branch=master)](https://travis-ci.org/thedevdojo/chatter)
-[![Built For Laravel](https://img.shields.io/badge/Built%20For-Laravel-blue.svg)](http://laravel.com)
+[![Built For Laravel](https://img.shields.io/badge/built%20for-laravel-blue.svg)](http://laravel.com)
 
 ![](https://raw.githubusercontent.com/thedevdojo/chatter/master/public/assets/images/chatter.jpg)
 
