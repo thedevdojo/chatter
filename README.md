@@ -60,7 +60,7 @@ Now, visit your site.com/forums and you should see your new forum in front of yo
 
 ### VIDEOS
 
-[Chatter Video](https://devdojo.com/episode/create-a-laravel-forum)
+[Introduction and Installation of Chatter Video](https://devdojo.com/episode/create-a-laravel-forum)
 
 ### Configuration
 
