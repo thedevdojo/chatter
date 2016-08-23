@@ -9,7 +9,6 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
      */
     public function testForum()
     {
-        $response = $this->call('GET', '/forums');
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(200);
     }
 }
