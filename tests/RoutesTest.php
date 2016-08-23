@@ -9,6 +9,6 @@ class RoutesTest extends \PHPUnit_Framework_TestCase
      */
     public function testForum()
     {
-        $this->assertEquals(200);
+        $this->assertEquals(200, true);
     }
 }
