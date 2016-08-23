@@ -127,5 +127,3 @@ function chatter_after_new_response($request){}
 ### Screenshots
 
 ![](https://raw.githubusercontent.com/thedevdojo/chatter/master/public/assets/images/chatter-screenshot-1.jpg)
-
-![](https://raw.githubusercontent.com/thedevdojo/chatter/master/public/assets/images/chatter-screenshot-2.jpg)
