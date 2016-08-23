@@ -64,12 +64,26 @@ When you published the vendor assets you added a new file inside of your `config
 
 ### Customization
 
+*CUSTOM CSS*
+
 If you want to add additional style changes you can simply add another stylesheet at the end of your `@yield('css')` statement in the head of your master file. In order to only load this file when a user is accessing your forums you can include your stylesheet in the following `if` statement:
 
 ```
 @if(Request::is( Config::get('chatter.routes.home') ) || Request::is( Config::get('chatter.routes.home') . '/*' ))
     <!-- LINK TO YOUR CUSTOM STYLESHEET -->
     <link rel="stylesheet" href="/assets/css/forums.css" />
+@endif
+```
+
+*SEO FRIENDLY PAGE TITLES*
+
+Since the forum uses your master layout file, you will need to include the necessary code in order to display an SEO friendly title for your page. The following code will need to be added to the `<head>` of your master file:
+
+```
+@if( Request::is( Config::get('chatter.routes.home')) )
+    <title>Title for your forum homepage -  Website Name</title>
+@elseif( Request::is( Config::get('chatter.routes.home') . '/*' ) && isset($discussion->title))
+    <title>{{ $discussion->title }} - Website Name</title>
 @endif
 ```
 
