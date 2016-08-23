@@ -1,19 +1,15 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
-class ExampleTest extends Illuminate\Foundation\Testing\TestCase
+class RoutesTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * A basic functional test example.
      *
      * @return void
      */
-    public function testBasicExample()
+    public function testForum()
     {
-        $this->visit('/forums')
-             ->see('Forums');
+        $response = $this->call('GET', '/forums');
+        $this->assertEquals(200, $response->getStatusCode());
     }
 }
