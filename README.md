@@ -58,6 +58,10 @@ Quick Note: If this is a new project, make sure to insall the default user authe
 
 Now, visit your site.com/forums and you should see your new forum in front of you!
 
+### VIDEOS
+
+[Chatter Video](https://devdojo.com/episode/create-a-laravel-forum)
+
 ### Configuration
 
 When you published the vendor assets you added a new file inside of your `config` folder which is called `config/chatter.php`. This file contains a bunch of configuration you can use to configure your forums
