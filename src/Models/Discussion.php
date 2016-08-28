@@ -31,7 +31,7 @@ class Discussion extends Model {
 	public function postsCount()
 	{
 	  return $this->posts()
-	    ->selectRaw('chatter_discussion_id, count(*) as total')
+	    ->selectRaw('chatter_discussion_id, count(*)-1 as total')
 	    ->groupBy('chatter_discussion_id');
 	}
 
