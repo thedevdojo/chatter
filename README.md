@@ -1,4 +1,4 @@
-# Chatter
+# Laravel Forum Package - Chatter
 
 [![Build Status](https://travis-ci.org/thedevdojo/chatter.svg?branch=master)](https://travis-ci.org/thedevdojo/chatter)
 [![Built For Laravel](https://img.shields.io/badge/built%20for-laravel-blue.svg)](http://laravel.com)
