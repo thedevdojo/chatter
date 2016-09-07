@@ -2,11 +2,9 @@
 
 namespace DevDojo\Chatter\Controllers;
 
+use DevDojo\Chatter\Models\Models;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as Controller;
-use DevDojo\Chatter\Models\Category;
-use DevDojo\Chatter\Models\Discussion;
-use DevDojo\Chatter\Models\Post;
 use Auth;
 use Carbon\Carbon;
 use Validator;
@@ -28,7 +26,7 @@ class ChatterDiscussionController extends Controller
         if($request->offset){
             $offset = $request->offset;
         }
-        $discussions = Discussion::with('user')->with('post')->with('postsCount')->with('category')->orderBy('created_at', 'ASC')->take($total)->offset($offset)->get();
+        $discussions = Models::discussion()->with('user')->with('post')->with('postsCount')->with('category')->orderBy('created_at', 'ASC')->take($total)->offset($offset)->get();
         return response()->json($discussions);
     }
 
@@ -39,7 +37,7 @@ class ChatterDiscussionController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Models::category()->all();
     	return view('chatter::discussion.create', compact('categories'));
     }
 
@@ -84,12 +82,12 @@ class ChatterDiscussionController extends Controller
         // *** Let's gaurantee that we always have a generic slug *** //
         $slug = str_slug($request->title, '-');
 
-        $discussion_exists = Discussion::where('slug', '=', $slug)->first();
+        $discussion_exists = Models::discussion()->where('slug', '=', $slug)->first();
         $incrementer = 1;
         $new_slug = $slug;
         while(isset($discussion_exists->id)){
             $new_slug = $slug . '-' . $incrementer;
-            $discussion_exists = Discussion::where('slug', '=', $new_slug)->first();
+            $discussion_exists = Models::discussion()->where('slug', '=', $new_slug)->first();
             $incrementer += 1;
         }
 
@@ -105,12 +103,12 @@ class ChatterDiscussionController extends Controller
             'color' => $request->color
             );
 
-        $category = Category::find($request->chatter_category_id);
+        $category = Models::category()->find($request->chatter_category_id);
         if(!isset($category->slug)){
-          $category = Category::first();
+          $category = Models::category()->first();
         }
 
-        $discussion = Discussion::create($new_discussion);
+        $discussion = Models::discussion()->create($new_discussion);
 
         $new_post = array(
             'chatter_discussion_id' => $discussion->id,
@@ -118,7 +116,7 @@ class ChatterDiscussionController extends Controller
             'body' => $request->body
             );
 
-        $post = Post::create($new_post);
+        $post = Models::post()->create($new_post);
 
         if($post->id){
             if(function_exists('chatter_after_new_discussion')){
@@ -144,7 +142,7 @@ class ChatterDiscussionController extends Controller
 
         $past = Carbon::now()->subMinutes(config('chatter.security.time_between_posts'));
 
-        $last_discussion = Discussion::where('user_id', '=', $user->id)->where('created_at', '>=', $past)->first();
+        $last_discussion = Models::discussion()->where('user_id', '=', $user->id)->where('created_at', '>=', $past)->first();
 
         if(isset($last_discussion)){
             return true;
@@ -165,12 +163,12 @@ class ChatterDiscussionController extends Controller
             return redirect( config('chatter.routes.home') );
         }
 
-        $discussion = Discussion::where('slug', '=', $slug)->first();
-        $discussion_category = Category::find($discussion->chatter_category_id);
+        $discussion = Models::discussion()->where('slug', '=', $slug)->first();
+        $discussion_category = Models::category()->find($discussion->chatter_category_id);
         if($category != $discussion_category->slug){
             return redirect( config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $discussion_category->slug . '/' . $discussion->slug );
         }
-        $posts = Post::with('user')->where('chatter_discussion_id', '=', $discussion->id)->orderBy('created_at', 'ASC')->paginate(10);
+        $posts = Models::post()->with('user')->where('chatter_discussion_id', '=', $discussion->id)->orderBy('created_at', 'ASC')->paginate(10);
         return view('chatter::discussion', compact('discussion', 'posts'));
     }
 

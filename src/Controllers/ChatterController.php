@@ -2,10 +2,9 @@
 
 namespace DevDojo\Chatter\Controllers;
 
+use DevDojo\Chatter\Models\Models;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as Controller;
-use DevDojo\Chatter\Models\Category;
-use DevDojo\Chatter\Models\Discussion;
 use Auth;
 
 class ChatterController extends Controller
@@ -14,16 +13,17 @@ class ChatterController extends Controller
 
         $pagination_results = config('chatter.paginate.num_of_results');
 
-    	$discussions = Discussion::with('user')->with('post')->with('postsCount')->with('category')->orderBy('created_at', 'DESC')->paginate($pagination_results);
+
+    	$discussions = Models::discussion()->with('user')->with('post')->with('postsCount')->with('category')->orderBy('created_at', 'DESC')->paginate($pagination_results);
     	if(isset($slug)){
-    		$category = Category::where('slug', '=', $slug)->first();
+    		$category = Models::category()->where('slug', '=', $slug)->first();
     		if(isset($category->id)){
-    			$discussions = Discussion::with('user')->with('post')->with('postsCount')->with('category')->where('chatter_category_id', '=', $category->id)->orderBy('created_at', 'DESC')->paginate($pagination_results);
+    			$discussions = Models::discussion()->with('user')->with('post')->with('postsCount')->with('category')->where('chatter_category_id', '=', $category->id)->orderBy('created_at', 'DESC')->paginate($pagination_results);
     		} 
     		
     	}
 
-    	$categories = Category::all();
+    	$categories = Models::category()->all();
     	return view('chatter::home', compact('discussions', 'categories'));
     }
 

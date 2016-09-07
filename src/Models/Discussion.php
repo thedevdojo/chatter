@@ -16,16 +16,16 @@ class Discussion extends Model {
 
 	public function category()
 	{
-		return $this->belongsTo('DevDojo\Chatter\Models\Category', 'chatter_category_id');
+		return $this->belongsTo(Models::className(Category::class), 'chatter_category_id');
 	}
 
 	public function posts()
 	{
-		return $this->hasMany('DevDojo\Chatter\Models\Post', 'chatter_discussion_id');
+		return $this->hasMany(Models::className(Post::class), 'chatter_discussion_id');
 	}
 
 	public function post(){
-		return $this->hasMany('DevDojo\Chatter\Models\Post', 'chatter_discussion_id')->orderBy('created_at', 'ASC');
+		return $this->hasMany(Models::className(Post::class), 'chatter_discussion_id')->orderBy('created_at', 'ASC');
 	}
 
 	public function postsCount()
