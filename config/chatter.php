@@ -17,7 +17,7 @@ return [
         'home' => 'forums',
         'discussion' => 'discussion',
         'category' => 'category',
-        'post' => 'post',
+        'post' => 'posts',
         'register' => 'register',
         'login' => 'login'
     ],
@@ -221,8 +221,8 @@ return [
     | gives you full control over middleware throughout your application. You
     | can allow public access to everything or limit to specific routes.
     |
-    | Authentication is enforced on create, store, edit and delete routes, no
-    | need to add 'auth' to these routes.
+    | Authentication is enforced on create, store, edit, update, destroy routes,
+    | no need to add 'auth' to these routes.
     |
     */
 

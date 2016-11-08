@@ -41,7 +41,7 @@ Route::group($options, function () use ($route, $middleware, $authMiddleware) {
     // Single category view.
     Route::get($route('category').'/{slug}', [
         'uses' => 'DevDojo\Chatter\Controllers\ChatterController@index',
-        'as' => 'chatter.categories.show',
+        'as' => 'chatter.category.show',
         'middleware' => $middleware('category.show')
     ]);
     
@@ -69,61 +69,61 @@ Route::group($options, function () use ($route, $middleware, $authMiddleware) {
         // All discussions view.
         Route::get('/', [
             'uses' => 'DevDojo\Chatter\Controllers\ChatterDiscussionController@index',
-            'as' => 'chatter.discussions.index',
+            'as' => 'chatter.discussion.index',
             'middleware' => $middleware('discussion.index')
         ]);
         
         // Create discussion view.
         Route::get('create', [
             'uses' => 'DevDojo\Chatter\Controllers\ChatterDiscussionController@create',
-            'as' => 'chatter.discussions.create',
+            'as' => 'chatter.discussion.create',
             'middleware' => $authMiddleware('discussion.create')
         ]);
         
         // Store discussion action.
         Route::post('/', [
             'uses' => 'DevDojo\Chatter\Controllers\ChatterDiscussionController@store',
-            'as' => 'chatter.discussions.store',
+            'as' => 'chatter.discussion.store',
             'middleware' => $authMiddleware('discussion.store')
         ]);
         
         // Single discussion view.
         Route::get('{category}/{slug}', [
             'uses' => 'DevDojo\Chatter\Controllers\ChatterDiscussionController@show',
-            'as' => 'chatter.discussions.showInCategory',
+            'as' => 'chatter.discussion.showInCategory',
             'middleware' => $middleware('discussion.show')
         ]);
         
         /**
          * Specific discussion routes.
          */
-        Route::group(['prefix' => '{slug}'], function () use ($middleware, $authMiddleware) {
+        Route::group(['prefix' => '{discussion}'], function () use ($middleware, $authMiddleware) {
             
             // Single discussion view.
             Route::get('/', [
                 'uses' => 'DevDojo\Chatter\Controllers\ChatterDiscussionController@show',
-                'as' => 'chatter.discussions.show',
+                'as' => 'chatter.discussion.show',
                 'middleware' => $middleware('discussion.show')
             ]);
             
             // Edit discussion view.
             Route::get('edit', [
                 'uses' => 'DevDojo\Chatter\Controllers\ChatterDiscussionController@edit',
-                'as' => 'chatter.discussions.edit',
+                'as' => 'chatter.discussion.edit',
                 'middleware' => $authMiddleware('discussion.edit')
             ]);
             
             // Update discussion action.
-            Route::put('/', [
+            Route::match(['PUT', 'PATCH'], '/', [
                 'uses' => 'DevDojo\Chatter\Controllers\ChatterDiscussionController@update',
-                'as' => 'chatter.discussions.update',
+                'as' => 'chatter.discussion.update',
                 'middleware' => $authMiddleware('discussion.update')
             ]);
             
             // Destroy discussion action.
             Route::delete('/', [
                 'uses' => 'DevDojo\Chatter\Controllers\ChatterDiscussionController@destroy',
-                'as' => 'chatter.discussions.destroy',
+                'as' => 'chatter.discussion.destroy',
                 'middleware' => $authMiddleware('discussion.destroy')
             ]);
         });
@@ -132,7 +132,7 @@ Route::group($options, function () use ($route, $middleware, $authMiddleware) {
     /**
      * Post routes.
      */
-    Route::group(['prefix' => $route('post', 'post')], function () use ($middleware, $authMiddleware) {
+    Route::group(['prefix' => $route('post', 'posts')], function () use ($middleware, $authMiddleware) {
         
         // All posts view.
         Route::get('/', [
@@ -158,7 +158,7 @@ Route::group($options, function () use ($route, $middleware, $authMiddleware) {
         /**
          * Specific post routes.
          */
-        Route::group(['prefix' => '{id}'], function () use ($middleware, $authMiddleware) {
+        Route::group(['prefix' => '{post}'], function () use ($middleware, $authMiddleware) {
             
             // Single post view.
             Route::get('/', [
@@ -175,7 +175,7 @@ Route::group($options, function () use ($route, $middleware, $authMiddleware) {
             ]);
             
             // Update post action.
-            Route::put('/', [
+            Route::match(['PUT', 'PATCH'], '/', [
                 'uses' => 'DevDojo\Chatter\Controllers\ChatterPostController@update',
                 'as' => 'chatter.posts.update',
                 'middleware' => $authMiddleware('post.update')
