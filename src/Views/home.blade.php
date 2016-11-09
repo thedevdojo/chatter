@@ -77,7 +77,7 @@
 					        			
 					        			@else
 					        				
-					        				<span class="chatter_avatar_circle" style="background-color:#<?= Chatter::stringToColorCode($discussion->user->email) ?>">
+					        				<span class="chatter_avatar_circle" style="background-color:#<?= \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode($discussion->user->email) ?>">
 					        					{{ strtoupper(substr($discussion->user->email, 0, 1)) }}
 					        				</span>
 					        				
