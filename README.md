@@ -94,6 +94,13 @@ Since the forum uses your master layout file, you will need to include the neces
 @endif
 ```
 
+*OVERRIDING VIEWS*
+
+In order to override Chatter's built in views, simply create a `chatter` folder in your `vendor` views folder, i.e. `ROOT/resources/views/vendor/chatter`. Then simply drop in the Chatter view files you would like to override.
+
+- [home.blade.php](https://github.com/thedevdojo/chatter/blob/master/src/Views/home.blade.php)
+- [discussion.blade.php](https://github.com/thedevdojo/chatter/blob/master/src/Views/discussion.blade.php)
+
 ### Custom Function Hooks for the forum
 
 Sometimes you may want to add some additional functionality when a user creates a new discussion or adds a new response. Well, there are a few built in functions that you can create in your script to access this functionality:
