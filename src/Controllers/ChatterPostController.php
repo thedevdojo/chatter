@@ -174,7 +174,7 @@ class ChatterPostController extends Controller
             ]);
         }
 
-        if ($post->discussion->posts()->first()->id === $post->id) {
+        if ($post->discussion->posts()->latest()->first()->id === $post->id) {
 
             $post->discussion->posts()->delete();
 
