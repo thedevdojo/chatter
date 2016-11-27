@@ -67,7 +67,7 @@ class ChatterPostController extends Controller
 
         $request->request->add(['user_id' => Auth::user()->id]);
         $new_post = Post::create($request->all());
-        
+
         $discussion = Discussion::find($request->chatter_discussion_id);
 
         $category = Category::find($discussion->chatter_category_id);
@@ -90,7 +90,7 @@ class ChatterPostController extends Controller
                 'chatter_alert' => 'Sorry, there seems to have been a problem submitting your response.'
                 );
             return redirect('/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $category->slug . '/' . $discussion->slug)->with($chatter_alert);
-        }   
+        }
     }
 
 
@@ -157,49 +157,41 @@ class ChatterPostController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete post.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  string  $id
+     * @param  \Illuminate\Http\Request
+     * @return \Illuminate\Routing\Redirect
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        $post = Post::find($id);
-        if(!Auth::guest() && (Auth::user()->id == $post->user_id)){
-            $post->delete();
+        $post = Post::with('discussion')->findOrFail($id);
 
-            $count_post = Post::where('chatter_discussion_id',$post->chatter_discussion_id)->count();
-            $discussion = Discussion::find($post->chatter_discussion_id);
-
-            // if there are no more posts, delete the discussion as well
-            if($count_post <= 0){
-
-                Discussion::find($post->chatter_discussion_id)->delete();
-
-                $chatter_alert = array(
-                    'chatter_alert_type' => 'success',
-                    'chatter_alert' => 'Successfully deleted response and ' . strtolower(config('chatter.titles.discussion')) . '.'
-                );
-                return redirect('/' . config('chatter.routes.home') )->with($chatter_alert);
-
-            } else {
-
-                $chatter_alert = array(
-                    'chatter_alert_type' => 'success',
-                    'chatter_alert' => 'Successfully deleted response from the ' . config('chatter.titles.discussion') . '.'
-                );
-                return redirect('/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $discussion->slug)->with($chatter_alert);
-
-            }
-
-        } else {
-
-            $chatter_alert = array(
+        if ($request->user()->id !== (int) $post->user_id) {
+            return redirect('/'.config('chatter.routes.home'))->with([
                 'chatter_alert_type' => 'danger',
                 'chatter_alert' => 'Nah ah ah... Could not delete the response. Make sure you\'re not doing anything shady.'
-                );
-            return redirect('/' . config('chatter.routes.home'))->with($chatter_alert);
-
+            ]);
         }
+
+        if ($post->discussion->posts()->oldest()->first()->id === $post->id) {
+
+            $post->discussion->posts()->delete();
+            $post->discussion()->delete();
+
+            return redirect('/'.config('chatter.routes.home'))->with([
+                'chatter_alert_type' => 'success',
+                'chatter_alert' => 'Successfully deleted response and '.strtolower(config('chatter.titles.discussion')).'.'
+            ]);
+        }
+
+        $post->delete();
+
+        $url = '/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$post->discussion->slug;
+
+        return redirect($url)->with([
+            'chatter_alert_type' => 'success',
+            'chatter_alert' => 'Successfully deleted response from the '.config('chatter.titles.discussion').'.'
+        ]);
     }
 }
