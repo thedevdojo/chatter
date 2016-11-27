@@ -165,7 +165,7 @@ class ChatterPostController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::with('discussion')->findOrFail($id);
 
         if ($request->user()->id !== (int) $post->user_id) {
             return redirect('/'.config('chatter.routes.home'))->with([
@@ -177,7 +177,6 @@ class ChatterPostController extends Controller
         if ($post->discussion->posts()->oldest()->first()->id === $post->id) {
 
             $post->discussion->posts()->delete();
-
             $post->discussion()->delete();
 
             return redirect('/'.config('chatter.routes.home'))->with([
