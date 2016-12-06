@@ -15,6 +15,9 @@ body {
 	 */
   /********** END LOADER **********/
 }
+#chatter #title {
+  padding: 25px 20px;
+}
 #chatter .margin-top {
   margin-top: 40px;
 }
@@ -546,6 +549,7 @@ body {
   color: #777;
   position: relative;
   left: -10px;
+  padding: 0 !important;
 }
 #chatter .chatter_cat {
   padding-left: 10px;
