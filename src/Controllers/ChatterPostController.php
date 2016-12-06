@@ -2,11 +2,9 @@
 
 namespace DevDojo\Chatter\Controllers;
 
+use DevDojo\Chatter\Models\Models;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as Controller;
-use DevDojo\Chatter\Models\Category;
-use DevDojo\Chatter\Models\Post;
-use DevDojo\Chatter\Models\Discussion;
 use Auth;
 use Carbon\Carbon;
 use Validator;
@@ -28,7 +26,7 @@ class ChatterPostController extends Controller
         if($request->offset){
             $offset = $request->offset;
         }
-        $posts = Post::with('user')->orderBy('created_at', 'DESC')->take($total)->offset($offset)->get();
+        $posts = Models::post()->with('user')->orderBy('created_at', 'DESC')->take($total)->offset($offset)->get();
         return response()->json($posts);
     }
 
@@ -66,13 +64,13 @@ class ChatterPostController extends Controller
         }
 
         $request->request->add(['user_id' => Auth::user()->id]);
-        $new_post = Post::create($request->all());
+        $new_post = Models::post()->create($request->all());
         
-        $discussion = Discussion::find($request->chatter_discussion_id);
+        $discussion = Models::discussion()->find($request->chatter_discussion_id);
 
-        $category = Category::find($discussion->chatter_category_id);
+        $category = Models::category()->find($discussion->chatter_category_id);
         if(!isset($category->slug)){
-          $category = Category::first();
+          $category = Models::category()->first();
         }
 
         if($new_post->id){
@@ -99,7 +97,7 @@ class ChatterPostController extends Controller
 
         $past = Carbon::now()->subMinutes(config('chatter.security.time_between_posts'));
 
-        $last_post = Post::where('user_id', '=', $user->id)->where('created_at', '>=', $past)->first();
+        $last_post = Models::post()->where('user_id', '=', $user->id)->where('created_at', '>=', $past)->first();
 
         if(isset($last_post)){
             return true;
@@ -127,16 +125,16 @@ class ChatterPostController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $post = Post::find($id);
+        $post = Models::post()->find($id);
         if(!Auth::guest() && (Auth::user()->id == $post->user_id)){
             $post->body = $request->body;
             $post->save();
 
-            $discussion = Discussion::find($post->chatter_discussion_id);
+            $discussion = Models::discussion()->find($post->chatter_discussion_id);
 
-            $category = Category::find($discussion->chatter_category_id);
+            $category = Models::category()->find($discussion->chatter_category_id);
             if(!isset($category->slug)){
-              $category = Category::first();
+              $category = Models::category()->first();
             }
 
             $chatter_alert = array(
@@ -164,17 +162,17 @@ class ChatterPostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::find($id);
+        $post = Models::post()->find($id);
         if(!Auth::guest() && (Auth::user()->id == $post->user_id)){
             $post->delete();
 
-            $count_post = Post::where('chatter_discussion_id',$post->chatter_discussion_id)->count();
-            $discussion = Discussion::find($post->chatter_discussion_id);
+            $count_post = Models::post()->where('chatter_discussion_id',$post->chatter_discussion_id)->count();
+            $discussion = Models::discussion()->find($post->chatter_discussion_id);
 
             // if there are no more posts, delete the discussion as well
             if($count_post <= 0){
 
-                Discussion::find($post->chatter_discussion_id)->delete();
+                Models::discussion()->find($post->chatter_discussion_id)->delete();
 
                 $chatter_alert = array(
                     'chatter_alert_type' => 'success',
