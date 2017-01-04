@@ -17,6 +17,7 @@ return [
         'home' => 'forums',
         'discussion' => 'discussion',
         'category' => 'category',
+        'post' => 'posts',
         'register' => 'register',
         'login' => 'login'
     ],
@@ -210,6 +211,45 @@ return [
 
     'paginate' => [
         'num_of_results' => 10,
-    ]
+    ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Route Middleware
+    |--------------------------------------------------------------------------
+    |
+    | Configure the middleware applied to specific routes across Chatter. This
+    | gives you full control over middleware throughout your application. You
+    | can allow public access to everything or limit to specific routes.
+    |
+    | Authentication is enforced on create, store, edit, update, destroy routes,
+    | no need to add 'auth' to these routes.
+    |
+    */
+
+    'middleware' => [
+        'global' => ['web'],
+        'home' => [],
+        'discussion' => [
+            'index' => [],
+            'show' => [],
+            'create' => [],
+            'store' => [],
+            'destroy' => [],
+            'edit' => [],
+            'update' => []
+        ],
+        'post' => [
+            'index' => [],
+            'show' => [],
+            'create' => [],
+            'store' => [],
+            'destroy' => [],
+            'edit' => [],
+            'update' => []
+        ]
+        'category' => [
+            'show' => [],
+        ]
+    ]
 ];
