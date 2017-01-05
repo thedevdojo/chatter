@@ -2,7 +2,6 @@
 
 return [
 
-
     /*
     |--------------------------------------------------------------------------
     | Forum Routes
@@ -14,12 +13,12 @@ return [
     */
 
     'routes' => [
-        'home' => 'forums',
+        'home'       => 'forums',
         'discussion' => 'discussion',
-        'category' => 'category',
-        'post' => 'posts',
-        'register' => 'register',
-        'login' => 'login'
+        'category'   => 'category',
+        'post'       => 'posts',
+        'register'   => 'register',
+        'login'      => 'login',
     ],
 
     /*
@@ -34,7 +33,7 @@ return [
 
     'titles' => [
         'discussion' => 'Discussion',
-        'category' => 'Category',
+        'category'   => 'Category',
     ],
 
    /*
@@ -51,8 +50,8 @@ return [
     |       headline on the forum homepage.
     |
     */
-    
-    'headline' => 'Welcome to Chatter',
+
+    'headline'    => 'Welcome to Chatter',
     'description' => 'A simple forum package for your Laravel app.',
 
     /*
@@ -60,8 +59,8 @@ return [
     | Header and Footer Yield Inserts for your master file
     |--------------------------------------------------------------------------
     |
-    | Chatter needs to add css or javascript to the header and footer of your 
-    | master layout file. You can choose what these will be called. FYI, 
+    | Chatter needs to add css or javascript to the header and footer of your
+    | master layout file. You can choose what these will be called. FYI,
     | chatter will only load resources when you hit a forum route.
     |
     | example:
@@ -74,8 +73,8 @@ return [
     */
 
     'yields' => [
-        'head' => 'css',
-        'footer' => 'js'
+        'head'   => 'css',
+        'footer' => 'js',
     ],
 
     /*
@@ -100,13 +99,13 @@ return [
     |
     |   *namespace*: This is the user namespace for your User Model.
     |
-    |   *database_field_with_user_name*: This is the database field that 
+    |   *database_field_with_user_name*: This is the database field that
     |       is used for the users 'Name', could be 'username', 'first_name'.
     |       This will appear next to the users avatar in disucssions
     |
-    |   *relative_url_to_profile*: Users may want to click on another users 
-    |       image to view their profile. If a users profile page is at 
-    |       /profile/{username} you will add '/profile/{username}' or 
+    |   *relative_url_to_profile*: Users may want to click on another users
+    |       image to view their profile. If a users profile page is at
+    |       /profile/{username} you will add '/profile/{username}' or
     |       if it is /profile/{id}, you will specify '/profile/{id}'. You are
     |       only able to specify 1 url parameter.
     |       Tip: leave this blank and no link will be generated
@@ -128,11 +127,11 @@ return [
     */
 
     'user' => [
-        'namespace' => 'App\User',
+        'namespace'                     => 'App\User',
         'database_field_with_user_name' => 'name',
-        'relative_url_to_profile' => '',
-        'relative_url_to_image_assets' => '',
-        'avatar_image_database_field' => ''
+        'relative_url_to_profile'       => '',
+        'relative_url_to_image_assets'  => '',
+        'avatar_image_database_field'   => '',
     ],
 
     /*
@@ -148,9 +147,9 @@ return [
 
     'alert_messages' => [
         'success' => 'Well done!',
-        'info' => 'Heads Up!',
+        'info'    => 'Heads Up!',
         'warning' => 'Wuh Oh!',
-        'danger' => 'Oh Snap!'
+        'danger'  => 'Oh Snap!',
     ],
 
     /*
@@ -161,9 +160,9 @@ return [
     | Here are a few configurations that you can add to your forum to prevent
     | possible spammers or bots.
     |
-    |   *limit_time_between_posts*: Stop user from being able to spam by making 
+    |   *limit_time_between_posts*: Stop user from being able to spam by making
     |       them wait a specified time before being able to post again.
-    |   
+    |
     |   *time_between_posts*: In minutes, the time a user must wait before
     |       being allowed to add more content. Only valid if above value is
     |       set to true.
@@ -171,8 +170,8 @@ return [
     */
 
     'security' => [
-        'limit_time_between_posts' => true, // 
-        'time_between_posts' => 1, // In minutes
+        'limit_time_between_posts' => true, //
+        'time_between_posts'       => 1, // In minutes
     ],
 
     /*
@@ -181,7 +180,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Select which tools you want to appear in the tinymce editor toolbar.
-    | Find out the available tools here: 
+    | Find out the available tools here:
     | tinymce.com/docs/advanced/editor-control-identifiers/#toolbarcontrols
     |
     |   *toolbar*: The controls you want to appear in the toolbar
@@ -196,7 +195,7 @@ return [
 
     'tinymce' => [
         'toolbar' => 'bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | link image',
-        'plugins' => 'link, image'
+        'plugins' => 'link, image',
     ],
 
     /*
@@ -228,28 +227,28 @@ return [
     */
 
     'middleware' => [
-        'global' => ['web'],
-        'home' => [],
+        'global'     => ['web'],
+        'home'       => [],
         'discussion' => [
-            'index' => [],
-            'show' => [],
-            'create' => [],
-            'store' => [],
+            'index'   => [],
+            'show'    => [],
+            'create'  => [],
+            'store'   => [],
             'destroy' => [],
-            'edit' => [],
-            'update' => []
+            'edit'    => [],
+            'update'  => [],
         ],
         'post' => [
-            'index' => [],
-            'show' => [],
-            'create' => [],
-            'store' => [],
+            'index'   => [],
+            'show'    => [],
+            'create'  => [],
+            'store'   => [],
             'destroy' => [],
-            'edit' => [],
-            'update' => []
-        ]
+            'edit'    => [],
+            'update'  => [],
+        ],
         'category' => [
             'show' => [],
-        ]
-    ]
+        ],
+    ],
 ];
