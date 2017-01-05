@@ -7,7 +7,8 @@ class ChatterHelper
     /**
      * Convert any string to a color code.
      *
-     * @param  string  $string
+     * @param string $string
+     *
      * @return string
      */
     public static function stringToColorCode($string)
@@ -20,7 +21,8 @@ class ChatterHelper
     /**
      * User link.
      *
-     * @param  mixed  $user
+     * @param mixed $user
+     *
      * @return string
      */
     public static function userLink($user)
@@ -33,12 +35,13 @@ class ChatterHelper
 
         return static::replaceUrlParameter($url, $user);
     }
-    
+
     /**
      * Replace url parameter.
      *
-     * @param  string  $url
-     * @param  mixed  $source
+     * @param string $url
+     * @param mixed  $source
+     *
      * @return string
      */
     private static function replaceUrlParameter($url, $source)
@@ -47,11 +50,12 @@ class ChatterHelper
 
         return str_replace('{'.$parameter.'}', $source[$parameter], $url);
     }
-    
+
     /**
      * Url parameter.
      *
-     * @param  string  $url
+     * @param string $url
+     *
      * @return string
      */
     private static function urlParameter($url)
