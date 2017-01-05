@@ -247,7 +247,7 @@ return [
             'destroy' => [],
             'edit' => [],
             'update' => []
-        ]
+        ],
         'category' => [
             'show' => [],
         ]
