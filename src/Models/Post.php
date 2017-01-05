@@ -12,7 +12,7 @@ class Post extends Model {
 
 	public function discussion()
 	{
-		return $this->belongsTo(Models::className(Discussion::class));
+		return $this->belongsTo(Models::className(Discussion::class), 'chatter_discussion_id');
 	}
 
 	public function user(){
