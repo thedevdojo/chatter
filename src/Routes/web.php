@@ -201,7 +201,7 @@ Route::group([
     });
 });
 
-/**
+/*
  * Atom routes
  */
 Route::get($route('home').'.atom', [

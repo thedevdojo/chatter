@@ -3,14 +3,14 @@
 namespace DevDojo\Chatter\Controllers;
 
 use Carbon\Carbon;
-use SimpleXMLElement;
 use DevDojo\Chatter\Models\Discussion;
 use Illuminate\Routing\Controller as Controller;
+use SimpleXMLElement;
 
 class ChatterAtomController extends Controller
 {
     /**
-     * Create an feed response for whole forum section
+     * Create an feed response for whole forum section.
      *
      * @return \Illuminate\Http\Response
      */
@@ -24,12 +24,12 @@ class ChatterAtomController extends Controller
         $xml->addChild('id', route('chatter.home'));
 
         $link = $xml->addChild('link');
-        $link->addAttribute('type', "text/html");
+        $link->addAttribute('type', 'text/html');
         $link->addAttribute('href', route('chatter.home'));
 
         $link = $xml->addChild('link');
-        $link->addAttribute('type', "application/atom+xml");
-        $link->addAttribute('rel', "self");
+        $link->addAttribute('type', 'application/atom+xml');
+        $link->addAttribute('rel', 'self');
         $link->addAttribute('href', route('chatter.atom'));
 
         $xml->addChild('title', config('app.name').' Discussions');
