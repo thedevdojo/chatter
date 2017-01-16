@@ -46,7 +46,7 @@ before_script:
   - rm -rf vendor/devdojo/chatter
 
   # Move this build into the chatter folder
-  - mv /home/travis/build/thedevdojo/chatter-app /home/travis/build/thedevdojo/chatter-app/vendor/tcg/chatter
+  - mv /home/travis/build/thedevdojo/chatter /home/travis/build/thedevdojo/chatter-app/vendor/tcg/chatter
 
   # Move up one folder and rename chatter-app to chatter
   - cd ../
