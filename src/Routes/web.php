@@ -200,3 +200,12 @@ Route::group([
         });
     });
 });
+
+/*
+ * Atom routes
+ */
+Route::get($route('home').'.atom', [
+    'as'         => 'chatter.atom',
+    'uses'       => 'DevDojo\Chatter\Controllers\ChatterAtomController@index',
+    'middleware' => $middleware('home'),
+]);
