@@ -1,9 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
 class RoutesTest extends TestCase
 {
     /**
@@ -16,7 +12,7 @@ class RoutesTest extends TestCase
         $urls = [
             '/forums',
             '/forums/discussion/general/welcome-to-the-chatter-laravel-forum-package',
-            '/forums/category/introductions'
+            '/forums/category/introductions',
         ];
 
         foreach ($urls as $url) {
