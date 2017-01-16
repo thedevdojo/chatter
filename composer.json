@@ -12,11 +12,17 @@
         "illuminate/cache": "~5.1.20|5.2.*|5.3.*",
         "illuminate/console": "~5.1.20|5.2.*|5.3.*",
         "mockery/mockery": "^0.9.5",
-        "phpunit/phpunit": "^4.8"
+        "phpunit/phpunit": "^4.8",
+
     },
     "autoload": {
 	    "psr-4": {
 	      "DevDojo\\Chatter\\": "/src"
 		}
-	}
+	},
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
+        ]
+    }
 }
