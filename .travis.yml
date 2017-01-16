@@ -76,6 +76,7 @@ before_script:
   # Remove the default phpunit.xml and replace it with chatter phpunit.xml
   - rm phpunit.xml
   - cp vendor/devdojo/chatter/phpunit.xml phpunit.xml
+  - cat phpunit.xml
   
 
 script:
