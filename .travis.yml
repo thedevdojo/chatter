@@ -1,19 +1,82 @@
 language: php
 
+sudo: true
+
 php:
-  - 5.6
-  - 7.0
-  - 7.1
+- 5.6
+- 7.0
+- 7.1
+- hhvm
+- nightly
 
-env:
-  global:
-    - setup=basic
+matrix:
+  fast_finish: true
+ 
+  allow_failures:
+    - php: 7.1
+    - php: hhvm
+    - php: nightly
 
-sudo: false
+services:
+  - mysql
 
-install:
-  - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-interaction --prefer-source; fi
-  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-source --no-interaction --prefer-stable; fi
-  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-source --no-interaction --prefer-lowest --prefer-stable; fi
+before_script:
+  # prevent MySQL went away error
+  - mysql -u root -e 'SET @@GLOBAL.wait_timeout=28800;'
+  
+  # Create a new database and add all priveleges
+  - mysql -u root -e "create database IF NOT EXISTS chatter;"
+  
+  # Current DIR
+  - pwd
 
-script: vendor/bin/phpunit
+  # Move up one directory
+  - cd ../
+
+  # Create a New Laravel App
+  - composer create-project --prefer-dist laravel/laravel chatter-app
+
+  # CD into the new laravel app
+  - cd chatter-app
+
+  # Include Chatter Package
+  - composer require "devdojo/chatter=0.1.*"
+
+  # Remove the current version
+  - rm -rf vendor/devdojo/chatter
+
+  # Move this build into the chatter folder
+  - mv /home/travis/build/thedevdojo/chatter-app /home/travis/build/thedevdojo/chatter-app/vendor/tcg/chatter
+
+  # Move up one folder and rename chatter-app to chatter
+  - cd ../
+  - mv chatter-app chatter
+  - cd chatter
+  - composer dump-autoload
+
+  # Add the database credentials
+  - sed 's/DB_DATABASE=homestead/DB_DATABASE=chatter/g' .env > environment
+  - sed 's/DB_USERNAME=homestead/DB_USERNAME=root/g' environment > .env
+  - sed 's/DB_PASSWORD=secret/DB_PASSWORD=/g' .env > environment
+  - rm .env
+  - mv environment .env
+
+  # Add the service providers
+  - sed 's/App\\Providers\\RouteServiceProvider\:\:class,/App\\Providers\\RouteServiceProvider\:\:class, DevDojo\\Chatter\\ChatterServiceProvider\:\:class,/g' config/app.php > config/app-temp.php
+  - rm config/app.php
+  - mv config/app-temp.php config/app.php
+    
+  # Install chatter
+  - php artisan make:auth
+  - php artisan vendor:publish
+  - composer dump-autoload
+  - php artisan migrate
+  - php artisan db:seed --class=ChatterTableSeeder
+
+  # Remove the default phpunit.xml and replace it with chatter phpunit.xml
+  - rm phpunit.xml
+  - cp vendor/devdojo/chatter/phpunit.xml phpunit.xml
+  
+
+script:
+  # - vendor/bin/phpunit
