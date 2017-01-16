@@ -40,13 +40,13 @@ before_script:
   - cd chatter-app
 
   # Include Chatter Package
-  - composer require "devdojo/chatter=0.1.*"
+  - composer require devdojo/chatter dev-master
 
   # Remove the current version
   - rm -rf vendor/devdojo/chatter
 
   # Move this build into the chatter folder
-  - mv /home/travis/build/thedevdojo/chatter /home/travis/build/thedevdojo/chatter-app/vendor/tcg/chatter
+  - mv /home/travis/build/thedevdojo/chatter /home/travis/build/thedevdojo/chatter-app/vendor/devdojo/chatter
 
   # Move up one folder and rename chatter-app to chatter
   - cd ../
