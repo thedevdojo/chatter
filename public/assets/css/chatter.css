@@ -15,9 +15,6 @@ body {
 	 */
   /********** END LOADER **********/
 }
-#chatter #title {
-  padding: 25px 20px;
-}
 #chatter .margin-top {
   margin-top: 40px;
 }
@@ -41,6 +38,12 @@ body {
   position: relative;
   background-size: cover;
   background-position: center center;
+  text-align: center;
+}
+#chatter #chatter_hero img {
+  max-height: 60px;
+  margin: 45px auto;
+  position: relative;
 }
 #chatter #chatter_hero #chatter_hero_dimmer {
   background: rgba(0, 0, 0, 0.2);
@@ -548,7 +551,6 @@ body {
   color: #777;
   position: relative;
   left: -10px;
-  padding: 0 !important;
 }
 #chatter .chatter_cat {
   padding-left: 10px;

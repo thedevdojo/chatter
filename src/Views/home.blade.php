@@ -11,8 +11,13 @@
 
 	<div id="chatter_hero">
 		<div id="chatter_hero_dimmer"></div>
-		<h1>{{ Config::get('chatter.headline') }}</h1>
-		<p>{{ Config::get('chatter.description') }}</p>
+		<?php $headline_logo = Config::get('chatter.headline_logo'); ?>
+		@if( isset( $headline_logo ) && !empty( $headline_logo ) )
+			<img src="{{ Config::get('chatter.headline_logo') }}">
+		@else
+			<h1>{{ Config::get('chatter.headline') }}</h1>
+			<p>{{ Config::get('chatter.description') }}</p>
+		@endif
 	</div>
 
 	@if(Session::has('chatter_alert'))

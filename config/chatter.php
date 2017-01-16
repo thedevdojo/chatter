@@ -48,11 +48,14 @@ return [
     |
     |   *description*: This is the main description that will show under the
     |       headline on the forum homepage.
+    |   *headline_logo*: If this is set an image will be used on the forum home
+    |       instead of text. Specify the relative path to the image here.
     |
     */
 
     'headline'    => 'Welcome to Chatter',
     'description' => 'A simple forum package for your Laravel app.',
+    'headline_logo' => '/vendor/devdojo/chatter/assets/images/logo-light.png',
 
     /*
     |--------------------------------------------------------------------------
@@ -176,7 +179,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | TinyMCE WYSIWYG Editor
+    | Chatter Editor
+    |--------------------------------------------------------------------------
+    |
+    | You may wish to choose between a couple different editors. At the moment
+    | The following editors are supported:
+    |   - tinymce    (https://www.tinymce.com/)
+    |   - simplemde  (https://simplemde.com/)
+    |
+    */
+
+    'editor' => 'simplemde',
+
+    /*
+    |--------------------------------------------------------------------------
+    | TinyMCE WYSIWYG Editor Options (Must be the selected editor)
     |--------------------------------------------------------------------------
     |
     | Select which tools you want to appear in the tinymce editor toolbar.
