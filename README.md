@@ -61,6 +61,23 @@ Quick Note: If this is a new project, make sure to install the default user auth
 
 Now, visit your site.com/forums and you should see your new forum in front of you!
 
+### Upgrading
+
+To upgrade to the latest version of voyager simply run:
+
+```
+composer update
+```
+
+Next, you may want to re-publish the chatter assets or chatter config by running the following:
+
+```
+php artisan vendor:publish --tag=chatter_assets --force
+php artisan vendor:publish --tag=chatter_config --force
+```
+
+And you'll be up-to-date with the latest version :)
+
 ### VIDEOS
 
 [Introduction and Installation of Chatter](https://devdojo.com/episode/create-a-laravel-forum)

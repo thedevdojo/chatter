@@ -1,14 +1,27 @@
 <?php
 
-class RoutesTest extends \PHPUnit_Framework_TestCase
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+class RoutesTest extends TestCase
 {
     /**
      * A basic functional test example.
      *
      * @return void
      */
-    public function testForum()
+    public function testForumRoutes()
     {
-        $this->assertEquals(200, true);
+        $urls = [
+            '/forums',
+            '/forums/discussion/general/welcome-to-the-chatter-laravel-forum-package',
+            '/forums/category/introductions'
+        ];
+
+        foreach ($urls as $url) {
+            $response = $this->call('GET', $url);
+            $this->assertEquals(200, $response->status(), $url.' did not return a 200');
+        }
     }
 }
