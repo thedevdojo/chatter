@@ -66,6 +66,11 @@ class ChatterPostController extends Controller
         }
 
         $request->request->add(['user_id' => Auth::user()->id]);
+
+        if(config('chatter.editor') == 'simplemde'):
+            $request->request->add(['markdown' => 1]);
+        endif;
+
         $new_post = Models::post()->create($request->all());
 
         $discussion = Models::discussion()->find($request->chatter_discussion_id);

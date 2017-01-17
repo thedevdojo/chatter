@@ -2,6 +2,9 @@
 
 @section(Config::get('chatter.yields.head'))
 	<link href="/vendor/devdojo/chatter/assets/css/chatter.css" rel="stylesheet">
+	@if($chatter_editor == 'simplemde')
+		<link href="/vendor/devdojo/chatter/assets/css/simplemde.min.css" rel="stylesheet">
+	@endif
 @stop
 
 
@@ -87,7 +90,16 @@
 
 					        		<div class="chatter_middle">
 					        			<span class="chatter_middle_details"><a href="{{ \DevDojo\Chatter\Helpers\ChatterHelper::userLink($post->user) }}">{{ ucfirst($post->user->{Config::get('chatter.user.database_field_with_user_name')}) }}</a> <span class="ago chatter_middle_details">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</span></span>
-					        			<div class="chatter_body"><?= $post->body ?></div>
+					        			<div class="chatter_body">
+					        			
+					        				@if($post->markdown)
+					        					<span class="chatter_body_md">{{ $post->body }}</span>
+					        					<?= GrahamCampbell\Markdown\Facades\Markdown::convertToHtml( $post->body ); ?>
+					        				@else
+					        					<?= $post->body; ?>
+					        				@endif
+					        				
+					        			</div>
 					        		</div>
 
 					        		<div class="chatter_clear"></div>
@@ -133,8 +145,12 @@
 
 						        <!-- BODY -->
 						    	<div id="editor">
-									<label id="tinymce_placeholder">Add the content for your Discussion here</label>
-									<textarea id="body" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
+									@if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
+										<label id="tinymce_placeholder">Add the content for your Discussion here</label>
+					    				<textarea id="body" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
+					    			@elseif($chatter_editor == 'simplemde')
+					    				<textarea id="simplemde" name="body" placeholder="">{{ old('body') }}</textarea>
+					    			@endif
 								</div>
 
 						        <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -162,47 +178,64 @@
 
 </div>
 
-<input type="hidden" id="chatter_tinymce_toolbar" value="{{ Config::get('chatter.tinymce.toolbar') }}">
-<input type="hidden" id="chatter_tinymce_plugins" value="{{ Config::get('chatter.tinymce.plugins') }}">
+@if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
+	<input type="hidden" id="chatter_tinymce_toolbar" value="{{ Config::get('chatter.tinymce.toolbar') }}">
+	<input type="hidden" id="chatter_tinymce_plugins" value="{{ Config::get('chatter.tinymce.plugins') }}">
+@endif
 
 @stop
 
 @section(Config::get('chatter.yields.footer'))
-<script src="/vendor/devdojo/chatter/assets/vendor/tinymce/tinymce.min.js"></script>
-<script src="/vendor/devdojo/chatter/assets/js/tinymce.js"></script>
+
+@if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
+	<script src="/vendor/devdojo/chatter/assets/vendor/tinymce/tinymce.min.js"></script>
+	<script src="/vendor/devdojo/chatter/assets/js/tinymce.js"></script>
+	<script>
+		var my_tinymce = tinyMCE;
+		var chatter_editor = 'tinymce';
+		$('document').ready(function(){
+
+			$('#tinymce_placeholder').click(function(){
+				my_tinymce.activeEditor.focus();
+			});
+
+		});
+	</script>
+@elseif($chatter_editor == 'simplemde')
+	<script src="/vendor/devdojo/chatter/assets/js/simplemde.min.js"></script>
+	<script src="/vendor/devdojo/chatter/assets/js/chatter_simplemde.js"></script>
+	<script>var chatter_editor = 'simplemde';</script>
+@endif
+
 <script>
-	var my_tinymce = tinyMCE;
 	$('document').ready(function(){
 
-		$('#submit_response').click(function(){
-			$('#chatter_form_editor').submit();
-		});
+		var simplemdeEditors = [];
 
-		$('#tinymce_placeholder').click(function(){
-			my_tinymce.activeEditor.focus();
-		});
-
-	});
-</script>
-
-<script>
-
-
-
-	$('document').ready(function(){
 		$('.chatter_edit_btn').click(function(){
 			parent = $(this).parents('li');
 			parent.addClass('editing');
 			id = parent.data('id');
 			container = parent.find('.chatter_middle');
-			body = container.find('.chatter_body');
+
+			if(chatter_editor == 'simplemde'){
+				body = container.find('.chatter_body_md');
+			} else {
+				body = container.find('.chatter_body');
+			}
+
 			details = container.find('.chatter_middle_details');
 			
 			// dynamically create a new text area
 			container.prepend('<textarea id="post-edit-' + id + '">' + body.html() + '</textarea>');
 			container.append('<div class="chatter_update_actions"><button class="btn btn-success pull-right update_chatter_edit"  data-id="' + id + '"><i class="chatter-check"></i> Update Response</button><button href="/" class="btn btn-default pull-right cancel_chatter_edit" data-id="' + id + '">Cancel</button></div>');
 			
-			initializeNewEditor('post-edit-' + id);
+			// create new editor from text area
+			if(chatter_editor == 'tinymce'){
+				initializeNewEditor('post-edit-' + id);
+			} else if(chatter_editor == 'simplemde'){
+				simplemdeEditors['post-edit-' + id] = newSimpleMde(document.getElementById('post-edit-' + id));
+			}
 
 		});
 
@@ -210,7 +243,16 @@
 			post_id = $(e.target).data('id');
 			parent_li = $(e.target).parents('li');
 			parent_actions = $(e.target).parent('.chatter_update_actions');
-			tinymce.remove('#post-edit-' + post_id);
+			
+			if(chatter_editor == 'tinymce'){
+				tinymce.remove('#post-edit-' + post_id);
+			} else if(chatter_editor == 'simplemde'){
+				console.log(simplemdeEditors['post-edit-' + post_id]);
+				$(e.target).parents('li').find('.editor-toolbar').remove();
+				$(e.target).parents('li').find('.editor-preview-side').remove();
+				$(e.target).parents('li').find('.CodeMirror').remove();
+			}
+			
 			$('#post-edit-' + post_id).remove();
 			parent_actions.remove();
 
@@ -219,13 +261,24 @@
 
 		$('.discussions li').on('click', '.update_chatter_edit', function(e){
 			post_id = $(e.target).data('id');
-			update_body = tinyMCE.get('post-edit-' + post_id).getContent();
-			console.log(update_body);
+
+			if(chatter_editor == 'simplemde'){
+				update_body = simplemdeEditors['post-edit-' + post_id].value();
+			} else if(chatter_editor == 'tinymce'){
+				update_body = tinyMCE.get('post-edit-' + post_id).getContent();
+			}
+
 			$.form('/{{ Config::get('chatter.routes.home') }}/posts/' + post_id, { _token: '{{ csrf_token() }}', _method: 'PATCH', 'body' : update_body }, 'POST').submit();
 		});
 
+		$('#submit_response').click(function(){
+			$('#chatter_form_editor').submit();
+		});
 
-		// DELETE BUTTON
+		// ******************************
+		// DELETE FUNCTIONALITY
+		// ******************************
+
 		$('.chatter_delete_btn').click(function(){
 			parent = $(this).parents('li');
 			parent.addClass('delete_warning');

@@ -176,7 +176,12 @@ class ChatterDiscussionController extends Controller
         }
         $posts = Models::post()->with('user')->where('chatter_discussion_id', '=', $discussion->id)->orderBy('created_at', 'ASC')->paginate(10);
 
-        return view('chatter::discussion', compact('discussion', 'posts'));
+        $chatter_editor = config('chatter.editor');
+        
+        // Dynamically register markdown service provider
+        \App::register('GrahamCampbell\Markdown\MarkdownServiceProvider');
+
+        return view('chatter::discussion', compact('discussion', 'posts', 'chatter_editor'));
     }
 
     /**

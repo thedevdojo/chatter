@@ -416,7 +416,19 @@ body{
 					}
 
 					.chatter_body{
+						.chatter_body_md{
+							display:none;
+						}
 						padding-top:5px;
+						pre{
+							padding: 16px;
+						    overflow: auto;
+						    line-height: 1.45;
+						    background-color: #f7f7f7;
+						    border-radius: 3px;
+						    border:0px;
+						    margin:20px auto;
+						}
 					}
 					
 				}
@@ -572,6 +584,18 @@ body{
 	.conversation{
 		border-bottom:1px solid #f1fcff;
 		margin-bottom:20px;
+		ul.discussions{
+			li{
+				.chatter_posts{
+					.chatter_middle{
+						margin-left:0px;
+						padding-left:80px;
+						padding-right:0px;
+						width:100%;
+					}
+				} 
+			}
+		}
 	}
 
 	#cancel_discussion{
@@ -994,7 +1018,7 @@ div.mce-edit-area{
 
 /********** START SimpleMDE Overrides **********/
 
-#editor .editor-toolbar{
+#editor .editor-toolbar, .chatter_middle .editor-toolbar{
 	border-radius: 0px;
     border-color: #eee;
     a{
@@ -1005,19 +1029,15 @@ div.mce-edit-area{
     }
 }
 
-#editor .CodeMirror{
+#editor .CodeMirror, .chatter_middle .CodeMirror{
 	height:220px;
 	min-height:220px;
 	border-radius: 0px;
     border-color: #eee;
 }
 
-#editor .CodeMirror-scroll{
+#editor .CodeMirror-scroll, .chatter_middle .CodeMirror-scroll{
 	min-height:204px;
-}
-
-#editor .editor-statusbar{
-	display:none;
 }
 
 .simplemde{
@@ -1030,6 +1050,19 @@ div.mce-edit-area{
 	}
 }
 
+#chatter{
+	#new_response{
+		#new_discussion{
+			z-index:3;
+		}
+	}
+}
+
+#chatter{
+	.editor-toolbar.fullscreen{
+		z-index:9999;
+	}
+}
 /********** END SimpleMDE Overrides **********/
 
 
@@ -1105,3 +1138,10 @@ div.mce-edit-area{
 
 
 /********** END FONTS USED FOR CHATTER **********/
+
+
+/********** START Markdown CSS **********/
+
+
+
+/********** End Markdown CSS **********/

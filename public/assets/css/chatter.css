@@ -395,6 +395,20 @@ body {
 #chatter ul.discussions li .chatter_posts .chatter_middle .chatter_body {
   padding-top: 5px;
 }
+#chatter ul.discussions li a.discussion_list .chatter_middle .chatter_body .chatter_body_md,
+#chatter ul.discussions li .chatter_posts .chatter_middle .chatter_body .chatter_body_md {
+  display: none;
+}
+#chatter ul.discussions li a.discussion_list .chatter_middle .chatter_body pre,
+#chatter ul.discussions li .chatter_posts .chatter_middle .chatter_body pre {
+  padding: 16px;
+  overflow: auto;
+  line-height: 1.45;
+  background-color: #f7f7f7;
+  border-radius: 3px;
+  border: 0px;
+  margin: 20px auto;
+}
 #chatter ul.discussions li a.discussion_list .chatter_right,
 #chatter ul.discussions li .chatter_posts .chatter_right {
   float: right;
@@ -519,6 +533,12 @@ body {
 #chatter .conversation {
   border-bottom: 1px solid #f1fcff;
   margin-bottom: 20px;
+}
+#chatter .conversation ul.discussions li .chatter_posts .chatter_middle {
+  margin-left: 0px;
+  padding-left: 80px;
+  padding-right: 0px;
+  width: 100%;
 }
 #chatter #cancel_discussion {
   margin-right: 15px;
@@ -845,32 +865,40 @@ div.mce-edit-area {
 }
 /********** END TINYMCE Modifications **********/
 /********** START SimpleMDE Overrides **********/
-#editor .editor-toolbar {
+#editor .editor-toolbar,
+.chatter_middle .editor-toolbar {
   border-radius: 0px;
   border-color: #eee;
 }
-#editor .editor-toolbar a {
+#editor .editor-toolbar a,
+.chatter_middle .editor-toolbar a {
   outline: none;
 }
-#editor .editor-toolbar a:focus {
+#editor .editor-toolbar a:focus,
+.chatter_middle .editor-toolbar a:focus {
   outline: none;
 }
-#editor .CodeMirror {
+#editor .CodeMirror,
+.chatter_middle .CodeMirror {
   height: 220px;
   min-height: 220px;
   border-radius: 0px;
   border-color: #eee;
 }
-#editor .CodeMirror-scroll {
+#editor .CodeMirror-scroll,
+.chatter_middle .CodeMirror-scroll {
   min-height: 204px;
-}
-#editor .editor-statusbar {
-  display: none;
 }
 .simplemde #chatter #new_discussion {
   width: 100%;
   height: 100%;
   overflow: visible;
+}
+#chatter #new_response #new_discussion {
+  z-index: 3;
+}
+#chatter .editor-toolbar.fullscreen {
+  z-index: 9999;
 }
 /********** END SimpleMDE Overrides **********/
 /********** FONTS USED FOR CHATTER **********/
@@ -933,5 +961,7 @@ div.mce-edit-area {
   content: "\67";
 }
 /********** END FONTS USED FOR CHATTER **********/
+/********** START Markdown CSS **********/
+/********** End Markdown CSS **********/
 
 /*# sourceMappingURL=chatter.css.map */

@@ -95,7 +95,12 @@
 					        		<div class="chatter_middle">
 					        			<h3 class="chatter_middle_title">{{ $discussion->title }} <div class="chatter_cat" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</div></h3>
 					        			<span class="chatter_middle_details">Posted By: <span data-href="/user">{{ ucfirst($discussion->user->{Config::get('chatter.user.database_field_with_user_name')}) }}</span> {{ \Carbon\Carbon::createFromTimeStamp(strtotime($discussion->created_at))->diffForHumans() }}</span>
-					        			<p>{{ substr(strip_tags($discussion->post[0]->body), 0, 200) }}@if(strlen(strip_tags($discussion->post[0]->body)) > 200){{ '...' }}@endif</p>
+					        			@if($discussion->post[0]->markdown)
+					        				<?php $discussion_body = GrahamCampbell\Markdown\Facades\Markdown::convertToHtml( $discussion->post[0]->body ); ?>
+					        			@else
+					        				<?php $discussion_body = $discussion->post[0]->body; ?>
+					        			@endif
+					        			<p>{{ substr(strip_tags($discussion_body), 0, 200) }}@if(strlen(strip_tags($discussion_body)) > 200){{ '...' }}@endif</p>
 					        		</div>
 
 					        		<div class="chatter_right">
@@ -198,35 +203,9 @@
 	</script>
 @elseif($chatter_editor == 'simplemde')
 	<script src="/vendor/devdojo/chatter/assets/js/simplemde.min.js"></script>
-	<script>
-		var simplemde = new SimpleMDE({
-			autofocus: true,
-			element: document.getElementById("simplemde"),
-			placeholder: "Type Your Discussion Here...",
-		    hideIcons: ["guide", "preview"],
-		    spellChecker: false,
-		});
-
-		$('document').ready(function(){
-			$('.editor-toolbar .fa-columns').click(function(){
-				if(!$('body').hasClass('simplemde')){
-					$('body').addClass('simplemde');
-				}
-			});
-
-			$('.editor-toolbar .fa-arrows-alt').click(function(){
-				if($('body').hasClass('simplemde')){
-					$('body').removeClass('simplemde');
-				} else {
-					$('body').addClass('simplemde');
-				}
-			});
-		});
-		// simplemde is loaded
-        document.getElementById('new_discussion_loader').style.display = "none";
-		document.getElementById('chatter_form_editor').style.display = "block";
-	</script>
+	<script src="/vendor/devdojo/chatter/assets/js/chatter_simplemde.js"></script>
 @endif
+
 <script src="/vendor/devdojo/chatter/assets/vendor/spectrum/spectrum.js"></script>
 <script src="/vendor/devdojo/chatter/assets/js/chatter.js"></script>
 <script>

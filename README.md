@@ -69,11 +69,18 @@ To upgrade to the latest version of voyager simply run:
 composer update
 ```
 
-Next, you may want to re-publish the chatter assets or chatter config by running the following:
+Next, you may want to re-publish the chatter assets, chatter config, and the chatter migrations by running the following:
 
 ```
 php artisan vendor:publish --tag=chatter_assets --force
 php artisan vendor:publish --tag=chatter_config --force
+hp artisan vendor:publish --tag=chatter_migrations --force
+```
+
+Next to make sure you have the latest database schema run:
+
+```
+php artisan migrate
 ```
 
 And you'll be up-to-date with the latest version :)
