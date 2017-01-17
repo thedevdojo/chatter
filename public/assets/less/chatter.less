@@ -78,6 +78,10 @@ body{
 		margin-top:40px;
 	}
 
+	#title.form-control{
+		height:48px;
+	}
+
 	.form-control{
     	font-size: 16px;
     	border:0px;
@@ -96,7 +100,7 @@ body{
 	    left:50%;
 	    height:auto;
 	    background: #fff;
-	    z-index: 3;
+	    z-index: 9999;
 	    border-top-right-radius:5px;
 	    border-top-left-radius:5px;
 	    overflow:hidden;
@@ -986,6 +990,47 @@ div.mce-edit-area{
 }
 
 /********** END TINYMCE Modifications **********/
+
+
+/********** START SimpleMDE Overrides **********/
+
+#editor .editor-toolbar{
+	border-radius: 0px;
+    border-color: #eee;
+    a{
+    	outline:none;
+    	&:focus{
+    		outline:none;
+    	}
+    }
+}
+
+#editor .CodeMirror{
+	height:220px;
+	min-height:220px;
+	border-radius: 0px;
+    border-color: #eee;
+}
+
+#editor .CodeMirror-scroll{
+	min-height:204px;
+}
+
+#editor .editor-statusbar{
+	display:none;
+}
+
+.simplemde{
+	#chatter{
+		#new_discussion{
+			width: 100%;
+		    height: 100%;
+		    overflow: visible;
+		}
+	}
+}
+
+/********** END SimpleMDE Overrides **********/
 
 
 /********** FONTS USED FOR CHATTER **********/

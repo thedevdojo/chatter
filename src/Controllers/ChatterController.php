@@ -21,8 +21,9 @@ class ChatterController extends Controller
         }
 
         $categories = Models::category()->all();
+        $chatter_editor = config('chatter.editor');
 
-        return view('chatter::home', compact('discussions', 'categories'));
+        return view('chatter::home', compact('discussions', 'categories', 'chatter_editor'));
     }
 
     public function login()

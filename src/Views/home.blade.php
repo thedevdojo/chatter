@@ -3,6 +3,9 @@
 @section(Config::get('chatter.yields.head'))
     <link href="/vendor/devdojo/chatter/assets/vendor/spectrum/spectrum.css" rel="stylesheet">
 	<link href="/vendor/devdojo/chatter/assets/css/chatter.css" rel="stylesheet">
+	@if($chatter_editor == 'simplemde')
+		<link href="/vendor/devdojo/chatter/assets/css/simplemde.min.css" rel="stylesheet">
+	@endif
 @stop
 
 @section('content')
@@ -150,8 +153,12 @@
 
             <!-- BODY -->
         	<div id="editor">
-				<label id="tinymce_placeholder">Add the content for your Discussion here</label>
-    			<textarea id="body" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
+        		@if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
+					<label id="tinymce_placeholder">Add the content for your Discussion here</label>
+    				<textarea id="body" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
+    			@elseif($chatter_editor == 'simplemde')
+    				<textarea id="simplemde" name="body" placeholder="">{{ old('body') }}</textarea>
+    			@endif
     		</div>
 
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -168,26 +175,63 @@
 
 </div>
 
-<input type="hidden" id="chatter_tinymce_toolbar" value="{{ Config::get('chatter.tinymce.toolbar') }}">
-<input type="hidden" id="chatter_tinymce_plugins" value="{{ Config::get('chatter.tinymce.plugins') }}">
+@if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
+	<input type="hidden" id="chatter_tinymce_toolbar" value="{{ Config::get('chatter.tinymce.toolbar') }}">
+	<input type="hidden" id="chatter_tinymce_plugins" value="{{ Config::get('chatter.tinymce.plugins') }}">
+@endif
 
 @endsection
 
 @section(Config::get('chatter.yields.footer'))
 
 
+@if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
+	<script src="/vendor/devdojo/chatter/assets/vendor/tinymce/tinymce.min.js"></script>
+	<script src="/vendor/devdojo/chatter/assets/js/tinymce.js"></script>
+	<script>
+		var my_tinymce = tinyMCE;
+		$('document').ready(function(){
+			$('#tinymce_placeholder').click(function(){
+				my_tinymce.activeEditor.focus();
+			});
+		});
+	</script>
+@elseif($chatter_editor == 'simplemde')
+	<script src="/vendor/devdojo/chatter/assets/js/simplemde.min.js"></script>
+	<script>
+		var simplemde = new SimpleMDE({
+			autofocus: true,
+			element: document.getElementById("simplemde"),
+			placeholder: "Type Your Discussion Here...",
+		    hideIcons: ["guide", "preview"],
+		    spellChecker: false,
+		});
 
-<script src="/vendor/devdojo/chatter/assets/vendor/tinymce/tinymce.min.js"></script>
-<script src="/vendor/devdojo/chatter/assets/js/tinymce.js"></script>
+		$('document').ready(function(){
+			$('.editor-toolbar .fa-columns').click(function(){
+				if(!$('body').hasClass('simplemde')){
+					$('body').addClass('simplemde');
+				}
+			});
+
+			$('.editor-toolbar .fa-arrows-alt').click(function(){
+				if($('body').hasClass('simplemde')){
+					$('body').removeClass('simplemde');
+				} else {
+					$('body').addClass('simplemde');
+				}
+			});
+		});
+		// simplemde is loaded
+        document.getElementById('new_discussion_loader').style.display = "none";
+		document.getElementById('chatter_form_editor').style.display = "block";
+	</script>
+@endif
 <script src="/vendor/devdojo/chatter/assets/vendor/spectrum/spectrum.js"></script>
 <script src="/vendor/devdojo/chatter/assets/js/chatter.js"></script>
 <script>
-	var my_tinymce = tinyMCE;
 	$('document').ready(function(){
 
-		$('#tinymce_placeholder').click(function(){
-			my_tinymce.activeEditor.focus();
-		});
 		$('.chatter-close').click(function(){
 			$('#new_discussion').slideUp();
 		});
