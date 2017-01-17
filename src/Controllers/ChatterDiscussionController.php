@@ -184,6 +184,7 @@ class ChatterDiscussionController extends Controller
         return view('chatter::discussion', compact('discussion', 'posts', 'chatter_editor'));
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *

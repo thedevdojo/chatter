@@ -2,9 +2,7 @@
 
 @section(Config::get('chatter.yields.head'))
 	<link href="/vendor/devdojo/chatter/assets/css/chatter.css" rel="stylesheet">
-	@if($chatter_editor == 'simplemde')
-		<link href="/vendor/devdojo/chatter/assets/css/simplemde.min.css" rel="stylesheet">
-	@endif
+	<link href="/vendor/devdojo/chatter/assets/css/simplemde.min.css" rel="stylesheet">
 @stop
 
 
@@ -52,7 +50,7 @@
 				<div class="conversation">
 	                <ul class="discussions no-bg" style="display:block;">
 	                	@foreach($posts as $post)
-	                		<li data-id="{{ $post->id }}">
+	                		<li data-id="{{ $post->id }}" data-markdown="{{ $post->markdown }}">
 		                		<span class="chatter_posts">
 		                			@if(!Auth::guest() && (Auth::user()->id == $post->user->id))
 		                				<div id="delete_warning_{{ $post->id }}" class="chatter_warning_delete">
@@ -94,7 +92,8 @@
 					        			
 					        				@if($post->markdown)
 					        					<span class="chatter_body_md">{{ $post->body }}</span>
-					        					<?= GrahamCampbell\Markdown\Facades\Markdown::convertToHtml( $post->body ); ?>
+					        					<?= \DevDojo\Chatter\Helpers\ChatterHelper::demoteHtmlHeaderTags( GrahamCampbell\Markdown\Facades\Markdown::convertToHtml( $post->body ) ); ?>
+					        					<!--?= GrahamCampbell\Markdown\Facades\Markdown::convertToHtml( $post->body ); ?-->
 					        				@else
 					        					<?= $post->body; ?>
 					        				@endif
@@ -178,36 +177,37 @@
 
 </div>
 
-@if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
-	<input type="hidden" id="chatter_tinymce_toolbar" value="{{ Config::get('chatter.tinymce.toolbar') }}">
-	<input type="hidden" id="chatter_tinymce_plugins" value="{{ Config::get('chatter.tinymce.plugins') }}">
-@endif
+<input type="hidden" id="chatter_tinymce_toolbar" value="{{ Config::get('chatter.tinymce.toolbar') }}">
+<input type="hidden" id="chatter_tinymce_plugins" value="{{ Config::get('chatter.tinymce.plugins') }}">
 
 @stop
 
 @section(Config::get('chatter.yields.footer'))
 
 @if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
-	<script src="/vendor/devdojo/chatter/assets/vendor/tinymce/tinymce.min.js"></script>
-	<script src="/vendor/devdojo/chatter/assets/js/tinymce.js"></script>
-	<script>
-		var my_tinymce = tinyMCE;
-		var chatter_editor = 'tinymce';
-		$('document').ready(function(){
-
-			$('#tinymce_placeholder').click(function(){
-				my_tinymce.activeEditor.focus();
-			});
-
-		});
-	</script>
+	<script>var chatter_editor = 'tinymce';</script>
 @elseif($chatter_editor == 'simplemde')
-	<script src="/vendor/devdojo/chatter/assets/js/simplemde.min.js"></script>
-	<script src="/vendor/devdojo/chatter/assets/js/chatter_simplemde.js"></script>
 	<script>var chatter_editor = 'simplemde';</script>
 @endif
+<script src="/vendor/devdojo/chatter/assets/vendor/tinymce/tinymce.min.js"></script>
+<script src="/vendor/devdojo/chatter/assets/js/tinymce.js"></script>
+<script>
+	var my_tinymce = tinyMCE;
+	$('document').ready(function(){
+
+		$('#tinymce_placeholder').click(function(){
+			my_tinymce.activeEditor.focus();
+		});
+
+	});
+</script>
+
+<script src="/vendor/devdojo/chatter/assets/js/simplemde.min.js"></script>
+<script src="/vendor/devdojo/chatter/assets/js/chatter_simplemde.js"></script>
+
 
 <script>
+var obj ='asdf';
 	$('document').ready(function(){
 
 		var simplemdeEditors = [];
@@ -216,37 +216,40 @@
 			parent = $(this).parents('li');
 			parent.addClass('editing');
 			id = parent.data('id');
+			markdown = parent.data('markdown');
 			container = parent.find('.chatter_middle');
 
-			if(chatter_editor == 'simplemde'){
+			if(markdown){
 				body = container.find('.chatter_body_md');
 			} else {
 				body = container.find('.chatter_body');
+				markdown = 0;
 			}
 
 			details = container.find('.chatter_middle_details');
 			
 			// dynamically create a new text area
 			container.prepend('<textarea id="post-edit-' + id + '">' + body.html() + '</textarea>');
-			container.append('<div class="chatter_update_actions"><button class="btn btn-success pull-right update_chatter_edit"  data-id="' + id + '"><i class="chatter-check"></i> Update Response</button><button href="/" class="btn btn-default pull-right cancel_chatter_edit" data-id="' + id + '">Cancel</button></div>');
+			container.append('<div class="chatter_update_actions"><button class="btn btn-success pull-right update_chatter_edit"  data-id="' + id + '" data-markdown="' + markdown + '"><i class="chatter-check"></i> Update Response</button><button href="/" class="btn btn-default pull-right cancel_chatter_edit" data-id="' + id + '">Cancel</button></div>');
 			
 			// create new editor from text area
-			if(chatter_editor == 'tinymce'){
-				initializeNewEditor('post-edit-' + id);
-			} else if(chatter_editor == 'simplemde'){
+			if(markdown){
 				simplemdeEditors['post-edit-' + id] = newSimpleMde(document.getElementById('post-edit-' + id));
+			} else {
+				initializeNewEditor('post-edit-' + id);
 			}
 
 		});
 
 		$('.discussions li').on('click', '.cancel_chatter_edit', function(e){
 			post_id = $(e.target).data('id');
+			markdown = $(e.target).data('markdown');
 			parent_li = $(e.target).parents('li');
 			parent_actions = $(e.target).parent('.chatter_update_actions');
 			
-			if(chatter_editor == 'tinymce'){
+			if(!markdown){
 				tinymce.remove('#post-edit-' + post_id);
-			} else if(chatter_editor == 'simplemde'){
+			} else {
 				console.log(simplemdeEditors['post-edit-' + post_id]);
 				$(e.target).parents('li').find('.editor-toolbar').remove();
 				$(e.target).parents('li').find('.editor-preview-side').remove();
@@ -261,10 +264,13 @@
 
 		$('.discussions li').on('click', '.update_chatter_edit', function(e){
 			post_id = $(e.target).data('id');
+			markdown = $(e.target).data('markdown');
+			obj = $(e.target);
+			console.log(markdown);
 
-			if(chatter_editor == 'simplemde'){
+			if(markdown){
 				update_body = simplemdeEditors['post-edit-' + post_id].value();
-			} else if(chatter_editor == 'tinymce'){
+			} else {
 				update_body = tinyMCE.get('post-edit-' + post_id).getContent();
 			}
 
