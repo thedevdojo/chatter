@@ -7,7 +7,9 @@
             "email": "tony@devdojo.com"
         }
     ],
-    "require": {},
+    "require": {
+        "graham-campbell/markdown": "^7.0"
+    },
     "require-dev": {
         "illuminate/cache": "~5.1.20|5.2.*|5.3.*",
         "illuminate/console": "~5.1.20|5.2.*|5.3.*",
