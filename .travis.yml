@@ -39,8 +39,9 @@ before_script:
   # CD into the new laravel app
   - cd chatter-app
 
-  # Include Chatter Package
+  # Include Chatter Package & Markdown package
   - composer require devdojo/chatter dev-master
+  - composer require graham-campbell/markdown
 
   # Remove the current version
   - rm -rf vendor/devdojo/chatter
