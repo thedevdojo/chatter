@@ -228,7 +228,7 @@ return [
     */
 
     'email' => [
-        'enabled' => true,
+        'enabled' => false,
         'view'    => 'chatter::email',
     ],
 

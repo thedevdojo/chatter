@@ -12,7 +12,7 @@ Quick Note: If this is a new project, make sure to install the default user auth
 1. Include the package in your project
 
     ```
-    composer require "devdojo/chatter=0.1.*"
+    composer require "devdojo/chatter=0.2.*"
     ```
 
 2. Add the service provider to your `config/app.php` providers array:
@@ -63,7 +63,13 @@ Now, visit your site.com/forums and you should see your new forum in front of yo
 
 ### Upgrading
 
-To upgrade to the latest version of voyager simply run:
+Make sure that your composer.json file is requiring the latest version of chatter:
+
+```
+"devdojo/chatter": "0.2.*"
+```
+
+Then you'll run:
 
 ```
 composer update
