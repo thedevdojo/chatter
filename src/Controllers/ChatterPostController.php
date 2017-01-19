@@ -128,7 +128,7 @@ class ChatterPostController extends Controller
     {
         $users = $discussion->users->except(Auth::user()->id);
         foreach ($users as $user) {
-            Mail::to($user)->send(new ChatterDiscussionUpdated($discussion));
+            Mail::to($user)->queue(new ChatterDiscussionUpdated($discussion));
         }
     }
 
