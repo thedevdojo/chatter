@@ -4,11 +4,11 @@ namespace DevDojo\Chatter\Controllers;
 
 use Auth;
 use Carbon\Carbon;
+use DevDojo\Chatter\Mail\ChatterDiscussionUpdated;
 use DevDojo\Chatter\Models\Models;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Routing\Controller as Controller;
-use DevDojo\Chatter\Mail\ChatterDiscussionUpdated;
+use Illuminate\Support\Facades\Mail;
 use Validator;
 
 class ChatterPostController extends Controller
@@ -69,7 +69,7 @@ class ChatterPostController extends Controller
 
         $request->request->add(['user_id' => Auth::user()->id]);
 
-        if(config('chatter.editor') == 'simplemde'):
+        if (config('chatter.editor') == 'simplemde'):
             $request->request->add(['markdown' => 1]);
         endif;
 
@@ -88,7 +88,7 @@ class ChatterPostController extends Controller
             }
 
             // if email notifications are enabled
-            if(config('chatter.email.enabled')){
+            if (config('chatter.email.enabled')) {
                 // Send email notifications about new post
                 $this->sendEmailNotifications($new_post->discussion);
             }
@@ -124,13 +124,12 @@ class ChatterPostController extends Controller
         return false;
     }
 
-    private function sendEmailNotifications($discussion){
-
+    private function sendEmailNotifications($discussion)
+    {
         $users = $discussion->users->except(Auth::user()->id);
-        foreach($users as $user){
-            Mail::to( $user )->send(new ChatterDiscussionUpdated($discussion));
+        foreach ($users as $user) {
+            Mail::to($user)->send(new ChatterDiscussionUpdated($discussion));
         }
-          
     }
 
     /**

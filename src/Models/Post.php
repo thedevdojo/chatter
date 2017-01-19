@@ -19,5 +19,4 @@ class Post extends Model
     {
         return $this->belongsTo(config('chatter.user.namespace'));
     }
-    
 }
