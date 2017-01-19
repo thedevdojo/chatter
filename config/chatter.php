@@ -53,8 +53,8 @@ return [
     |
     */
 
-    'headline'    => 'Welcome to Chatter',
-    'description' => 'A simple forum package for your Laravel app.',
+    'headline'      => 'Welcome to Chatter',
+    'description'   => 'A simple forum package for your Laravel app.',
     'headline_logo' => '/vendor/devdojo/chatter/assets/images/logo-light.png',
 
     /*
@@ -191,7 +191,6 @@ return [
 
     'editor' => 'simplemde',
 
-
     /*
     |--------------------------------------------------------------------------
     | TinyMCE WYSIWYG Editor Options (Must be the selected editor)
@@ -224,13 +223,13 @@ return [
     | The following are settings that you can use to modify the email settings
     |   - enabled (if you would like to enable or disable email notifications)
     |   - view (the email view sent) $discussion var is passed to view
-    |   - 
+    |   -
     |
     */
 
     'email' => [
         'enabled' => true,
-        'view' => 'chatter::email'
+        'view'    => 'chatter::email',
     ],
 
     /*
