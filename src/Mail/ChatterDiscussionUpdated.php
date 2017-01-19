@@ -2,11 +2,10 @@
 
 namespace DevDojo\Chatter\Mail;
 
+use DevDojo\Chatter\Models\Discussion;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use DevDojo\Chatter\Models\Discussion;
 
 class ChatterDiscussionUpdated extends Mailable
 {
