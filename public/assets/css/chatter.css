@@ -15,9 +15,6 @@ body {
 	 */
   /********** END LOADER **********/
 }
-#chatter #title {
-  padding: 25px 20px;
-}
 #chatter .margin-top {
   margin-top: 40px;
 }
@@ -41,6 +38,12 @@ body {
   position: relative;
   background-size: cover;
   background-position: center center;
+  text-align: center;
+}
+#chatter #chatter_hero img {
+  max-height: 60px;
+  margin: 45px auto;
+  position: relative;
 }
 #chatter #chatter_hero #chatter_hero_dimmer {
   background: rgba(0, 0, 0, 0.2);
@@ -68,6 +71,9 @@ body {
 #chatter .chatter_container {
   margin-top: 40px;
 }
+#chatter #title.form-control {
+  height: 48px;
+}
 #chatter .form-control {
   font-size: 16px;
   border: 0px;
@@ -85,7 +91,7 @@ body {
   left: 50%;
   height: auto;
   background: #fff;
-  z-index: 3;
+  z-index: 9999;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
   overflow: hidden;
@@ -389,6 +395,20 @@ body {
 #chatter ul.discussions li .chatter_posts .chatter_middle .chatter_body {
   padding-top: 5px;
 }
+#chatter ul.discussions li a.discussion_list .chatter_middle .chatter_body .chatter_body_md,
+#chatter ul.discussions li .chatter_posts .chatter_middle .chatter_body .chatter_body_md {
+  display: none;
+}
+#chatter ul.discussions li a.discussion_list .chatter_middle .chatter_body pre,
+#chatter ul.discussions li .chatter_posts .chatter_middle .chatter_body pre {
+  padding: 16px;
+  overflow: auto;
+  line-height: 1.45;
+  background-color: #f7f7f7;
+  border-radius: 3px;
+  border: 0px;
+  margin: 20px auto;
+}
 #chatter ul.discussions li a.discussion_list .chatter_right,
 #chatter ul.discussions li .chatter_posts .chatter_right {
   float: right;
@@ -514,6 +534,12 @@ body {
   border-bottom: 1px solid #f1fcff;
   margin-bottom: 20px;
 }
+#chatter .conversation ul.discussions li .chatter_posts .chatter_middle {
+  margin-left: 0px;
+  padding-left: 80px;
+  padding-right: 0px;
+  width: 100%;
+}
 #chatter #cancel_discussion {
   margin-right: 15px;
 }
@@ -548,7 +574,6 @@ body {
   color: #777;
   position: relative;
   left: -10px;
-  padding: 0 !important;
 }
 #chatter .chatter_cat {
   padding-left: 10px;
@@ -839,6 +864,43 @@ div.mce-edit-area {
   background: #21292f !important;
 }
 /********** END TINYMCE Modifications **********/
+/********** START SimpleMDE Overrides **********/
+#editor .editor-toolbar,
+.chatter_middle .editor-toolbar {
+  border-radius: 0px;
+  border-color: #eee;
+}
+#editor .editor-toolbar a,
+.chatter_middle .editor-toolbar a {
+  outline: none;
+}
+#editor .editor-toolbar a:focus,
+.chatter_middle .editor-toolbar a:focus {
+  outline: none;
+}
+#editor .CodeMirror,
+.chatter_middle .CodeMirror {
+  height: 220px;
+  min-height: 220px;
+  border-radius: 0px;
+  border-color: #eee;
+}
+#editor .CodeMirror-scroll,
+.chatter_middle .CodeMirror-scroll {
+  min-height: 204px;
+}
+.simplemde #chatter #new_discussion {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+#chatter #new_response #new_discussion {
+  z-index: 3;
+}
+#chatter .editor-toolbar.fullscreen {
+  z-index: 9999;
+}
+/********** END SimpleMDE Overrides **********/
 /********** FONTS USED FOR CHATTER **********/
 @font-face {
   font-family: "chatter";
@@ -899,5 +961,150 @@ div.mce-edit-area {
   content: "\67";
 }
 /********** END FONTS USED FOR CHATTER **********/
+/********** START Toggle Switch CSS **********/
+#notify_email {
+  border-radius: 30px;
+  height: 34px;
+  width: auto;
+  padding-left: 10px;
+  background: #f1f1f1;
+  float: right;
+  margin-top: 20px;
+  margin-right: 10px;
+  padding-left: 15px;
+  color: #aaa;
+  /* The switch - the box around the slider */
+}
+#notify_email > span {
+  line-height: 35px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+}
+#notify_email .chatter_email_loader {
+  display: none;
+  position: relative;
+  top: -1px;
+  left: -4px;
+}
+#notify_email .chatter_email_loader.loading {
+  display: block;
+  float: left;
+  top: 9px;
+}
+#notify_email .switch {
+  position: relative;
+  display: inline-block;
+  width: 56px;
+  height: 28px;
+  top: 2px;
+  right: 3px;
+  float: right;
+  margin-left: 15px;
+  /* Hide default HTML checkbox */
+  /* The slider */
+  /* Rounded sliders */
+}
+#notify_email .switch input {
+  display: none;
+}
+#notify_email .switch span {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+}
+#notify_email .switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+#notify_email .switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 6px;
+  top: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+#notify_email .switch input:checked ~ .slider {
+  background-color: #27ae60;
+}
+#notify_email .switch input:not(:checked) ~ span.on {
+  display: none;
+}
+#notify_email .switch input:checked ~ span.on {
+  position: absolute;
+  z-index: 9;
+  color: #fff;
+  top: 3px;
+  left: 6px;
+}
+#notify_email .switch input:checked ~ span.off {
+  display: none;
+  -webkit-transition: opacity 1s linear;
+  transition: opacity 1s linear;
+}
+#notify_email .switch input:not(:checked) ~ span.off {
+  display: block;
+  right: 7px;
+  position: absolute;
+  color: #999;
+  z-index: 9;
+  font-weight: bold;
+  top: 3px;
+  opacity: 1;
+}
+#notify_email .switch input:focus ~ .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+#notify_email .switch input:checked ~ .slider:before {
+  -webkit-transform: translateX(26px);
+  transform: translateX(26px);
+}
+#notify_email .switch .slider.round {
+  border-radius: 34px;
+}
+#notify_email .switch .slider.round:before {
+  border-radius: 50%;
+}
+/********** End Toggle Switch CSS **********/
+#pagination {
+  font-size: 18px;
+}
+#pagination .pagination > .active > span {
+  background: none;
+  color: #333;
+  font-weight: bold;
+  border: 0px;
+}
+#pagination .pagination > .disabled > span {
+  border: 0px;
+  color: #ccc;
+}
+#pagination .pagination > li > a,
+#pagination .pagination > li > span {
+  border: 0px;
+  padding: 6px 5px;
+  color: #777;
+}
+#pagination .pagination > li > a:focus,
+#pagination .pagination > li > a:hover,
+#pagination .pagination > li > span:focus,
+#pagination .pagination > li > span:hover {
+  background: none;
+  font-weight: bold;
+}
 
 /*# sourceMappingURL=chatter.css.map */

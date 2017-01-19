@@ -8,7 +8,7 @@ class Post extends Model
 {
     protected $table = 'chatter_post';
     public $timestamps = true;
-    protected $fillable = ['chatter_discussion_id', 'user_id', 'body'];
+    protected $fillable = ['chatter_discussion_id', 'user_id', 'body', 'markdown'];
 
     public function discussion()
     {

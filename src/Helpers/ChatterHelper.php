@@ -66,4 +66,31 @@ class ChatterHelper
 
         return substr($url, $start, $length);
     }
+
+    /**
+     * This function will demote H1 to H2, H2 to H3, H4 to H5, etc.
+     * this will help with SEO so there are not multiple H1 tags
+     * on the same page.
+     *
+     * @param HTML string
+     *
+     * @return HTML string
+     */
+    public static function demoteHtmlHeaderTags($html)
+    {
+        $originalHeaderTags = [];
+        $demotedHeaderTags = [];
+
+        foreach (range(100, 1) as $index) {
+            $originalHeaderTags[] = '<h'.$index.'>';
+
+            $originalHeaderTags[] = '</h'.$index.'>';
+
+            $demotedHeaderTags[] = '<h'.($index + 1).'>';
+
+            $demotedHeaderTags[] = '</h'.($index + 1).'>';
+        }
+
+        return str_ireplace($originalHeaderTags, $demotedHeaderTags, $html);
+    }
 }

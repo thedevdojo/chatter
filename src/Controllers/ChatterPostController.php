@@ -4,9 +4,11 @@ namespace DevDojo\Chatter\Controllers;
 
 use Auth;
 use Carbon\Carbon;
+use DevDojo\Chatter\Mail\ChatterDiscussionUpdated;
 use DevDojo\Chatter\Models\Models;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as Controller;
+use Illuminate\Support\Facades\Mail;
 use Validator;
 
 class ChatterPostController extends Controller
@@ -66,6 +68,11 @@ class ChatterPostController extends Controller
         }
 
         $request->request->add(['user_id' => Auth::user()->id]);
+
+        if (config('chatter.editor') == 'simplemde'):
+            $request->request->add(['markdown' => 1]);
+        endif;
+
         $new_post = Models::post()->create($request->all());
 
         $discussion = Models::discussion()->find($request->chatter_discussion_id);
@@ -79,6 +86,13 @@ class ChatterPostController extends Controller
             if (function_exists('chatter_after_new_response')) {
                 chatter_after_new_response($request);
             }
+
+            // if email notifications are enabled
+            if (config('chatter.email.enabled')) {
+                // Send email notifications about new post
+                $this->sendEmailNotifications($new_post->discussion);
+            }
+
             $chatter_alert = [
                 'chatter_alert_type' => 'success',
                 'chatter_alert'      => 'Response successfully submitted to '.config('chatter.titles.discussion').'.',
@@ -108,6 +122,14 @@ class ChatterPostController extends Controller
         }
 
         return false;
+    }
+
+    private function sendEmailNotifications($discussion)
+    {
+        $users = $discussion->users->except(Auth::user()->id);
+        foreach ($users as $user) {
+            Mail::to($user)->send(new ChatterDiscussionUpdated($discussion));
+        }
     }
 
     /**

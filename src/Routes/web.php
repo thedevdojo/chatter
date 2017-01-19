@@ -97,6 +97,12 @@ Route::group([
             'middleware' => $middleware('discussion.show'),
         ]);
 
+        // Add user notification to discussion
+        Route::post('{category}/{slug}/email', [
+            'as'         => 'email',
+            'uses'       => 'ChatterDiscussionController@toggleEmailNotification',
+        ]);
+
         /*
          * Specific discussion routes.
          */

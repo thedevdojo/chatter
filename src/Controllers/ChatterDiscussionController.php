@@ -176,7 +176,12 @@ class ChatterDiscussionController extends Controller
         }
         $posts = Models::post()->with('user')->where('chatter_discussion_id', '=', $discussion->id)->orderBy('created_at', 'ASC')->paginate(10);
 
-        return view('chatter::discussion', compact('discussion', 'posts'));
+        $chatter_editor = config('chatter.editor');
+
+        // Dynamically register markdown service provider
+        \App::register('GrahamCampbell\Markdown\MarkdownServiceProvider');
+
+        return view('chatter::discussion', compact('discussion', 'posts', 'chatter_editor'));
     }
 
     /**
@@ -239,6 +244,28 @@ class ChatterDiscussionController extends Controller
         for ($nodeIdx = $nodeList->length; --$nodeIdx >= 0;) {
             $node = $nodeList->item($nodeIdx);
             $node->parentNode->removeChild($node);
+        }
+    }
+
+    public function toggleEmailNotification($category, $slug = null)
+    {
+        if (!isset($category) || !isset($slug)) {
+            return redirect(config('chatter.routes.home'));
+        }
+
+        $discussion = Models::discussion()->where('slug', '=', $slug)->first();
+
+        $user_id = Auth::user()->id;
+
+        // if it already exists, remove it
+        if ($discussion->users->contains($user_id)) {
+            $discussion->users()->detach($user_id);
+
+            return response()->json(0);
+        } else { // otherwise add it
+             $discussion->users()->attach($user_id);
+
+            return response()->json(1);
         }
     }
 }
