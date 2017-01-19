@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "graham-campbell/markdown": "^7.0"
+        "graham-campbell/markdown": ">=6.1"
     },
     "require-dev": {
         "illuminate/cache": "~5.1.20|5.2.*|5.3.*",
