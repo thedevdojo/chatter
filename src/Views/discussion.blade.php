@@ -246,7 +246,7 @@
 			
 			// dynamically create a new text area
 			container.prepend('<textarea id="post-edit-' + id + '">' + body.html() + '</textarea>');
-			container.append('<div class="chatter_update_actions"><button class="btn btn-success pull-right update_chatter_edit"  data-id="' + id + '" data-markdown="' + markdown + '"><i class="chatter-check"></i> Update Response</button><button href="/" class="btn btn-default pull-right cancel_chatter_edit" data-id="' + id + '">Cancel</button></div>');
+			container.append('<div class="chatter_update_actions"><button class="btn btn-success pull-right update_chatter_edit"  data-id="' + id + '" data-markdown="' + markdown + '"><i class="chatter-check"></i> Update Response</button><button href="/" class="btn btn-default pull-right cancel_chatter_edit" data-id="' + id + '"  data-markdown="' + markdown + '">Cancel</button></div>');
 			
 			// create new editor from text area
 			if(markdown){
@@ -262,11 +262,9 @@
 			markdown = $(e.target).data('markdown');
 			parent_li = $(e.target).parents('li');
 			parent_actions = $(e.target).parent('.chatter_update_actions');
-			
 			if(!markdown){
 				tinymce.remove('#post-edit-' + post_id);
 			} else {
-				console.log(simplemdeEditors['post-edit-' + post_id]);
 				$(e.target).parents('li').find('.editor-toolbar').remove();
 				$(e.target).parents('li').find('.editor-preview-side').remove();
 				$(e.target).parents('li').find('.CodeMirror').remove();
