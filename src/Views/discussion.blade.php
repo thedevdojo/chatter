@@ -110,6 +110,8 @@
 	                </ul>
 	            </div>
 
+	            <div id="pagination">{{ $posts->links() }}</div>
+
 	            @if(!Auth::guest())
 
 	            	<div id="new_response">
@@ -152,13 +154,27 @@
 					    			@endif
 								</div>
 
-						        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+						        <input type="hidden" name="_token" id="csrf_token_field" value="{{ csrf_token() }}">
 						        <input type="hidden" name="chatter_discussion_id" value="{{ $discussion->id }}">
 						    </form>
 
 						</div><!-- #new_discussion -->
-
-						<button id="submit_response" class="btn btn-success pull-right"><i class="chatter-new"></i> Submit Response</button>
+						<div id="discussion_response_email">
+							<button id="submit_response" class="btn btn-success pull-right"><i class="chatter-new"></i> Submit Response</button>
+							@if(Config::get('chatter.email.enabled'))
+								<div id="notify_email">
+									<img src="/vendor/devdojo/chatter/assets/images/email.gif" class="chatter_email_loader">
+									<!-- Rounded toggle switch -->
+									<span>Notify me when someone replies</span>
+									<label class="switch">
+									  	<input type="checkbox" id="email_notification" name="email_notification" @if(!Auth::guest() && $discussion->users->contains(Auth::user()->id)){{ 'checked' }}@endif>
+									  	<span class="on">Yes</span>
+										<span class="off">No</span>
+									  	<div class="slider round"></div>
+									</label>
+								</div>
+							@endif
+						</div>
 					</div>
 
 				@else
@@ -179,6 +195,7 @@
 
 <input type="hidden" id="chatter_tinymce_toolbar" value="{{ Config::get('chatter.tinymce.toolbar') }}">
 <input type="hidden" id="chatter_tinymce_plugins" value="{{ Config::get('chatter.tinymce.plugins') }}">
+<input type="hidden" id="current_path" value="{{ Request::path() }}">
 
 @stop
 
@@ -207,7 +224,6 @@
 
 
 <script>
-var obj ='asdf';
 	$('document').ready(function(){
 
 		var simplemdeEditors = [];
@@ -265,8 +281,6 @@ var obj ='asdf';
 		$('.discussions li').on('click', '.update_chatter_edit', function(e){
 			post_id = $(e.target).data('id');
 			markdown = $(e.target).data('markdown');
-			obj = $(e.target);
-			console.log(markdown);
 
 			if(markdown){
 				update_body = simplemdeEditors['post-edit-' + post_id].value();

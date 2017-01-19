@@ -36,4 +36,9 @@ class Discussion extends Model
         ->selectRaw('chatter_discussion_id, count(*)-1 as total')
         ->groupBy('chatter_discussion_id');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(config('chatter.user.namespace'), 'chatter_user_discussion', 'discussion_id', 'user_id');
+    }
 }

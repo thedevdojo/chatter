@@ -1140,8 +1140,164 @@ div.mce-edit-area{
 /********** END FONTS USED FOR CHATTER **********/
 
 
-/********** START Markdown CSS **********/
+/********** START Toggle Switch CSS **********/
 
+#notify_email{
+	border-radius:30px;
+	height:34px;
+	width:auto;
+	padding-left:10px;
+	background:#f1f1f1;
+	float:right;
+	margin-top: 20px;
+    margin-right: 10px;
+    padding-left: 15px;
+    color: #aaa;
+    > span{
+    	line-height:35px;
+    	-webkit-user-select: none;
+		-moz-user-select: none;
+		-khtml-user-select: none;
+		-ms-user-select: none;
+    }
 
+    .chatter_email_loader{
+    	display:none;
+    	position: relative;
+		top: -1px;
+		left: -4px;
+		&.loading{
+			display:block;
+		    float: left;
+		    top: 9px;
+		}
+    }
 
-/********** End Markdown CSS **********/
+	/* The switch - the box around the slider */
+	.switch {
+		position: relative;
+		display: inline-block;
+		width: 56px;
+		height: 28px;
+		top:2px;
+		right:3px;
+		float:right;
+		margin-left:15px;
+
+		/* Hide default HTML checkbox */
+		input {
+			display:none;
+		}
+
+		span{
+			cursor:pointer;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-khtml-user-select: none;
+			-ms-user-select: none;
+		}
+
+	  	/* The slider */
+		.slider {
+		  position: absolute;
+		  cursor: pointer;
+		  top: 0;
+		  left: 0;
+		  right: 0;
+		  bottom: 0;
+		  background-color: #ccc;
+		  -webkit-transition: .4s;
+		  transition: .4s;
+		}
+
+		.slider:before {
+		  position: absolute;
+		  content: "";
+		  height: 20px;
+		  width: 20px;
+		  left: 6px;
+		  top: 4px;
+		  background-color: white;
+		  -webkit-transition: .4s;
+		  transition: .4s;
+		}
+
+		input:checked ~ .slider {
+		  background-color: #27ae60;
+		}
+
+		input:not(:checked) ~ span.on{
+			display:none;
+		}
+
+		input:checked ~ span.on {
+			position: absolute;
+		    z-index: 9;
+		    color: #fff;
+		    top:3px;
+		    left:6px;
+		}
+
+		input:checked ~ span.off {
+			display:none;
+			transition:opacity 1s linear;
+		}
+
+		input:not(:checked) ~ span.off{
+			display: block;
+		    right: 7px;
+		    position: absolute;
+		    color: #999;
+		    z-index: 9;
+		    font-weight: bold;
+		    top: 3px;
+		    opacity:1;
+
+		}
+
+		input:focus ~ .slider {
+		  box-shadow: 0 0 1px #2196F3;
+		}
+
+		input:checked ~ .slider:before {
+		  -webkit-transform: translateX(26px);
+		  -ms-transform: translateX(26px);
+		  transform: translateX(26px);
+		}
+
+		/* Rounded sliders */
+		.slider.round {
+		  border-radius: 34px;
+		}
+
+		.slider.round:before {
+		  border-radius: 50%;
+		}
+
+	}
+}
+
+/********** End Toggle Switch CSS **********/
+
+#pagination{
+	font-size:18px;
+	.pagination>.active>span{
+		background: none;
+	    color: #333;
+	    font-weight: bold;
+	    border:0px;
+	}
+	.pagination>.disabled>span{
+		border:0px;
+		color:#ccc;
+	}
+	.pagination>li>a, .pagination>li>span{
+		border: 0px;
+    	padding: 6px 5px;
+    	color:#777;
+	}
+	.pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover{
+		background: none;
+    	font-weight: bold;
+	}
+}

@@ -247,4 +247,25 @@ class ChatterDiscussionController extends Controller
             $node->parentNode->removeChild($node);
         }
     }
+
+    public function toggleEmailNotification($category, $slug = null){
+        if (!isset($category) || !isset($slug)) {
+            return redirect(config('chatter.routes.home'));
+        }
+
+        $discussion = Models::discussion()->where('slug', '=', $slug)->first();
+
+        $user_id = Auth::user()->id;
+
+        // if it already exists, remove it
+        if($discussion->users->contains($user_id)){
+            $discussion->users()->detach($user_id);
+            return response()->json(0);
+        } else { // otherwise add it
+             $discussion->users()->attach($user_id);
+             return response()->json(1);
+        }
+
+       
+    }
 }

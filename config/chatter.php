@@ -189,7 +189,8 @@ return [
     |
     */
 
-    'editor' => 'tinymce',
+    'editor' => 'simplemde',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -213,6 +214,23 @@ return [
     'tinymce' => [
         'toolbar' => 'bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | link image',
         'plugins' => 'link, image',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Email Notification Settings
+    |--------------------------------------------------------------------------
+    |
+    | The following are settings that you can use to modify the email settings
+    |   - enabled (if you would like to enable or disable email notifications)
+    |   - view (the email view sent) $discussion var is passed to view
+    |   - 
+    |
+    */
+
+    'email' => [
+        'enabled' => true,
+        'view' => 'chatter::email'
     ],
 
     /*
