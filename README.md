@@ -96,6 +96,20 @@ php artisan migrate
 
 And you'll be up-to-date with the latest version :)
 
+### Markdown editor
+
+If you are going to make use of the markdown editor instead of tinymce you will need to change that in your config/chatter.php:
+
+```
+'editor' => 'simplemde',
+```
+
+In order to properly display the posts you will need to include the  `graham-campbell/markdown` library for Laravel:
+
+```
+composer require graham-campbell/markdown
+```
+
 ### VIDEOS
 
 [Introduction and Installation of Chatter](https://devdojo.com/episode/create-a-laravel-forum)
