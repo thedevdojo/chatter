@@ -5,7 +5,10 @@ if (typeof simplemdeOptions == 'undefined') {
 		placeholder: "Type Your Discussion Here...",
 	    hideIcons: ["guide", "preview"],
 	    spellChecker: false,
-	    status: false
+	    status: false,
+	    renderingConfig: {
+	        singleLineBreaks: true,
+	    },
 	};
 }
 
