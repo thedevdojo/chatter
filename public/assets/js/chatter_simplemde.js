@@ -6,9 +6,6 @@ if (typeof simplemdeOptions == 'undefined') {
 	    hideIcons: ["guide", "preview"],
 	    spellChecker: false,
 	    status: false,
-	    renderingConfig: {
-	        singleLineBreaks: true,
-	    },
 	};
 }
 

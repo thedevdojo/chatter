@@ -91,7 +91,7 @@
 					        			<div class="chatter_body">
 					        			
 					        				@if($post->markdown)
-					        					<span class="chatter_body_md">{{ $post->body }}</span>
+					        					<pre class="chatter_body_md">{{ $post->body }}</pre>
 					        					<?= \DevDojo\Chatter\Helpers\ChatterHelper::demoteHtmlHeaderTags( GrahamCampbell\Markdown\Facades\Markdown::convertToHtml( $post->body ) ); ?>
 					        					<!--?= GrahamCampbell\Markdown\Facades\Markdown::convertToHtml( $post->body ); ?-->
 					        				@else
