@@ -177,6 +177,10 @@ class ChatterDiscussionController extends Controller
         }
 
         $discussion = Models::discussion()->where('slug', '=', $slug)->first();
+        if (!$discussion) {
+            abort(404);
+        }
+
         $discussion_category = Models::category()->find($discussion->chatter_category_id);
         if ($category != $discussion_category->slug) {
             return redirect(config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$discussion_category->slug.'/'.$discussion->slug);
