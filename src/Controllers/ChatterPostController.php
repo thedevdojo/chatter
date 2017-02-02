@@ -4,8 +4,11 @@ namespace DevDojo\Chatter\Controllers;
 
 use Auth;
 use Carbon\Carbon;
+use DevDojo\Chatter\Events\ChatterAfterNewResponse;
+use DevDojo\Chatter\Events\ChatterBeforeNewResponse;
 use DevDojo\Chatter\Mail\ChatterDiscussionUpdated;
 use DevDojo\Chatter\Models\Models;
+use Event;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as Controller;
 use Illuminate\Support\Facades\Mail;
@@ -47,9 +50,7 @@ class ChatterPostController extends Controller
             'body' => 'required|min:10',
         ]);
 
-        if (function_exists('chatter_before_new_response')) {
-            chatter_before_new_response($request, $validator);
-        }
+        Event::fire(new ChatterBeforeNewResponse($request, $validator));
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
@@ -83,9 +84,7 @@ class ChatterPostController extends Controller
         }
 
         if ($new_post->id) {
-            if (function_exists('chatter_after_new_response')) {
-                chatter_after_new_response($request);
-            }
+            Event::fire(new ChatterAfterNewResponse($request));
 
             // if email notifications are enabled
             if (config('chatter.email.enabled')) {
