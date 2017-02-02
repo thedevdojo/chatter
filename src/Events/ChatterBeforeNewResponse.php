@@ -18,9 +18,9 @@ class ChatterBeforeNewResponse
     public $validator;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param Request $request
+     * @param Request   $request
      * @param Validator $validator
      */
     public function __construct(Request $request, Validator $validator)

@@ -12,7 +12,7 @@ class ChatterAfterNewDiscussion
     public $request;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param Request $request
      */
