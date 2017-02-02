@@ -64,6 +64,9 @@ class ChatterDiscussionController extends Controller
         ]);
 
         Event::fire(new ChatterBeforeNewDiscussion($request, $validator));
+        if (function_exists('chatter_before_new_discussion')) {
+            chatter_before_new_discussion($request, $validator);
+        }
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
@@ -131,6 +134,9 @@ class ChatterDiscussionController extends Controller
 
         if ($post->id) {
             Event::fire(new ChatterAfterNewDiscussion($request));
+            if (function_exists('chatter_after_new_discussion')) {
+                chatter_after_new_discussion($request);
+            }
 
             $chatter_alert = [
                 'chatter_alert_type' => 'success',
