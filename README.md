@@ -180,6 +180,31 @@ Create a new global function in your script called:
 function chatter_after_new_response($request){}
 ```
 
+### Laravel [Events](https://laravel.com/docs/events) for the forum
+
+This package provides a number of events allowing you to respond to user actions as they happen:
+
+| Event        | Available properties           | Description  |
+| ------------- |:-------------:| -----:|
+| `ChatterBeforeNewDiscussion`      | `Illuminate\Http\Request ($request)`, `Illuminate\Validation\Validator ($validator)` | This event is fired *before* a discussion is validated and created |
+| `ChatterAfterNewDiscussion`      | `Illuminate\Http\Request ($request)` | This event is fired *after* a discussion has been validated and created |
+| `ChatterBeforeNewResponse`      | `Illuminate\Http\Request ($request)`, `Illuminate\Validation\Validator ($validator)` | This event is fired *before* a response is validated and created |
+| `ChatterAfterNewResponse`      | `Illuminate\Http\Request ($request)` | This event is fired *after* a response is validated and created |
+
+#### Listening for Events
+To register your listeners for these events, follow the [Laravel documentation for registering events and listeners](https://laravel.com/docs/events#registering-events-and-listeners).
+For example, to register a listener for the "before new discussion" event, add the following to your `EventServiceProvider`:
+
+```php
+protected $listen = [
+    'DevDojo\Chatter\Events\ChatterBeforeNewDiscussion' => [
+        'App\Listeners\HandleNewDiscussion',
+    ],
+];
+```
+
+where `App\Listeners\HandleNewDiscussion` is a class in your application which handles the event when it's fired.
+
 ### Screenshots
 
 ![](https://raw.githubusercontent.com/thedevdojo/chatter/master/public/assets/images/chatter-screenshot.jpg)
