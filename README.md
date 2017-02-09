@@ -85,7 +85,7 @@ Next, you may want to re-publish the chatter assets, chatter config, and the cha
 ```
 php artisan vendor:publish --tag=chatter_assets --force
 php artisan vendor:publish --tag=chatter_config --force
-hp artisan vendor:publish --tag=chatter_migrations --force
+php artisan vendor:publish --tag=chatter_migrations --force
 ```
 
 Next to make sure you have the latest database schema run:
