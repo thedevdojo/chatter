@@ -68,9 +68,7 @@ before_script:
   - mv config/app-temp.php config/app.php
     
   # Temponary fix for testing with another charset
-  - sed 's/utf8, utf8mb4/g' config/database.php > config/database-temp.php
-  - rm config/database.php
-  - mv config/database-temp.php config/database.php
+  - php -r "file_put_contents('config/database.php', str_replace('utf8mb4', 'utf8', file_get_contents('config/database.php')));"
   
   # Install chatter
   - php artisan make:auth
