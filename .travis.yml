@@ -68,6 +68,7 @@ before_script:
   - mv config/app-temp.php config/app.php
     
   # Temponary fix for testing with another charset
+  - sudo apt-get install rpl
   - rpl -i -w "utf8mb4" "utf8" /home/travis/build/thedevdojo/chatter/config/database.php
   
   # Install chatter
