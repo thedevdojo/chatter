@@ -67,6 +67,9 @@ before_script:
   - rm config/app.php
   - mv config/app-temp.php config/app.php
     
+  # Temponary fix for testing with another charset
+  rpl -i -w "utf8mb4" "utf8" /home/travis/build/thedevdojo/chatter/config/database.php
+  
   # Install chatter
   - php artisan make:auth
   - php artisan vendor:publish
