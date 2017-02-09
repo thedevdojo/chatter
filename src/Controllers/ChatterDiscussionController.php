@@ -177,7 +177,7 @@ class ChatterDiscussionController extends Controller
         }
 
         $discussion = Models::discussion()->where('slug', '=', $slug)->first();
-        if (!$discussion) {
+        if (is_null($discussion)) {
             abort(404);
         }
 
