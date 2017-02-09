@@ -71,7 +71,7 @@ before_script:
   - php artisan make:auth
   - php artisan vendor:publish
   - composer dump-autoload
-  - php artisan migrate
+  - php artisan migrate --verbose
   - php artisan db:seed --class=ChatterTableSeeder
 
   # Remove the default phpunit.xml and replace it with chatter phpunit.xml
