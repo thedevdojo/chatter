@@ -98,6 +98,9 @@ body {
   /********** COLOR PICKER STYLE OVERRIDES **********/
   /********** END COLOR PICKER STYLE OVERRIDES **********/
 }
+@media only screen and (min-width: 239px) and (max-width: 749px) {
+    #new_discussion{ width: 95% !important; margin-left: -47.5% !important; }
+}
 #chatter #new_discussion form {
   display: none;
 }
