@@ -138,6 +138,8 @@ Since the forum uses your master layout file, you will need to include the neces
 ```
 @if( Request::is( Config::get('chatter.routes.home')) )
     <title>Title for your forum homepage -  Website Name</title>
+@elseif( Request::is( Config::get('chatter.routes.home') . '/' . Config::get('chatter.routes.category') . '/*' ) && isset( $discussion ) )
+    <title>{{ $discussion->category->name }} - Website Name</title>
 @elseif( Request::is( Config::get('chatter.routes.home') . '/*' ) && isset($discussion->title))
     <title>{{ $discussion->title }} - Website Name</title>
 @endif
