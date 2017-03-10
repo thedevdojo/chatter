@@ -28,11 +28,13 @@ return [
     |
     | These are some default titles (words) that will be used throughout your
     | forum. You can change these to whatever you would like :)
+    | 'discussions' is just the plural version of 'discussion'
     |
     */
 
     'titles' => [
         'discussion' => 'Discussion',
+        'discussions' => 'Discussions',
         'category'   => 'Category',
     ],
 
