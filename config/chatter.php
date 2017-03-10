@@ -33,9 +33,9 @@ return [
     */
 
     'titles' => [
-        'discussion' => 'Discussion',
+        'discussion'  => 'Discussion',
         'discussions' => 'Discussions',
-        'category'   => 'Category',
+        'category'    => 'Category',
     ],
 
    /*
