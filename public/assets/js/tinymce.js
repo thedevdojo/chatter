@@ -2,7 +2,7 @@ var chatter_tinymce_toolbar = $('#chatter_tinymce_toolbar').val();
 var chatter_tinymce_plugins = $('#chatter_tinymce_plugins').val();
 
 // Initiate the tinymce editor on any textarea with a class of richText
-tinymce.init({ 
+tinymce.init({
 	selector:'textarea.richText',
 	skin: 'chatter',
 	plugins: chatter_tinymce_plugins,
@@ -10,7 +10,7 @@ tinymce.init({
 	menubar: false,
 	statusbar: false,
 	height : "220",
-	content_css : "/css/app.css, /vendor/devdojo/chatter/assets/css/chatter.css",
+	content_css : "/vendor/devdojo/chatter/assets/css/chatter.css",
 	template_popup_height: 380,
 	setup: function (editor) {
         editor.on('init', function(args) {
@@ -35,7 +35,7 @@ tinymce.init({
 });
 
 function initializeNewEditor(id){
-    tinymce.init({ 
+    tinymce.init({
         selector:'#'+id,
         skin: 'chatter',
         plugins: chatter_tinymce_plugins,
@@ -43,7 +43,7 @@ function initializeNewEditor(id){
         menubar: false,
         statusbar: false,
         height : "300",
-        content_css : "/css/app.css, /vendor/devdojo/chatter/assets/css/chatter.css",
+        content_css : "/vendor/devdojo/chatter/assets/css/chatter.css",
         template_popup_height: 380
     });
 }
