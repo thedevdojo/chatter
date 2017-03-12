@@ -1,4 +1,4 @@
-@extends(Config::get('chatter.master_file_extend'))
+@extends(Config::get('chatter.master_file_extend'), ['title' => $discussion->title])
 
 @section(Config::get('chatter.yields.head'))
 	<link href="/vendor/devdojo/chatter/assets/css/chatter.css" rel="stylesheet">

@@ -1,4 +1,4 @@
-@extends(Config::get('chatter.master_file_extend'))
+@extends(Config::get('chatter.master_file_extend'), ['title' => Config::get('chatter.titles.discussions')])
 
 @section(Config::get('chatter.yields.head'))
     <link href="/vendor/devdojo/chatter/assets/vendor/spectrum/spectrum.css" rel="stylesheet">
