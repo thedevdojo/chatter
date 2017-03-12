@@ -32,8 +32,9 @@ return [
     */
 
     'titles' => [
-        'discussion' => 'Discussion',
-        'category'   => 'Category',
+        'discussion'  => 'Discussion',
+        'discussions' => 'Discussions',
+        'category'    => 'Category',
     ],
 
    /*
