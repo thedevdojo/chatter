@@ -245,7 +245,9 @@
 			details = container.find('.chatter_middle_details');
 			
 			// dynamically create a new text area
-			container.prepend('<textarea id="post-edit-' + id + '">' + body.html() + '</textarea>');
+			container.prepend('<textarea id="post-edit-' + id + '"></textarea>');
+            // Client side XSS fix
+            $("#post-edit-"+id).text(body.html());
 			container.append('<div class="chatter_update_actions"><button class="btn btn-success pull-right update_chatter_edit"  data-id="' + id + '" data-markdown="' + markdown + '"><i class="chatter-check"></i> Update Response</button><button href="/" class="btn btn-default pull-right cancel_chatter_edit" data-id="' + id + '"  data-markdown="' + markdown + '">Cancel</button></div>');
 			
 			// create new editor from text area
