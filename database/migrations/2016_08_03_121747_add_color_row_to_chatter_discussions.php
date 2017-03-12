@@ -14,7 +14,7 @@ class AddColorRowToChatterDiscussions extends Migration
     public function up()
     {
         Schema::table('chatter_discussion', function (Blueprint $table) {
-            $table->string('color', 20)->default('#232629');
+            $table->string('color', 20)->nullable()->default('#232629');
         });
     }
 
