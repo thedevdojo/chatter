@@ -106,7 +106,6 @@ return [
 
     'sidebar_in_discussion_view' => false,
 
-
     /*
     |--------------------------------------------------------------------------
     | Information about the forum User
