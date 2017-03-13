@@ -72,7 +72,7 @@ return [
     | include @yield('css').
     |
     | Next, before the ending body </body>, you will need to include the footer
-    | yeild like so @yield('js')
+    | yield like so @yield('js')
     |
     */
 
@@ -86,12 +86,26 @@ return [
     | The master layout file for your site
     |--------------------------------------------------------------------------
     |
-    | By default laravels master file is the layouts.app file, but if your
+    | By default Laravel's master file is the layouts.app file, but if your
     | master layout file is somewhere else, you can specify it below
     |
     */
 
     'master_file_extend' => 'layouts.app',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Sidebar option in discussion view
+    |--------------------------------------------------------------------------
+    |
+    | By default the sidebar is only included in home.blade.php
+    | if you set the value to true, it will also be included in
+    | discussion.blade.php
+    |
+    */
+
+    'sidebar_in_discussion_view' => false,
+
 
     /*
     |--------------------------------------------------------------------------
@@ -105,7 +119,7 @@ return [
     |
     |   *database_field_with_user_name*: This is the database field that
     |       is used for the users 'Name', could be 'username', 'first_name'.
-    |       This will appear next to the users avatar in disucssions
+    |       This will appear next to the user's avatar in discussions
     |
     |   *relative_url_to_profile*: Users may want to click on another users
     |       image to view their profile. If a users profile page is at
