@@ -177,7 +177,7 @@
 						        <!-- BODY -->
 						    	<div id="editor">
 									@if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
-										<label id="tinymce_placeholder">Add the content for your Discussion here</label>
+										<label id="tinymce_placeholder">Type Your Discussion Here...</label>
 					    				<textarea id="body" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
 					    			@elseif($chatter_editor == 'simplemde')
 					    				<textarea id="simplemde" name="body" placeholder="">{{ old('body') }}</textarea>
