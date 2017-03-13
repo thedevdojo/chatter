@@ -55,13 +55,13 @@ Quick Note: If this is a new project, make sure to install the default user auth
 7. Inside of your master.blade.php file include a header and footer yield. Inside the head of your master or app.blade.php add the following:
 
     ```
-    @yield('css')
+    @yield('styles')
     ```
 
     Then, right above the `</body>` tag of your master file add the following:
 
     ```
-    @yield('js')
+    @yield('scripts')
     ```
 
 Now, visit your site.com/forums and you should see your new forum in front of you!
