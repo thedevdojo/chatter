@@ -34,7 +34,7 @@ tinymce.init({
     }
 });
 
-function initializeNewEditor(id){
+function initializeNewTinyMCE(id){
     tinymce.init({
         selector:'#'+id,
         skin: 'chatter',
