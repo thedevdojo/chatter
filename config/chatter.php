@@ -187,6 +187,7 @@ return [
     | The following editors are supported:
     |   - tinymce    (https://www.tinymce.com/)
     |   - simplemde  (https://simplemde.com/)
+    |   - trumbowyg  (https://alex-d.github.io/Trumbowyg/) - requires jQuery >= 1.8
     |
     */
 

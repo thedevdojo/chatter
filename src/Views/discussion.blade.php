@@ -2,7 +2,16 @@
 
 @section(Config::get('chatter.yields.head'))
 	<link href="/vendor/devdojo/chatter/assets/css/chatter.css" rel="stylesheet">
-	<link href="/vendor/devdojo/chatter/assets/css/simplemde.min.css" rel="stylesheet">
+    @if($chatter_editor == 'simplemde')
+        <link href="/vendor/devdojo/chatter/assets/css/simplemde.min.css" rel="stylesheet">
+    @elseif($chatter_editor == 'trumbowyg')
+        <link href="/vendor/devdojo/chatter/assets/vendor/trumbowyg/ui/trumbowyg.css" rel="stylesheet">
+        <style>
+            .trumbowyg-box, .trumbowyg-editor {
+                margin: 0px auto;
+            }
+        </style>
+    @endif
 @stop
 
 
@@ -39,14 +48,14 @@
 		        </ul>
 		    </div>
 	    </div>
-	@endif	
+	@endif
 
 	<div class="container margin-top">
-		
+
 	    <div class="row">
 
 	        <div class="col-md-12">
-					
+
 				<div class="conversation">
 	                <ul class="discussions no-bg" style="display:block;">
 	                	@foreach($posts as $post)
@@ -69,9 +78,9 @@
 			                		@endif
 			                		<div class="chatter_avatar">
 					        			@if(Config::get('chatter.user.avatar_image_database_field'))
-					        				
+
 					        				<?php $db_field = Config::get('chatter.user.avatar_image_database_field'); ?>
-					        				
+
 					        				<!-- If the user db field contains http:// or https:// we don't need to use the relative path to the image assets -->
 					        				@if( (substr($post->user->{$db_field}, 0, 7) == 'http://') || (substr($post->user->{$db_field}, 0, 8) == 'https://') )
 					        					<img src="{{ $post->user->{$db_field}  }}">
@@ -89,7 +98,7 @@
 					        		<div class="chatter_middle">
 					        			<span class="chatter_middle_details"><a href="{{ \DevDojo\Chatter\Helpers\ChatterHelper::userLink($post->user) }}">{{ ucfirst($post->user->{Config::get('chatter.user.database_field_with_user_name')}) }}</a> <span class="ago chatter_middle_details">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</span></span>
 					        			<div class="chatter_body">
-					        			
+
 					        				@if($post->markdown)
 					        					<pre class="chatter_body_md">{{ $post->body }}</pre>
 					        					<?= \DevDojo\Chatter\Helpers\ChatterHelper::demoteHtmlHeaderTags( GrahamCampbell\Markdown\Facades\Markdown::convertToHtml( $post->body ) ); ?>
@@ -97,7 +106,7 @@
 					        				@else
 					        					<?= $post->body; ?>
 					        				@endif
-					        				
+
 					        			</div>
 					        		</div>
 
@@ -106,7 +115,7 @@
 		                	</li>
 	                	@endforeach
 
-	           
+
 	                </ul>
 	            </div>
 
@@ -120,7 +129,7 @@
 		        			@if(Config::get('chatter.user.avatar_image_database_field'))
 
 		        				<?php $db_field = Config::get('chatter.user.avatar_image_database_field'); ?>
-					        				
+
 		        				<!-- If the user db field contains http:// or https:// we don't need to use the relative path to the image assets -->
 		        				@if( (substr(Auth::user()->{$db_field}, 0, 7) == 'http://') || (substr(Auth::user()->{$db_field}, 0, 8) == 'https://') )
 		        					<img src="{{ Auth::user()->{$db_field}  }}">
@@ -136,7 +145,7 @@
 		        		</div>
 
 			            <div id="new_discussion">
-			        	
+
 
 					    	<div class="chatter_loader dark" id="new_discussion_loader">
 							    <div></div>
@@ -151,7 +160,9 @@
 					    				<textarea id="body" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
 					    			@elseif($chatter_editor == 'simplemde')
 					    				<textarea id="simplemde" name="body" placeholder="">{{ old('body') }}</textarea>
-					    			@endif
+									@elseif($chatter_editor == 'trumbowyg')
+										<textarea id="trumbowyg" name="body" placeholder="">{{ old('body') }}</textarea>
+									@endif
 								</div>
 
 						        <input type="hidden" name="_token" id="csrf_token_field" value="{{ csrf_token() }}">
@@ -203,25 +214,28 @@
 
 @if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
 	<script>var chatter_editor = 'tinymce';</script>
+    <script src="/vendor/devdojo/chatter/assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="/vendor/devdojo/chatter/assets/js/tinymce.js"></script>
+    <script>
+        var my_tinymce = tinyMCE;
+        $('document').ready(function(){
+
+            $('#tinymce_placeholder').click(function(){
+                my_tinymce.activeEditor.focus();
+            });
+
+        });
+    </script>
 @elseif($chatter_editor == 'simplemde')
 	<script>var chatter_editor = 'simplemde';</script>
+    <script src="/vendor/devdojo/chatter/assets/js/simplemde.min.js"></script>
+    <script src="/vendor/devdojo/chatter/assets/js/chatter_simplemde.js"></script>
+@elseif($chatter_editor == 'trumbowyg')
+	<script>var chatter_editor = 'trumbowyg';</script>
+    <script src="/vendor/devdojo/chatter/assets/vendor/trumbowyg/trumbowyg.min.js"></script>
+    <script src="/vendor/devdojo/chatter/assets/vendor/trumbowyg/plugins/preformatted/trumbowyg.preformatted.min.js"></script>
+    <script src="/vendor/devdojo/chatter/assets/js/trumbowyg.js"></script>
 @endif
-<script src="/vendor/devdojo/chatter/assets/vendor/tinymce/tinymce.min.js"></script>
-<script src="/vendor/devdojo/chatter/assets/js/tinymce.js"></script>
-<script>
-	var my_tinymce = tinyMCE;
-	$('document').ready(function(){
-
-		$('#tinymce_placeholder').click(function(){
-			my_tinymce.activeEditor.focus();
-		});
-
-	});
-</script>
-
-<script src="/vendor/devdojo/chatter/assets/js/simplemde.min.js"></script>
-<script src="/vendor/devdojo/chatter/assets/js/chatter_simplemde.js"></script>
-
 
 <script>
 	$('document').ready(function(){
@@ -243,18 +257,22 @@
 			}
 
 			details = container.find('.chatter_middle_details');
-			
+
 			// dynamically create a new text area
 			container.prepend('<textarea id="post-edit-' + id + '"></textarea>');
             // Client side XSS fix
             $("#post-edit-"+id).text(body.html());
 			container.append('<div class="chatter_update_actions"><button class="btn btn-success pull-right update_chatter_edit"  data-id="' + id + '" data-markdown="' + markdown + '"><i class="chatter-check"></i> Update Response</button><button href="/" class="btn btn-default pull-right cancel_chatter_edit" data-id="' + id + '"  data-markdown="' + markdown + '">Cancel</button></div>');
-			
+
 			// create new editor from text area
 			if(markdown){
 				simplemdeEditors['post-edit-' + id] = newSimpleMde(document.getElementById('post-edit-' + id));
 			} else {
-				initializeNewEditor('post-edit-' + id);
+                @if($chatter_editor == 'tinymce' || empty($chatter_editor))
+                    initializeNewTinyMCE('post-edit-' + id);
+                @elseif($chatter_editor == 'trumbowyg')
+                    initializeNewTrumbowyg('post-edit-' + id);
+                @endif
 			}
 
 		});
@@ -265,13 +283,17 @@
 			parent_li = $(e.target).parents('li');
 			parent_actions = $(e.target).parent('.chatter_update_actions');
 			if(!markdown){
-				tinymce.remove('#post-edit-' + post_id);
+                @if($chatter_editor == 'tinymce' || empty($chatter_editor))
+                    tinymce.remove('#post-edit-' + post_id);
+                @elseif($chatter_editor == 'trumbowyg')
+                    $(e.target).parents('li').find('.trumbowyg').fadeOut();
+                @endif
 			} else {
 				$(e.target).parents('li').find('.editor-toolbar').remove();
 				$(e.target).parents('li').find('.editor-preview-side').remove();
 				$(e.target).parents('li').find('.CodeMirror').remove();
 			}
-			
+
 			$('#post-edit-' + post_id).remove();
 			parent_actions.remove();
 
@@ -285,7 +307,11 @@
 			if(markdown){
 				update_body = simplemdeEditors['post-edit-' + post_id].value();
 			} else {
-				update_body = tinyMCE.get('post-edit-' + post_id).getContent();
+                @if($chatter_editor == 'tinymce' || empty($chatter_editor))
+                    update_body = tinyMCE.get('post-edit-' + post_id).getContent();
+                @elseif($chatter_editor == 'trumbowyg')
+                    update_body = $('#post-edit-' + id).trumbowyg('html');
+                @endif
 			}
 
 			$.form('/{{ Config::get('chatter.routes.home') }}/posts/' + post_id, { _token: '{{ csrf_token() }}', _method: 'PATCH', 'body' : update_body }, 'POST').submit();
