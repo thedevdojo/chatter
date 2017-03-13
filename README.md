@@ -110,15 +110,15 @@ In order to properly display the posts you will need to include the  `graham-cam
 composer require graham-campbell/markdown
 ```
 
-### Turbowyg editor
+### Trumbowyg editor
 
-If you are going to use Turbowyg as your editor of choice you will need to change that in your config/chatter.php:
+If you are going to use Trumbowyg as your editor of choice you will need to change that in your config/chatter.php:
 
 ```
-'editor' => 'turbowyg',
+'editor' => 'trumbowyg',
 ```
 
-Turbowyg requires jQuery >= 1.8 to be included.
+Trumbowyg requires jQuery >= 1.8 to be included.
 
 ### VIDEOS
 
