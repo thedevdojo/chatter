@@ -39,6 +39,17 @@ class ChatterServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        /*
+         * Register the service provider for the dependency.
+         */
+        $this->app->register('LukeTowers\Purifier\PurifierServiceProvider');
+
+        /*
+         * Create aliases for the dependency.
+         */
+        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+        $loader->alias('Purifier', 'LukeTowers\Purifier\Facades\Purifier');
+
         $this->loadViewsFrom(__DIR__.'/Views', 'chatter');
     }
 }
