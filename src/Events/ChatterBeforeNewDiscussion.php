@@ -3,7 +3,7 @@
 namespace DevDojo\Chatter\Events;
 
 use Illuminate\Http\Request;
-use Validator;
+use Illuminate\Validation\Validator;
 
 class ChatterBeforeNewDiscussion
 {
