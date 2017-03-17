@@ -48,7 +48,7 @@ class ChatterServiceProvider extends ServiceProvider
          * Create aliases for the dependency.
          */
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-        $loader->alias('Purifier', 'LukeTowers\Purifier\Facades\Purifier');
+        $loader->alias('Purifier', 'LukeTowers\Purifier\Facades\Purifier::class');
 
         $this->loadViewsFrom(__DIR__.'/Views', 'chatter');
     }
