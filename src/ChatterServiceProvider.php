@@ -42,7 +42,7 @@ class ChatterServiceProvider extends ServiceProvider
         /*
          * Register the service provider for the dependency.
          */
-        $this->app->register('LukeTowers\Purifier\PurifierServiceProvider');
+        $this->app->register('LukeTowers\Purifier\PurifierServiceProvider::class');
 
         /*
          * Create aliases for the dependency.
