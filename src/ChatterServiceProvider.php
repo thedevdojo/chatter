@@ -33,7 +33,7 @@ class ChatterServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/Lang' => resource_path('lang/vendor/chatter'),
-        ]);
+        ], 'chatter_lang');
 
         // include the routes file
         include __DIR__.'/Routes/web.php';
