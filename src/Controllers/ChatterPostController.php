@@ -61,11 +61,11 @@ class ChatterPostController extends Controller
 
         if (config('chatter.security.limit_time_between_posts')) {
             if ($this->notEnoughTimeBetweenPosts()) {
-                $minute_copy = (config('chatter.security.time_between_posts') == 1) ? ' minute' : ' minutes';
+                $minutes = trans_choice('chatter::messages.words.minutes', config('chatter.security.time_between_posts'));
                 $chatter_alert = [
                     'chatter_alert_type' => 'danger',
                     'chatter_alert'      => trans('chatter::alert.danger.reason.prevent_spam', [
-                                                'minutes' => config('chatter.security.time_between_posts') . $minute_copy
+                                                'minutes' => $minutes
                                             ]),
                     ];
 

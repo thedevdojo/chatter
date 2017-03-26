@@ -7,11 +7,12 @@ return [
         'edit' => 'Edit',
         'yes' => 'Yes',
         'no' => 'No',
+        'minutes' => '1 minute| :count minutes',
     ],
 
     'discussion' => [
         'new' => 'New Discussion',
-        'all' => 'All Discussion',
+        'all' => 'All Discussions',
         'create' => 'Create Discussion',
         'posted_by' => 'Posted by',
         'head_details' => 'Posted In Categories',
