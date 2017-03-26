@@ -80,7 +80,7 @@ class ChatterDiscussionController extends Controller
                 $chatter_alert = [
                     'chatter_alert_type' => 'danger',
                     'chatter_alert'      => trans('chatter::alert.danger.reason.prevent_spam', [
-                                                'minutes' => $minutes
+                                                'minutes' => $minutes,
                                             ]),
                     ];
 
