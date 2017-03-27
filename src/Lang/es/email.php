@@ -8,7 +8,7 @@ return [
     'farewell'        => 'Que tengas un buen día.',
     'unsuscribe'      => [
         'message' => 'Si ya no deseas ser notificado cuando alguien más responda, asegurate de desmarcar la configuración de notificación al final de la página :)',
-        'action'  => "¿No le gustan estos correos electrónicos?",
+        'action'  => '¿No le gustan estos correos electrónicos?',
         'link'    => 'Anular la suscripción a la discusión',
     ],
 ];
