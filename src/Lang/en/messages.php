@@ -15,7 +15,7 @@ return [
         'all'          => 'All Discussions',
         'create'       => 'Create Discussion',
         'posted_by'    => 'Posted by',
-        'head_details' => 'Posted In Categories',
+        'head_details' => 'Posted in Category',
 
     ],
     'response' => [
