@@ -166,12 +166,12 @@
             <!-- BODY -->
         	<div id="editor">
         		@if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
-					<label id="tinymce_placeholder">Add the content for your Discussion here</label>
+					<label id="tinymce_placeholder">Type Your Discussion Here...</label>
     				<textarea id="body" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
     			@elseif($chatter_editor == 'simplemde')
     				<textarea id="simplemde" name="body" placeholder="">{{ old('body') }}</textarea>
 				@elseif($chatter_editor == 'trumbowyg')
-					<textarea id="trumbowyg" name="body" placeholder="">{{ old('body') }}</textarea>
+					<textarea class="trumbowyg" name="body" placeholder="Type Your Discussion Here...">{{ old('body') }}</textarea>
 				@endif
     		</div>
 
