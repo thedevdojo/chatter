@@ -967,7 +967,7 @@ div.mce-edit-area {
 /********** START Toggle Switch CSS **********/
 #notify_email {
   border-radius: 30px;
-  height: 34px;
+  height: 42px;
   width: auto;
   padding-left: 10px;
   background: #f1f1f1;
@@ -979,7 +979,7 @@ div.mce-edit-area {
   /* The switch - the box around the slider */
 }
 #notify_email > span {
-  line-height: 35px;
+  line-height: 42px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -1001,8 +1001,8 @@ div.mce-edit-area {
   display: inline-block;
   width: 56px;
   height: 28px;
-  top: 2px;
-  right: 3px;
+  top: 8px;
+  right: 8px;
   float: right;
   margin-left: 15px;
   /* Hide default HTML checkbox */
@@ -1051,7 +1051,7 @@ div.mce-edit-area {
   position: absolute;
   z-index: 9;
   color: #fff;
-  top: 3px;
+  top: 4px;
   left: 6px;
 }
 #notify_email .switch input:checked ~ span.off {
