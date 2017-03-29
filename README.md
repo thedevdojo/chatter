@@ -110,6 +110,16 @@ In order to properly display the posts you will need to include the  `graham-cam
 composer require graham-campbell/markdown
 ```
 
+### Trumbowyg editor
+
+If you are going to use Trumbowyg as your editor of choice you will need to change that in your config/chatter.php:
+
+```
+'editor' => 'trumbowyg',
+```
+
+Trumbowyg requires jQuery >= 1.8 to be included.
+
 ### VIDEOS
 
 [Introduction and Installation of Chatter](https://devdojo.com/episode/create-a-laravel-forum)

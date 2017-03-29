@@ -80,7 +80,8 @@ body {
   box-shadow: 0px 0px 0px;
   border-radius: 0px;
 }
-#chatter #new_discussion {
+#chatter #new_discussion,
+#new_discussion_in_discussion_view {
   display: none;
   border: 2px solid #0098cb;
   border-bottom: 0px;
@@ -99,16 +100,19 @@ body {
   /********** END COLOR PICKER STYLE OVERRIDES **********/
 }
 @media only screen and (min-width: 239px) and (max-width: 749px) {
-    #new_discussion{ width: 95% !important; margin-left: -47.5% !important; }
+  #new_discussion, #new_discussion_in_discussion_view { width: 95% !important; margin-left: -47.5% !important; }
 }
-#chatter #new_discussion form {
+#chatter #new_discussion form,
+#new_discussion_in_discussion_view form {
   display: none;
 }
-#chatter #new_discussion #new_discussion_footer {
+#chatter #new_discussion #new_discussion_footer,
+#new_discussion_in_discussion_view #new_discussion_footer {
   border-top: 1px solid #f3f6f9;
   padding: 10px 15px;
 }
-#chatter #new_discussion .chatter-close {
+#chatter #new_discussion .chatter-close,
+#new_discussion_in_discussion_view .chatter-close{
   color: #7089A9;
   position: relative;
   top: 17px;
@@ -121,33 +125,41 @@ body {
   -webkit-transition: background 0.3s ease, color 0.3s ease;
   transition: background 0.3s ease, color 0.3s ease;
 }
-#chatter #new_discussion .chatter-close:hover {
+#chatter #new_discussion .chatter-close:hover,
+#new_discussion_in_discussion_view .chatter-close:hover {
   background: rgba(0, 0, 0, 0.1);
 }
-#chatter #new_discussion .select_color_text {
+#chatter #new_discussion .select_color_text,
+#new_discussion_in_discussion_view .select_color_text {
   color: #ddd;
   font-size: 12px;
   margin-left: 10px;
 }
 #chatter #new_discussion .sp-preview-inner,
 #chatter #new_discussion .sp-alpha-inner,
-#chatter #new_discussion .sp-thumb-inner {
+#chatter #new_discussion .sp-thumb-inner,
+#new_discussion_in_discussion_view .sp-preview-inner,
+#new_discussion_in_discussion_view .sp-alpha-inner,
+#new_discussion_in_discussion_view .sp-thumb-inner {
   border-radius: 30px;
   height: 26px;
   width: 26px;
 }
-#chatter #new_discussion .sp-preview {
+#chatter #new_discussion .sp-preview,
+#new_discussion_in_discussion_view .sp-preview {
   width: 28px;
   height: 28px;
   border-color: #7089A9;
   border-radius: 30px;
 }
-#chatter #new_discussion .sp-replacer {
+#chatter #new_discussion .sp-replacer,
+#new_discussion_in_discussion_view .sp-replacer {
   border-radius: 30px;
   border: solid 2px #f1f5f9;
   background: none;
 }
-#chatter #new_discussion .sp-dd {
+#chatter #new_discussion .sp-dd,
+#new_discussion_in_discussion_view .sp-dd {
   margin-right: 4px;
   line-height: 0px;
   -webkit-transform: rotate(180deg);
@@ -967,7 +979,7 @@ div.mce-edit-area {
 /********** START Toggle Switch CSS **********/
 #notify_email {
   border-radius: 30px;
-  height: 34px;
+  height: 42px;
   width: auto;
   padding-left: 10px;
   background: #f1f1f1;
@@ -979,7 +991,7 @@ div.mce-edit-area {
   /* The switch - the box around the slider */
 }
 #notify_email > span {
-  line-height: 35px;
+  line-height: 42px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -1001,8 +1013,8 @@ div.mce-edit-area {
   display: inline-block;
   width: 56px;
   height: 28px;
-  top: 2px;
-  right: 3px;
+  top: 8px;
+  right: 8px;
   float: right;
   margin-left: 15px;
   /* Hide default HTML checkbox */
@@ -1051,7 +1063,7 @@ div.mce-edit-area {
   position: absolute;
   z-index: 9;
   color: #fff;
-  top: 3px;
+  top: 4px;
   left: 6px;
 }
 #notify_email .switch input:checked ~ span.off {
