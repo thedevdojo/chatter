@@ -69,16 +69,16 @@ return [
     |
     | example:
     | Inside of your <head></head> tag of your master file, you'll need to
-    | include @yield('css').
+    | include @yield('styles').
     |
     | Next, before the ending body </body>, you will need to include the footer
-    | yield like so @yield('js')
+    | yeild like so @yield('scripts')
     |
     */
 
     'yields' => [
-        'head'   => 'css',
-        'footer' => 'js',
+        'head'   => 'styles',
+        'footer' => 'scripts',
     ],
 
     /*
