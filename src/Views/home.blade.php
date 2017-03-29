@@ -33,7 +33,7 @@
 	@if(Session::has('chatter_alert'))
 		<div class="chatter-alert alert alert-{{ Session::get('chatter_alert_type') }}">
 			<div class="container">
-	        	<strong><i class="chatter-alert-{{ Session::get('chatter_alert_type') }}"></i> {{ Config::get('chatter.alert_messages.' . Session::get('chatter_alert_type')) }}</strong>
+	        	<strong><i class="chatter-alert-{{ Session::get('chatter_alert_type') }}"></i> @lang('chatter::alert.' . Session::get('chatter_alert_type') . '.title')</strong>
 	        	{{ Session::get('chatter_alert') }}
 	        	<i class="chatter-close"></i>
 	        </div>
@@ -44,7 +44,8 @@
 	@if (count($errors) > 0)
 	    <div class="chatter-alert alert alert-danger">
 	    	<div class="container">
-	    		<p><strong><i class="chatter-alert-danger"></i> {{ Config::get('chatter.alert_messages.danger') }}</strong> Please fix the following errors:</p>
+                <p><strong><i class="chatter-alert-danger"></i> @lang('chatter::alert.danger.title')</strong> @lang('chatter::alert.danger.reason.errors')</p>
+
 		        <ul>
 		            @foreach ($errors->all() as $error)
 		                <li>{{ $error }}</li>
@@ -61,8 +62,12 @@
 	    	<div class="col-md-3 left-column">
 	    		<!-- SIDEBAR -->
 	    		<div class="chatter_sidebar">
-					<button class="btn btn-primary" id="new_discussion_btn"><i class="chatter-new"></i> New {{ Config::get('chatter.titles.discussion') }}</button>
-					<a href="/{{ Config::get('chatter.routes.home') }}"><i class="chatter-bubble"></i> All {{ Config::get('chatter.titles.discussions') }}</a>
+					<button class="btn btn-primary" id="new_discussion_btn"><i class="chatter-new"></i>
+                        @lang('chatter::messages.discussion.new')
+                    </button>
+					<a href="/{{ Config::get('chatter.routes.home') }}"><i class="chatter-bubble"></i>
+                        @lang('chatter::messages.discussion.all')
+                    </a>
 					<ul class="nav nav-pills nav-stacked">
 						<?php $categories = DevDojo\Chatter\Models\Models::category()->all(); ?>
 						@foreach($categories as $category)
@@ -101,7 +106,7 @@
 
 					        		<div class="chatter_middle">
 					        			<h3 class="chatter_middle_title">{{ $discussion->title }} <div class="chatter_cat" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</div></h3>
-					        			<span class="chatter_middle_details">Posted By: <span data-href="/user">{{ ucfirst($discussion->user->{Config::get('chatter.user.database_field_with_user_name')}) }}</span> {{ \Carbon\Carbon::createFromTimeStamp(strtotime($discussion->created_at))->diffForHumans() }}</span>
+					        			<span class="chatter_middle_details"> @lang('chatter::messages.discussion.posted_by') <span data-href="/user">{{ ucfirst($discussion->user->{Config::get('chatter.user.database_field_with_user_name')}) }}</span> {{ \Carbon\Carbon::createFromTimeStamp(strtotime($discussion->created_at))->diffForHumans() }}</span>
 					        			@if($discussion->post[0]->markdown)
 					        				<?php $discussion_body = GrahamCampbell\Markdown\Facades\Markdown::convertToHtml( $discussion->post[0]->body ); ?>
 					        			@else
@@ -141,13 +146,13 @@
         	<div class="row">
 	        	<div class="col-md-7">
 		        	<!-- TITLE -->
-	                <input type="text" class="form-control" id="title" name="title" placeholder="Title of {{ Config::get('chatter.titles.discussion') }}" v-model="title" value="{{ old('title') }}" >
+	                <input type="text" class="form-control" id="title" name="title" placeholder="@lang('chatter::messages.editor.title')" v-model="title" value="{{ old('title') }}" >
 	            </div>
 
 	            <div class="col-md-4">
 		            <!-- CATEGORY -->
 			            <select id="chatter_category_id" class="form-control" name="chatter_category_id">
-			            	<option value="">Select a Category</option>
+			            	<option value="">@lang('chatter::messages.editor.select')</option>
 				            @foreach($categories as $category)
 				            	@if(old('chatter_category_id') == $category->id)
 				            		<option value="{{ $category->id }}" selected>{{ $category->name }}</option>
@@ -166,7 +171,7 @@
             <!-- BODY -->
         	<div id="editor">
         		@if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
-					<label id="tinymce_placeholder">Type Your Discussion Here...</label>
+					<label id="tinymce_placeholder">@lang('chatter::messages.editor.tinymce_placeholder')</label>
     				<textarea id="body" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
     			@elseif($chatter_editor == 'simplemde')
     				<textarea id="simplemde" name="body" placeholder="">{{ old('body') }}</textarea>
@@ -178,9 +183,9 @@
             <input type="hidden" name="_token" id="csrf_token_field" value="{{ csrf_token() }}">
 
             <div id="new_discussion_footer">
-            	<input type='text' id="color" name="color" /><span class="select_color_text">Select a Color for this Discussion (optional)</span>
-            	<button id="submit_discussion" class="btn btn-success pull-right"><i class="chatter-new"></i> Create {{ Config::get('chatter.titles.discussion') }}</button>
-            	<a href="/{{ Config::get('chatter.routes.home') }}" class="btn btn-default pull-right" id="cancel_discussion">Cancel</a>
+            	<input type='text' id="color" name="color" /><span class="select_color_text">@lang('chatter::messages.editor.select_color_text')</span>
+            	<button id="submit_discussion" class="btn btn-success pull-right"><i class="chatter-new"></i> @lang('chatter::messages.discussion.create') </button>
+            	<a href="/{{ Config::get('chatter.routes.home') }}" class="btn btn-default pull-right" id="cancel_discussion">@lang('chatter::messages.words.cancel')</a>
             	<div style="clear:both"></div>
             </div>
         </form>
