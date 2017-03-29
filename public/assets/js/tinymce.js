@@ -9,8 +9,8 @@ tinymce.init({
 	toolbar: chatter_tinymce_toolbar,
 	menubar: false,
 	statusbar: false,
-	height : "220",
-	content_css : "/vendor/devdojo/chatter/assets/css/chatter.css",
+	height : '220',
+	content_css : '/vendor/devdojo/chatter/assets/css/chatter.css',
 	template_popup_height: 380,
 	setup: function (editor) {
         editor.on('init', function(args) {
@@ -20,6 +20,12 @@ tinymce.init({
                 document.getElementById('tinymce_placeholder').style.display = "block";
             }
 			document.getElementById('chatter_form_editor').style.display = "block";
+
+            // check if user is in discussion view
+            if ($('#new_discussion_loader_in_discussion_view').length > 0) {
+                document.getElementById('new_discussion_loader_in_discussion_view').style.display = "none";
+                document.getElementById('chatter_form_editor_in_discussion_view').style.display = "block";
+            }
         });
         editor.on('keyup', function(e) {
         	content = editor.getContent();
@@ -42,8 +48,8 @@ function initializeNewTinyMCE(id){
         toolbar: chatter_tinymce_toolbar,
         menubar: false,
         statusbar: false,
-        height : "300",
-        content_css : "/vendor/devdojo/chatter/assets/css/chatter.css",
+        height : '300',
+        content_css : '/vendor/devdojo/chatter/assets/css/chatter.css',
         template_popup_height: 380
     });
 }

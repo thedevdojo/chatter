@@ -176,7 +176,7 @@
     			@elseif($chatter_editor == 'simplemde')
     				<textarea id="simplemde" name="body" placeholder="">{{ old('body') }}</textarea>
 				@elseif($chatter_editor == 'trumbowyg')
-					<textarea id="trumbowyg" name="body" placeholder="">{{ old('body') }}</textarea>
+					<textarea class="trumbowyg" name="body" placeholder="Type Your Discussion Here...">{{ old('body') }}</textarea>
 				@endif
     		</div>
 

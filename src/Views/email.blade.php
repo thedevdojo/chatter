@@ -76,6 +76,8 @@
         <td class="container" style="font-family:sans-serif;font-size:14px;vertical-align:top;display:block;max-width:580px;padding:10px;width:580px;Margin:0 auto !important;">
           <div class="content" style="box-sizing:border-box;display:block;Margin:0 auto;max-width:580px;padding:10px;">
             <!-- START CENTERED WHITE CONTAINER -->
+
+            <!-- Some clients will show the preheader text as a preview. -->
             <span class="preheader" style="color:transparent;display:none;height:0;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;visibility:hidden;width:0;">
                 @lang('chatter::email.preheader')
             </span>

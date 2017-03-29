@@ -29,7 +29,7 @@ return [
     'editor' => [
         'title'               => 'Title of Discussion',
         'select'              => 'Select a Category',
-        'tinymce_placeholder' => 'Add the content for your Discussion here',
+        'tinymce_placeholder' => 'Type Your Discussion Here...',
         'select_color_text'   => 'Select a Color for this Discussion (optional)',
     ],
 

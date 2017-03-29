@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'preheader'       => 'This is preheader text. Some clients will show this text as a preview.',
+    'preheader'       => 'Just wanted to let you know that someone has responded to a forum post.',
     'greeting'        => 'Hi there,',
     'body'            => 'Just wanted to let you know that someone has responded to a forum post at',
     'view_discussion' => 'View The Discussion',
