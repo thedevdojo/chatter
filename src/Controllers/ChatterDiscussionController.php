@@ -202,7 +202,11 @@ class ChatterDiscussionController extends Controller
             \App::register('GrahamCampbell\Markdown\MarkdownServiceProvider');
         }
 
-        return view('chatter::discussion', compact('discussion', 'posts', 'chatter_editor'));
+        $categories = (config('chatter.sidebar_in_discussion_view'))
+                      ? Models::category()->all()
+                      : [];
+
+        return view('chatter::discussion', compact('discussion', 'posts', 'categories', 'chatter_editor'));
     }
 
     /**

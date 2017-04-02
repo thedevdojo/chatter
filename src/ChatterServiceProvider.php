@@ -14,6 +14,7 @@ class ChatterServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadTranslationsFrom(__DIR__.'/Lang', 'chatter');
+        $this->loadViewsFrom(__DIR__.'/Views', 'chatter');
 
         $this->publishes([
             __DIR__.'/../public/assets' => public_path('vendor/devdojo/chatter/assets'),
@@ -35,6 +36,10 @@ class ChatterServiceProvider extends ServiceProvider
             __DIR__.'/Lang' => resource_path('lang/vendor/chatter'),
         ], 'chatter_lang');
 
+        $this->publishes([
+            __DIR__.'/Views' => resource_path('views/vendor/chatter'),
+        ], 'chatter_views');
+
         // include the routes file
         include __DIR__.'/Routes/web.php';
     }
@@ -46,6 +51,6 @@ class ChatterServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->loadViewsFrom(__DIR__.'/Views', 'chatter');
+        //
     }
 }
