@@ -33,7 +33,7 @@ class ChatterPostController extends Controller
             $offset = $request->offset;
         }
         $posts = Models::post()->with('user')->orderBy('created_at', 'DESC')->take($total)->offset($offset)->get();*/
-        
+
         // This is another unused route
         // we return an empty array to not expose user data to the public
         return response()->json([]);
