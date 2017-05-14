@@ -97,8 +97,7 @@ class ChatterHelper
     /**
      * This function construct the categories menu with nested categories.
      *
-     * @param object $categories
-     * @param int $parent_id
+     * @param array $categories
      *
      * @return string
      */
