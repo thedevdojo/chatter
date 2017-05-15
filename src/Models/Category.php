@@ -17,6 +17,6 @@ class Category extends Model
 
     public function parents()
     {
-        return $this->hasMany(Models::classname(Category::class), 'parent_id')->orderBy('order', 'asc');
+        return $this->hasMany(Models::classname(self::class), 'parent_id')->orderBy('order', 'asc');
     }
 }
