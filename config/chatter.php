@@ -300,4 +300,19 @@ return [
             'show' => [],
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Database Configurations
+    |--------------------------------------------------------------------------
+    |
+    | These are the db settings for chatter table. Specify how you want
+    | to configure db settings
+    |
+    */
+
+    'db' => [
+        'is_table_prefix_enabled' => true,
+        'table_prefix' => "chatter",
+    ],
 ];
