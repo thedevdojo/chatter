@@ -1,5 +1,6 @@
 <?php
 
+use DevDojo\Chatter\Helpers\ChatterHelper;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +14,7 @@ class AddColorRowToChatterDiscussions extends Migration
      */
     public function up()
     {
-        Schema::table('chatter_discussion', function (Blueprint $table) {
+        Schema::table(ChatterHelper::tableName('discussion'), function (Blueprint $table) {
             $table->string('color', 20)->nullable()->default('#232629');
         });
     }
@@ -25,7 +26,7 @@ class AddColorRowToChatterDiscussions extends Migration
      */
     public function down()
     {
-        Schema::table('chatter_discussion', function ($table) {
+        Schema::table(ChatterHelper::tableName('discussion'), function ($table) {
             $table->dropColumn('color');
         });
     }

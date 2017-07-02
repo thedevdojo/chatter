@@ -93,4 +93,19 @@ class ChatterHelper
 
         return str_ireplace($originalHeaderTags, $demotedHeaderTags, $html);
     }
+
+    /**
+     * This will generate table name base on config
+     *
+     * @param $tableName
+     *
+     * @return string
+     */
+    public static function tableName($tableName)
+    {
+        if (config('chatter.db.is_table_prefix_enabled')) {
+            return config('chatter.db.table_prefix')."_".$tableName;
+        }
+        return $tableName;
+    }
 }
