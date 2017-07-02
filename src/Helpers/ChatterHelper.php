@@ -93,4 +93,33 @@ class ChatterHelper
 
         return str_ireplace($originalHeaderTags, $demotedHeaderTags, $html);
     }
+
+    /**
+     * This function construct the categories menu with nested categories.
+     *
+     * @param array $categories
+     *
+     * @return string
+     */
+    public static function categoriesMenu($categories)
+    {
+        $menu = '<ul class="nav nav-pills nav-stacked">';
+
+        foreach ($categories as $category) {
+            $menu .= '<li>';
+            $menu .= '<a href="/'.config('chatter.routes.home').'/'.config('chatter.routes.category').'/'.$category['slug'].'">';
+            $menu .= '<div class="chatter-box" style="background-color:'.$category['color'].'"></div>';
+            $menu .= $category['name'].'</a>';
+
+            if (count($category['parents'])) {
+                $menu .= static::categoriesMenu($category['parents']);
+            }
+
+            $menu .= '</li>';
+        }
+
+        $menu .= '</ul>';
+
+        return $menu;
+    }
 }
