@@ -63,12 +63,7 @@
 	    		<div class="chatter_sidebar">
 					<button class="btn btn-primary" id="new_discussion_btn"><i class="chatter-new"></i> New {{ Config::get('chatter.titles.discussion') }}</button>
 					<a href="/{{ Config::get('chatter.routes.home') }}"><i class="chatter-bubble"></i> All {{ Config::get('chatter.titles.discussions') }}</a>
-					<ul class="nav nav-pills nav-stacked">
-						<?php $categories = DevDojo\Chatter\Models\Models::category()->all(); ?>
-						@foreach($categories as $category)
-							<li><a href="/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.category') }}/{{ $category->slug }}"><div class="chatter-box" style="background-color:{{ $category->color }}"></div> {{ $category->name }}</a></li>
-						@endforeach
-					</ul>
+          {!! $categoriesMenu !!}
 				</div>
 				<!-- END SIDEBAR -->
 	    	</div>
@@ -166,12 +161,12 @@
             <!-- BODY -->
         	<div id="editor">
         		@if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
-					<label id="tinymce_placeholder">Add the content for your Discussion here</label>
+					<label id="tinymce_placeholder">Type Your Discussion Here...</label>
     				<textarea id="body" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
     			@elseif($chatter_editor == 'simplemde')
     				<textarea id="simplemde" name="body" placeholder="">{{ old('body') }}</textarea>
 				@elseif($chatter_editor == 'trumbowyg')
-					<textarea id="trumbowyg" name="body" placeholder="">{{ old('body') }}</textarea>
+					<textarea class="trumbowyg" name="body" placeholder="Type Your Discussion Here...">{{ old('body') }}</textarea>
 				@endif
     		</div>
 
@@ -230,7 +225,7 @@
 		});
 		$('#new_discussion_btn, #cancel_discussion').click(function(){
 			@if(Auth::guest())
-				window.location.href = "/{{ Config::get('chatter.routes.home') }}/login";
+				window.location.href = "{{ route('login') }}";
 			@else
 				$('#new_discussion').slideDown();
 				$('#title').focus();

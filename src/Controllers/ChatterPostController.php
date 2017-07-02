@@ -12,6 +12,7 @@ use Event;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as Controller;
 use Illuminate\Support\Facades\Mail;
+use Purifier;
 use Validator;
 
 class ChatterPostController extends Controller
@@ -23,7 +24,7 @@ class ChatterPostController extends Controller
      */
     public function index(Request $request)
     {
-        $total = 10;
+        /*$total = 10;
         $offset = 0;
         if ($request->total) {
             $total = $request->total;
@@ -31,9 +32,11 @@ class ChatterPostController extends Controller
         if ($request->offset) {
             $offset = $request->offset;
         }
-        $posts = Models::post()->with('user')->orderBy('created_at', 'DESC')->take($total)->offset($offset)->get();
+        $posts = Models::post()->with('user')->orderBy('created_at', 'DESC')->take($total)->offset($offset)->get();*/
 
-        return response()->json($posts);
+        // This is another unused route
+        // we return an empty array to not expose user data to the public
+        return response()->json([]);
     }
 
     /**
@@ -158,7 +161,7 @@ class ChatterPostController extends Controller
 
         $post = Models::post()->find($id);
         if (!Auth::guest() && (Auth::user()->id == $post->user_id)) {
-            $post->body = strip_tags($request->body);
+            $post->body = Purifier::clean($request->body);
             $post->save();
 
             $discussion = Models::discussion()->find($post->chatter_discussion_id);

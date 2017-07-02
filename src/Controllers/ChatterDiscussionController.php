@@ -21,7 +21,7 @@ class ChatterDiscussionController extends Controller
      */
     public function index(Request $request)
     {
-        $total = 10;
+        /*$total = 10;
         $offset = 0;
         if ($request->total) {
             $total = $request->total;
@@ -29,9 +29,11 @@ class ChatterDiscussionController extends Controller
         if ($request->offset) {
             $offset = $request->offset;
         }
-        $discussions = Models::discussion()->with('user')->with('post')->with('postsCount')->with('category')->orderBy('created_at', 'ASC')->take($total)->offset($offset)->get();
+        $discussions = Models::discussion()->with('user')->with('post')->with('postsCount')->with('category')->orderBy('created_at', 'ASC')->take($total)->offset($offset)->get();*/
 
-        return response()->json($discussions);
+        // Return an empty array to avoid exposing user data to the public.
+        // This index function is not being used anywhere.
+        return response()->json([]);
     }
 
     /**

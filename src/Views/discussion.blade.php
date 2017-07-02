@@ -1,7 +1,10 @@
 @extends(Config::get('chatter.master_file_extend'))
 
 @section(Config::get('chatter.yields.head'))
-	<link href="{{ url('/vendor/devdojo/chatter/assets/css/chatter.css') }}" rel="stylesheet">
+    @if(Config::get('chatter.sidebar_in_discussion_view'))
+        <link href="{{ url('/vendor/devdojo/chatter/assets/vendor/spectrum/spectrum.css') }}" rel="stylesheet">
+    @endif
+    <link href="{{ url('/vendor/devdojo/chatter/assets/css/chatter.css') }}" rel="stylesheet">
     @if($chatter_editor == 'simplemde')
         <link href="{{ url('/vendor/devdojo/chatter/assets/css/simplemde.min.css') }}" rel="stylesheet">
     @elseif($chatter_editor == 'trumbowyg')
@@ -54,7 +57,25 @@
 
 	    <div class="row">
 
-	        <div class="col-md-12">
+			@if(! Config::get('chatter.sidebar_in_discussion_view'))
+	        	<div class="col-md-12">
+            @else
+                <div class="col-md-3 left-column">
+                    <!-- SIDEBAR -->
+                    <div class="chatter_sidebar">
+                        <button class="btn btn-primary" id="new_discussion_btn"><i class="chatter-new"></i> New {{ Config::get('chatter.titles.discussion') }}</button>
+                        <a href="/{{ Config::get('chatter.routes.home') }}"><i class="chatter-bubble"></i> All {{ Config::get('chatter.titles.discussions') }}</a>
+                        <ul class="nav nav-pills nav-stacked">
+                            <?php $categories = DevDojo\Chatter\Models\Models::category()->all(); ?>
+                            @foreach($categories as $category)
+                                <li><a href="/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.category') }}/{{ $category->slug }}"><div class="chatter-box" style="background-color:{{ $category->color }}"></div> {{ $category->name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <!-- END SIDEBAR -->
+                </div>
+                <div class="col-md-9 right-column">
+            @endif
 
 				<div class="conversation">
 	                <ul class="discussions no-bg" style="display:block;">
@@ -156,12 +177,12 @@
 						        <!-- BODY -->
 						    	<div id="editor">
 									@if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
-										<label id="tinymce_placeholder">Add the content for your Discussion here</label>
+										<label id="tinymce_placeholder">Type Your Discussion Here...</label>
 					    				<textarea id="body" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
 					    			@elseif($chatter_editor == 'simplemde')
 					    				<textarea id="simplemde" name="body" placeholder="">{{ old('body') }}</textarea>
 									@elseif($chatter_editor == 'trumbowyg')
-										<textarea id="trumbowyg" name="body" placeholder="">{{ old('body') }}</textarea>
+										<textarea class="trumbowyg" name="body" placeholder="Type Your Discussion Here...">{{ old('body') }}</textarea>
 									@endif
 								</div>
 
@@ -202,10 +223,70 @@
 	    </div>
 	</div>
 
+    @if(Config::get('chatter.sidebar_in_discussion_view'))
+        <div id="new_discussion_in_discussion_view">
+
+            <div class="chatter_loader dark" id="new_discussion_loader_in_discussion_view">
+                <div></div>
+            </div>
+
+            <form id="chatter_form_editor_in_discussion_view" action="/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.discussion') }}" method="POST">
+                <div class="row">
+                    <div class="col-md-7">
+                        <!-- TITLE -->
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Title of {{ Config::get('chatter.titles.discussion') }}" v-model="title" value="{{ old('title') }}" >
+                    </div>
+
+                    <div class="col-md-4">
+                        <!-- CATEGORY -->
+                        <select id="chatter_category_id" class="form-control" name="chatter_category_id">
+                            <option value="">Select a Category</option>
+                            @foreach($categories as $category)
+                                @if(old('chatter_category_id') == $category->id)
+                                    <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                                @else
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-md-1">
+                        <i class="chatter-close"></i>
+                    </div>
+                </div><!-- .row -->
+
+                <!-- BODY -->
+                <div id="editor">
+                    @if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
+                        <label id="tinymce_placeholder">Add the content for your Discussion here</label>
+                        <textarea id="body_in_discussion_view" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
+                    @elseif($chatter_editor == 'simplemde')
+                        <textarea id="simplemde_in_discussion_view" name="body" placeholder="">{{ old('body') }}</textarea>
+                    @elseif($chatter_editor == 'trumbowyg')
+                        <textarea class="trumbowyg" name="body" placeholder="">{{ old('body') }}</textarea>
+                    @endif
+                </div>
+
+                <input type="hidden" name="_token" id="csrf_token_field" value="{{ csrf_token() }}">
+
+                <div id="new_discussion_footer">
+                    <input type='text' id="color" name="color" /><span class="select_color_text">Select a Color for this Discussion (optional)</span>
+                    <button id="submit_discussion" class="btn btn-success pull-right"><i class="chatter-new"></i> Create {{ Config::get('chatter.titles.discussion') }}</button>
+                    <a href="/{{ Config::get('chatter.routes.home') }}" class="btn btn-default pull-right" id="cancel_discussion">Cancel</a>
+                    <div style="clear:both"></div>
+                </div>
+            </form>
+
+        </div><!-- #new_discussion -->
+    @endif
+
 </div>
 
-<input type="hidden" id="chatter_tinymce_toolbar" value="{{ Config::get('chatter.tinymce.toolbar') }}">
-<input type="hidden" id="chatter_tinymce_plugins" value="{{ Config::get('chatter.tinymce.plugins') }}">
+@if($chatter_editor == 'tinymce' || empty($chatter_editor))
+    <input type="hidden" id="chatter_tinymce_toolbar" value="{{ Config::get('chatter.tinymce.toolbar') }}">
+    <input type="hidden" id="chatter_tinymce_plugins" value="{{ Config::get('chatter.tinymce.plugins') }}">
+@endif
 <input type="hidden" id="current_path" value="{{ Request::path() }}">
 
 @stop
@@ -235,6 +316,11 @@
     <script src="{{ url('/vendor/devdojo/chatter/assets/vendor/trumbowyg/trumbowyg.min.js') }}"></script>
     <script src="{{ url('/vendor/devdojo/chatter/assets/vendor/trumbowyg/plugins/preformatted/trumbowyg.preformatted.min.js') }}"></script>
     <script src="{{ url('/vendor/devdojo/chatter/assets/js/trumbowyg.js') }}"></script>
+@endif
+
+@if(Config::get('chatter.sidebar_in_discussion_view'))
+    <script src="/vendor/devdojo/chatter/assets/vendor/spectrum/spectrum.js"></script>
+    <script src="/vendor/devdojo/chatter/assets/js/chatter.js"></script>
 @endif
 
 <script>
@@ -342,10 +428,40 @@
 			$.form('/{{ Config::get('chatter.routes.home') }}/posts/' + post_id, { _token: '{{ csrf_token() }}', _method: 'DELETE'}, 'POST').submit();
 		});
 
+		// logic for when a new discussion needs to be created from the slideUp
+        @if(Config::get('chatter.sidebar_in_discussion_view'))
+            $('.chatter-close').click(function(){
+                $('#new_discussion_in_discussion_view').slideUp();
+            });
+            $('#new_discussion_btn, #cancel_discussion').click(function(){
+                @if(Auth::guest())
+                    window.location.href = "/{{ Config::get('chatter.routes.home') }}/login";
+                @else
+                    $('#new_discussion_in_discussion_view').slideDown();
+                    $('#title').focus();
+                @endif
+            });
+
+            $("#color").spectrum({
+                color: "#333639",
+                preferredFormat: "hex",
+                containerClassName: 'chatter-color-picker',
+                cancelText: '',
+                chooseText: 'close',
+                move: function(color) {
+                    $("#color").val(color.toHexString());
+                }
+            });
+
+            @if (count($errors) > 0)
+                $('#new_discussion_in_discussion_view').slideDown();
+                $('#title').focus();
+            @endif
+        @endif
+
 	});
-
-
 </script>
+
 <script src="{{ url('/vendor/devdojo/chatter/assets/js/chatter.js') }}"></script>
 
 @stop
