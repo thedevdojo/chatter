@@ -202,6 +202,8 @@ class ChatterDiscussionController extends Controller
             \App::register('GrahamCampbell\Markdown\MarkdownServiceProvider');
         }
 
+        $discussion->increment('views');
+        
         return view('chatter::discussion', compact('discussion', 'posts', 'chatter_editor'));
     }
 
