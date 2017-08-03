@@ -12,12 +12,19 @@ class ChatterAfterNewDiscussion
     public $request;
 
     /**
+     * @var Models::discussion()
+     */
+    public $discussion;
+
+    /**
      * Constructor.
      *
      * @param Request $request
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request, $discussion)
     {
         $this->request = $request;
+
+        $this->discussion = $discussion;
     }
 }
