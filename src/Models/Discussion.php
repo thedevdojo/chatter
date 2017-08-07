@@ -3,12 +3,16 @@
 namespace DevDojo\Chatter\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Discussion extends Model
 {
+    use SoftDeletes;
+    
     protected $table = 'chatter_discussion';
     public $timestamps = true;
     protected $fillable = ['title', 'chatter_category_id', 'user_id', 'slug', 'color'];
+    protected $dates = ['deleted_at'];
 
     public function user()
     {
