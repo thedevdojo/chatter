@@ -91,12 +91,12 @@ class ChatterDiscussionController extends Controller
         // *** Let's gaurantee that we always have a generic slug *** //
         $slug = str_slug($request->title, '-');
 
-        $discussion_exists = Models::discussion()->where('slug', '=', $slug)->first();
+        $discussion_exists = Models::discussion()->where('slug', '=', $slug)->withTrashed()->first();
         $incrementer = 1;
         $new_slug = $slug;
         while (isset($discussion_exists->id)) {
             $new_slug = $slug.'-'.$incrementer;
-            $discussion_exists = Models::discussion()->where('slug', '=', $new_slug)->first();
+            $discussion_exists = Models::discussion()->where('slug', '=', $new_slug)->withTrashed()->first();
             $incrementer += 1;
         }
 
