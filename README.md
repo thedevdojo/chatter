@@ -22,6 +22,8 @@ Quick Note: If this is a new project, make sure to install the default user auth
 
 2. Add the service provider to your `config/app.php` providers array:
 
+   **If you're installing on Laravel 5.5+ skip this step**
+
     ```
     DevDojo\Chatter\ChatterServiceProvider::class,
     ```
@@ -29,7 +31,7 @@ Quick Note: If this is a new project, make sure to install the default user auth
 3. Publish the Vendor Assets files by running:
 
     ```
-    php artisan vendor:publish
+    php artisan vendor:publish --provider="DevDojo\Chatter\ChatterServiceProvider"
     ```
 
 4. Now that we have published a few new files to our application we need to reload them with the following command:
