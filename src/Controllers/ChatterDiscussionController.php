@@ -135,7 +135,7 @@ class ChatterDiscussionController extends Controller
         $post = Models::post()->create($new_post);
 
         if ($post->id) {
-            Event::fire(new ChatterAfterNewDiscussion($request));
+            Event::fire(new ChatterAfterNewDiscussion($request, $discussion, $post));
             if (function_exists('chatter_after_new_discussion')) {
                 chatter_after_new_discussion($request);
             }
@@ -193,7 +193,7 @@ class ChatterDiscussionController extends Controller
         if ($category != $discussion_category->slug) {
             return redirect(config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$discussion_category->slug.'/'.$discussion->slug);
         }
-        $posts = Models::post()->with('user')->where('chatter_discussion_id', '=', $discussion->id)->orderBy('created_at', 'ASC')->paginate(10);
+        $posts = Models::post()->with('user')->where('chatter_discussion_id', '=', $discussion->id)->orderBy(config('chatter.order_by.posts.order'), config('chatter.order_by.posts.by'))->paginate(10);
 
         $chatter_editor = config('chatter.editor');
 
@@ -202,6 +202,8 @@ class ChatterDiscussionController extends Controller
             \App::register('GrahamCampbell\Markdown\MarkdownServiceProvider');
         }
 
+        $discussion->increment('views');
+        
         return view('chatter::discussion', compact('discussion', 'posts', 'chatter_editor'));
     }
 

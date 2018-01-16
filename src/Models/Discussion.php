@@ -12,7 +12,7 @@ class Discussion extends Model
     protected $table = 'chatter_discussion';
     public $timestamps = true;
     protected $fillable = ['title', 'chatter_category_id', 'user_id', 'slug', 'color'];
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'last_reply_at'];
 
     public function user()
     {
