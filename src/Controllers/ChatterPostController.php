@@ -210,8 +210,13 @@ class ChatterPostController extends Controller
         }
 
         if ($post->discussion->posts()->oldest()->first()->id === $post->id) {
-            $post->discussion->posts()->delete();
-            $post->discussion()->delete();
+            if(config('chatter.soft_deletes')) {
+                $post->discussion->posts()->delete();
+                $post->discussion()->delete();
+            } else {
+                $post->discussion->posts()->forceDelete();
+                $post->discussion()->forceDelete();
+            }
 
             return redirect('/'.config('chatter.routes.home'))->with([
                 'chatter_alert_type' => 'success',

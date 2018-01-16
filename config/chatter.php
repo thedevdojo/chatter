@@ -269,6 +269,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Use Soft Deletes
+    |--------------------------------------------------------------------------
+    |
+    | Setting this to true will mean when a post gets deleted the `deleted_at`
+    | date gets set but the actual row in the database does not get deleted.
+    | This is useful for forum moderation and history retention
+    |
+    */
+
+    'soft_deletes' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Pagination Settings
     |--------------------------------------------------------------------------
     |
