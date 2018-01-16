@@ -90,6 +90,9 @@ class ChatterPostController extends Controller
         }
 
         if ($new_post->id) {
+            $discussion->last_reply_at = $discussion->freshTimestamp();
+            $discussion->save();
+            
             Event::fire(new ChatterAfterNewResponse($request, $new_post));
             if (function_exists('chatter_after_new_response')) {
                 chatter_after_new_response($request);
