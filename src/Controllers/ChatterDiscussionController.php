@@ -78,10 +78,12 @@ class ChatterDiscussionController extends Controller
 
         if (config('chatter.security.limit_time_between_posts')) {
             if ($this->notEnoughTimeBetweenDiscussion()) {
-                $minute_copy = (config('chatter.security.time_between_posts') == 1) ? ' minute' : ' minutes';
+                $minutes = trans_choice('chatter::messages.words.minutes', config('chatter.security.time_between_posts'));
                 $chatter_alert = [
                     'chatter_alert_type' => 'danger',
-                    'chatter_alert'      => 'In order to prevent spam, please allow at least '.config('chatter.security.time_between_posts').$minute_copy.' in between submitting content.',
+                    'chatter_alert'      => trans('chatter::alert.danger.reason.prevent_spam', [
+                                                'minutes' => $minutes,
+                                            ]),
                     ];
 
                 return redirect('/'.config('chatter.routes.home'))->with($chatter_alert)->withInput();
@@ -142,15 +144,15 @@ class ChatterDiscussionController extends Controller
 
             $chatter_alert = [
                 'chatter_alert_type' => 'success',
-                'chatter_alert'      => 'Successfully created a new '.config('chatter.titles.discussion').'.',
+                'chatter_alert'      => trans('chatter::alert.success.reason.created_discussion'),
                 ];
 
             return redirect('/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$category->slug.'/'.$slug)->with($chatter_alert);
         } else {
             $chatter_alert = [
                 'chatter_alert_type' => 'danger',
-                'chatter_alert'      => 'Whoops :( There seems to be a problem creating your '.config('chatter.titles.discussion').'.',
-                ];
+                'chatter_alert'      => trans('chatter::alert.danger.reason.create_discussion'),
+            ];
 
             return redirect('/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$category->slug.'/'.$slug)->with($chatter_alert);
         }
