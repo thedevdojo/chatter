@@ -20,6 +20,21 @@ return [
         'register'   => 'register',
         'login'      => 'login',
     ],
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Forum Titles
+    |--------------------------------------------------------------------------
+    |
+    | These are some default titles (words) that will be used throughout your
+    | forum. You can change these to whatever you would like :)
+    |
+    */
+
+    'titles' => [
+        'discussion'  => 'Discussion',
+        'discussions' => 'Discussions',
+    ],
 
    /*
     |--------------------------------------------------------------------------

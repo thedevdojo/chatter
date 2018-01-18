@@ -11,9 +11,9 @@ return [
     ],
 
     'discussion' => [
-        'new'          => 'New Discussion',
-        'all'          => 'All Discussions',
-        'create'       => 'Create Discussion',
+        'new'          => 'New '.Config::get('chatter.titles.discussion'),
+        'all'          => 'All '.Config::get('chatter.titles.discussion'),
+        'create'       => 'Create '.Config::get('chatter.titles.discussion'),
         'posted_by'    => 'Posted by',
         'head_details' => 'Posted in Category',
 
@@ -27,10 +27,10 @@ return [
     ],
 
     'editor' => [
-        'title'               => 'Title of Discussion',
+        'title'               => 'Title of '.Config::get('chatter.titles.discussion'),
         'select'              => 'Select a Category',
-        'tinymce_placeholder' => 'Type Your Discussion Here...',
-        'select_color_text'   => 'Select a Color for this Discussion (optional)',
+        'tinymce_placeholder' => 'Type Your '.Config::get('chatter.titles.discussion'),.' Here...',
+        'select_color_text'   => 'Select a Color for this '.Config::get('chatter.titles.discussion'),.' (optional)',
     ],
 
     'email' => [

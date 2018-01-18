@@ -4,11 +4,11 @@ return [
     'success' => [
         'title'  => 'Well done!',
         'reason' => [
-            'submitted_to_post'       => 'Response successfully submitted to discussion.',
-            'updated_post'            => 'Successfully updated the Discussion.',
-            'destroy_post'            => 'Successfully deleted the response and discussion.',
-            'destroy_from_discussion' => 'Successfully deleted the response from the discussion.',
-            'created_discussion'      => 'Successfully created a new discussion.',
+            'submitted_to_post'       => 'Response successfully submitted to '.strtolower(Config::get('chatter.titles.discussion')).'.',
+            'updated_post'            => 'Successfully updated the '.strtolower(Config::get('chatter.titles.discussion')).'.',
+            'destroy_post'            => 'Successfully deleted the response and '.strtolower(Config::get('chatter.titles.discussion')).'.',
+            'destroy_from_discussion' => 'Successfully deleted the response from the '.strtolower(Config::get('chatter.titles.discussion')).'.',
+            'created_discussion'      => 'Successfully created a new '.strtolower(Config::get('chatter.titles.discussion')).'.',
         ],
     ],
     'info' => [
@@ -25,7 +25,7 @@ return [
             'trouble'           => 'Sorry, there seems to have been a problem submitting your response.',
             'update_post'       => 'Nah ah ah... Could not update your response. Make sure you\'re not doing anything shady.',
             'destroy_post'      => 'Nah ah ah... Could not delete the response. Make sure you\'re not doing anything shady.',
-            'create_discussion' => 'Whoops :( There seems to be a problem creating your discussion.',
+            'create_discussion' => 'Whoops :( There seems to be a problem creating your '.strtolower(Config::get('chatter.titles.discussion')).'.',
         ],
     ],
 ];

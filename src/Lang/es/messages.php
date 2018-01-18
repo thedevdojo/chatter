@@ -11,9 +11,9 @@ return [
     ],
 
     'discussion' => [
-        'new'          => 'Nueva Discusión',
-        'all'          => 'Todas las discusiones',
-        'create'       => 'Crear una discusión',
+        'new'          => 'Nueva '.strtolower(Config::get('chatter.titles.discussion')),
+        'all'          => 'Todas las '.strtolower(Config::get('chatter.titles.discussions')),
+        'create'       => 'Crear una '.strtolower(Config::get('chatter.titles.discussion')),
         'posted_by'    => 'Publicado por',
         'head_details' => 'Publicado en categoria',
 
@@ -27,14 +27,14 @@ return [
     ],
 
     'editor' => [
-        'title'               => 'Titulo de la discusión',
+        'title'               => 'Titulo de la '.strtolower(Config::get('chatter.titles.discussion')),
         'select'              => 'Selecciona una categoria',
-        'tinymce_placeholder' => 'Agrega el contenido para la discusión aquí...',
-        'select_color_text'   => 'Selecciona un color para la discusión (opcional)',
+        'tinymce_placeholder' => 'Agrega el contenido para la '.strtolower(Config::get('chatter.titles.discussion')).' aquí...',
+        'select_color_text'   => 'Selecciona un color para la '.strtolower(Config::get('chatter.titles.discussion')).' (opcional)',
     ],
 
     'email' => [
-        'notify' => 'Notificarme cuando alguien conteste en la discusión',
+        'notify' => 'Notificarme cuando alguien conteste en la '.strtolower(Config::get('chatter.titles.discussion')),
     ],
 
     'auth' => 'Por favor <a href="/:home/login">Inicia sesión</a>
