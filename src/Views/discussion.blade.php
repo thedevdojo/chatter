@@ -464,6 +464,5 @@
 	});
 </script>
 
-<script src="{{ url('/vendor/devdojo/chatter/assets/js/chatter.js') }}"></script>
 
 @stop
