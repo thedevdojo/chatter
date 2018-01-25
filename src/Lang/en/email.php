@@ -7,7 +7,7 @@ return [
     'view_discussion' => 'View The Discussion',
     'farewell'        => 'Have a great day!',
     'unsuscribe'      => [
-        'message' => 'If you no longer wish to be notified when someone responds to this form post be sure to uncheck the notification setting at the bottom of the page :)',
+        'message' => 'If you no longer wish to be notified when someone responds to this forum post be sure to uncheck the notification setting at the bottom of the page :)',
         'action'  => 'Don\'t like these emails?',
         'link'    => 'Unsubscribe to this Discussion',
     ],
