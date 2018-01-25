@@ -17,8 +17,9 @@ class ChatterController extends Controller
 
         if (isset($slug)) {
             $category = Models::category()->where('slug', '=', $slug)->first();
-            if (isset($category->id)) {
-                $discussions = $discussions->where('chatter_category_id', '=', $category->id);
+            $category_id = $category->id;
+            if (isset($category_id)) {
+                $discussions = $discussions->where('chatter_category_id', '=', $category_id);
             }
         }
 
@@ -36,7 +37,7 @@ class ChatterController extends Controller
             \App::register('GrahamCampbell\Markdown\MarkdownServiceProvider');
         }
 
-        return view('chatter::home', compact('discussions', 'categories', 'categoriesMenu', 'chatter_editor'));
+        return view('chatter::home', compact('discussions', 'categories', 'categoriesMenu', 'chatter_editor', 'category_id'));
     }
 
     public function login()

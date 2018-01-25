@@ -141,16 +141,18 @@
 
 	            <div class="col-md-4">
 		            <!-- CATEGORY -->
-			            <select id="chatter_category_id" class="form-control" name="chatter_category_id">
-			            	<option value="">@lang('chatter::messages.editor.select')</option>
-				            @foreach($categories as $category)
-				            	@if(old('chatter_category_id') == $category->id)
-				            		<option value="{{ $category->id }}" selected>{{ $category->name }}</option>
-				            	@else
-				            		<option value="{{ $category->id }}">{{ $category->name }}</option>
-				            	@endif
-				            @endforeach
-			            </select>
+					<select id="chatter_category_id" class="form-control" name="chatter_category_id">
+						<option value="">@lang('chatter::messages.editor.select')</option>
+						@foreach($categories as $category)
+							@if(old('chatter_category_id') == $category->id)
+								<option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+							@elseif(!empty($category_id) && $category_id == $category->id)
+								<option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+							@else
+								<option value="{{ $category->id }}">{{ $category->name }}</option>
+							@endif
+						@endforeach
+					</select>
 		        </div>
 
 		        <div class="col-md-1">
