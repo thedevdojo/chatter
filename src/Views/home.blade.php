@@ -136,7 +136,7 @@
         	<div class="row">
 	        	<div class="col-md-7">
 		        	<!-- TITLE -->
-	                <input type="text" class="form-control" id="title" name="title" placeholder="Title of {{ Config::get('chatter.titles.discussion') }}" v-model="title" value="{{ old('title') }}" >
+	                <input type="text" class="form-control" id="title" name="title" placeholder="@lang('chatter::messages.editor.title')" value="{{ old('title') }}" >
 	            </div>
 
 	            <div class="col-md-4">
