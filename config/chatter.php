@@ -29,17 +29,11 @@ return [
     | Your headline and your description will be shown on the homepage of your
     | forum, unless you change the default theme.
     |
-    |   *headline*: This is the main headline on the forum homepage
-    |
-    |   *description*: This is the main description that will show under the
-    |       headline on the forum homepage.
     |   *headline_logo*: If this is set an image will be used on the forum home
     |       instead of text. Specify the relative path to the image here.
     |
     */
 
-    'headline'      => 'Welcome to Chatter',
-    'description'   => 'A simple forum package for your Laravel app.',
     'headline_logo' => '/vendor/devdojo/chatter/assets/images/logo-light.png',
 
     /*

@@ -51,7 +51,10 @@ class ChatterPostController extends Controller
         $stripped_tags_body = ['body' => strip_tags($request->body)];
         $validator = Validator::make($stripped_tags_body, [
             'body' => 'required|min:10',
-        ]);
+        ],[
+			'body.required' => trans('chatter::alert.danger.reason.content_required'),
+			'body.min' => trans('chatter::alert.danger.reason.content_min'),
+		]);
 
         Event::fire(new ChatterBeforeNewResponse($request, $validator));
         if (function_exists('chatter_before_new_response')) {
@@ -158,7 +161,10 @@ class ChatterPostController extends Controller
         $stripped_tags_body = ['body' => strip_tags($request->body)];
         $validator = Validator::make($stripped_tags_body, [
             'body' => 'required|min:10',
-        ]);
+        ],[
+			'body.required' => trans('chatter::alert.danger.reason.content_required'),
+			'body.min' => trans('chatter::alert.danger.reason.content_min'),
+		]);
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();

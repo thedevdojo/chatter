@@ -25,8 +25,8 @@
 		@if( isset( $headline_logo ) && !empty( $headline_logo ) )
 			<img src="{{ Config::get('chatter.headline_logo') }}">
 		@else
-			<h1>{{ Config::get('chatter.headline') }}</h1>
-			<p>{{ Config::get('chatter.description') }}</p>
+			<h1>@lang('chatter::intro.headline')</h1>
+			<p>@lang('chatter::intro.description')</p>
 		@endif
 	</div>
 
