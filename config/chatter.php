@@ -253,6 +253,20 @@ return [
     'paginate' => [
         'num_of_results' => 10,
     ],
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Show missing fields to users in forms
+    |--------------------------------------------------------------------------
+    |
+    | This usually has to be active to show the users what they are missing
+    | unless you want to manage by your own system in the master template
+    |
+    */
+
+    'errors' => [
+        'show' => true,
+    ],
 
     /*
     |--------------------------------------------------------------------------
