@@ -146,7 +146,7 @@
 						@foreach($categories as $category)
 							@if(old('chatter_category_id') == $category->id)
 								<option value="{{ $category->id }}" selected>{{ $category->name }}</option>
-							@elseif(!empty($category_id) && $category_id == $category->id)
+							@elseif(!empty($current_category_id) && $current_category_id == $category->id)
 								<option value="{{ $category->id }}" selected>{{ $category->name }}</option>
 							@else
 								<option value="{{ $category->id }}">{{ $category->name }}</option>
