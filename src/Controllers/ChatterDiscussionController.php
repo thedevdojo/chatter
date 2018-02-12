@@ -63,7 +63,19 @@ class ChatterDiscussionController extends Controller
             'title'               => 'required|min:5|max:255',
             'body_content'        => 'required|min:10',
             'chatter_category_id' => 'required',
-        ]);
+         ],[
+			'title.required' =>  trans('chatter::alert.danger.reason.title_required'),
+			'title.min'     => [
+				'string'  => trans('chatter::alert.danger.reason.title_min'),
+			],
+			'title.max' => [
+				'string'  => trans('chatter::alert.danger.reason.title_max'),
+			],
+			'body_content.required' => trans('chatter::alert.danger.reason.content_required'),
+			'body_content.min' => trans('chatter::alert.danger.reason.content_min'),
+			'chatter_category_id.required' => trans('chatter::alert.danger.reason.category_required'),
+		]);
+        
 
         Event::fire(new ChatterBeforeNewDiscussion($request, $validator));
         if (function_exists('chatter_before_new_discussion')) {

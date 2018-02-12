@@ -7,7 +7,9 @@ return [
         'edit'    => 'Wijzig',
         'yes'     => 'Ja',
         'no'      => 'Nee',
+        'all'      => 'Toon',
         'minutes' => '1 minuut| :count minuten',
+
     ],
 
     'discussion' => [
