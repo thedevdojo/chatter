@@ -31,8 +31,8 @@ return [
     |
     */
 
-    'headline'      => 'Welcome to Chatter',
-    'description'   => 'A simple forum package for your Laravel app.',
+    'headline'      => 'Welkom bij Chatter',
+    'description'   => 'Een simpel forum package voor je Laravel app.',
 
 ];
 

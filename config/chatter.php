@@ -23,11 +23,11 @@ return [
 
    /*
     |--------------------------------------------------------------------------
-    | The main headline and description of your forum
+    | Headline logo
     |--------------------------------------------------------------------------
     |
-    | Your headline and your description will be shown on the homepage of your
-    | forum, unless you change the default theme.
+    | Specify the url for your logo. If left empty the headline and
+    | description from the language files will be used.
     |
     |   *headline_logo*: If this is set an image will be used on the forum home
     |       instead of text. Specify the relative path to the image here.

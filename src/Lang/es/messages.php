@@ -7,7 +7,6 @@ return [
         'edit'    => 'Editar',
         'yes'     => 'Si',
         'no'      => 'No',
-        'all'      => 'Todo',
         'minutes' => '1 minuto| :count minutos',
     ],
 
