@@ -29,28 +29,30 @@
 		</div>
 	</div>
 
-	@if(Session::has('chatter_alert'))
-		<div class="chatter-alert alert alert-{{ Session::get('chatter_alert_type') }}">
-			<div class="container">
-	        	<strong><i class="chatter-alert-{{ Session::get('chatter_alert_type') }}"></i> {{ Config::get('chatter.alert_messages.' . Session::get('chatter_alert_type')) }}</strong>
-	        	{{ Session::get('chatter_alert') }}
-	        	<i class="chatter-close"></i>
-	        </div>
-	    </div>
-	    <div class="chatter-alert-spacer"></div>
-	@endif
+	@if(config('chatter.errors'))
+		@if(Session::has('chatter_alert') && $chatter_errors)
+			<div class="chatter-alert alert alert-{{ Session::get('chatter_alert_type') }}">
+				<div class="container">
+					<strong><i class="chatter-alert-{{ Session::get('chatter_alert_type') }}"></i> {{ Config::get('chatter.alert_messages.' . Session::get('chatter_alert_type')) }}</strong>
+					{{ Session::get('chatter_alert') }}
+					<i class="chatter-close"></i>
+				</div>
+			</div>
+			<div class="chatter-alert-spacer"></div>
+		@endif
 
-	@if (count($errors) > 0)
-	    <div class="chatter-alert alert alert-danger">
-	    	<div class="container">
-	    		<p><strong><i class="chatter-alert-danger"></i> @lang('chatter::alert.danger.title')</strong> @lang('chatter::alert.danger.reason.errors')</p>
-		        <ul>
-		            @foreach ($errors->all() as $error)
-		                <li>{{ $error }}</li>
-		            @endforeach
-		        </ul>
-		    </div>
-	    </div>
+		@if (count($errors) > 0)
+			<div class="chatter-alert alert alert-danger">
+				<div class="container">
+					<p><strong><i class="chatter-alert-danger"></i> @lang('chatter::alert.danger.title')</strong> @lang('chatter::alert.danger.reason.errors')</p>
+					<ul>
+						@foreach ($errors->all() as $error)
+							<li>{{ $error }}</li>
+						@endforeach
+					</ul>
+				</div>
+			</div>
+		@endif
 	@endif
 
 	<div class="container margin-top">
@@ -236,7 +238,7 @@
                 <div class="row">
                     <div class="col-md-7">
                         <!-- TITLE -->
-                        <input type="text" class="form-control" id="title" name="title" placeholder="Title of {{ Config::get('chatter.titles.discussion') }}" v-model="title" value="{{ old('title') }}" >
+                        <input type="text" class="form-control" id="title" name="title" placeholder="@lang('chatter::messages.editor.title')" v-model="title" value="{{ old('title') }}" >
                     </div>
 
                     <div class="col-md-4">
@@ -322,7 +324,6 @@
 
 @if(Config::get('chatter.sidebar_in_discussion_view'))
     <script src="/vendor/devdojo/chatter/assets/vendor/spectrum/spectrum.js"></script>
-    <script src="/vendor/devdojo/chatter/assets/js/chatter.js"></script>
 @endif
 
 <script>

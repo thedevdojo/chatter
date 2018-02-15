@@ -8,6 +8,7 @@ return [
         'yes'     => 'Ja',
         'no'      => 'Nee',
         'minutes' => '1 minuut| :count minuten',
+
     ],
 
     'discussion' => [

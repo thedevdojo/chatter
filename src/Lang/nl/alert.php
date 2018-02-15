@@ -26,6 +26,12 @@ return [
             'update_post'       => 'Helaas, je kan deze reactie niet wijzigen.',
             'destroy_post'      => 'Helaas, je kan deze reactie niet verwijderen.',
             'create_discussion' => 'Helaas, er is een probleem opgetreden tijdens het plaatsen van je discussie :(',
+        	'title_required'    => 'Voeg alsjeblieft een titel toe',
+        	'title_min'		    => 'De titel heeft ten minste :min karkaters nodig.',
+        	'title_max'		    => 'De titel mag maar uit :max karakters bestaan.',
+        	'content_required'  => 'Voeg alsjeblieft een bericht toe',
+        	'content_min'  		=> 'Je bericht heeft ten minste :mix karakters nodig',
+        	'category_required' => 'Kies alsjeblieft een categorie',
         ],
     ],
 ];
