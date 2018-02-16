@@ -209,14 +209,7 @@ class ChatterPostController extends Controller
     public function destroy($id, Request $request)
     {
         $post = Models::post()->with('discussion')->findOrFail($id);
-
-        if ($request->user()->id !== (int) $post->user_id) {
-            return redirect('/'.config('chatter.routes.home'))->with([
-                'chatter_alert_type' => 'danger',
-                'chatter_alert'      => trans('chatter::alert.danger.reason.destroy_post'),
-            ]);
-        }
-
+        
         if ($post->discussion->posts()->oldest()->first()->id === $post->id) {
             if(config('chatter.soft_deletes')) {
                 $post->discussion->posts()->delete();
