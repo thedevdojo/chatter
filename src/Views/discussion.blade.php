@@ -30,7 +30,7 @@
 	</div>
 
 	@if(config('chatter.errors'))
-		@if(Session::has('chatter_alert') && $chatter_errors)
+		@if(Session::has('chatter_alert'))
 			<div class="chatter-alert alert alert-{{ Session::get('chatter_alert_type') }}">
 				<div class="container">
 					<strong><i class="chatter-alert-{{ Session::get('chatter_alert_type') }}"></i> {{ Config::get('chatter.alert_messages.' . Session::get('chatter_alert_type')) }}</strong>
