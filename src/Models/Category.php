@@ -12,7 +12,7 @@ class Category extends Model
 
     public function discussions()
     {
-        return $this->hasMany(Models::className(Discussion::class));
+        return $this->hasMany(Models::className(Discussion::class),'chatter_category_id');
     }
 
     public function parents()
