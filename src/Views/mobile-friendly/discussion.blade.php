@@ -29,30 +29,28 @@
 		</div>
 	</div>
 
-	@if(config('chatter.errors'))
-		@if(Session::has('chatter_alert') && $chatter_errors)
-			<div class="chatter-alert alert alert-{{ Session::get('chatter_alert_type') }}">
-				<div class="container">
-					<strong><i class="chatter-alert-{{ Session::get('chatter_alert_type') }}"></i> {{ Config::get('chatter.alert_messages.' . Session::get('chatter_alert_type')) }}</strong>
-					{{ Session::get('chatter_alert') }}
-					<i class="chatter-close"></i>
-				</div>
-			</div>
-			<div class="chatter-alert-spacer"></div>
-		@endif
+	@if(Session::has('chatter_alert'))
+		<div class="chatter-alert alert alert-{{ Session::get('chatter_alert_type') }}">
+			<div class="container">
+	        	<strong><i class="chatter-alert-{{ Session::get('chatter_alert_type') }}"></i> {{ Config::get('chatter.alert_messages.' . Session::get('chatter_alert_type')) }}</strong>
+	        	{{ Session::get('chatter_alert') }}
+	        	<i class="chatter-close"></i>
+	        </div>
+	    </div>
+	    <div class="chatter-alert-spacer"></div>
+	@endif
 
-		@if (count($errors) > 0)
-			<div class="chatter-alert alert alert-danger">
-				<div class="container">
-					<p><strong><i class="chatter-alert-danger"></i> @lang('chatter::alert.danger.title')</strong> @lang('chatter::alert.danger.reason.errors')</p>
-					<ul>
-						@foreach ($errors->all() as $error)
-							<li>{{ $error }}</li>
-						@endforeach
-					</ul>
-				</div>
-			</div>
-		@endif
+	@if (count($errors) > 0)
+	    <div class="chatter-alert alert alert-danger">
+	    	<div class="container">
+	    		<p><strong><i class="chatter-alert-danger"></i> @lang('chatter::alert.danger.title')</strong> @lang('chatter::alert.danger.reason.errors')</p>
+		        <ul>
+		            @foreach ($errors->all() as $error)
+		                <li>{{ $error }}</li>
+		            @endforeach
+		        </ul>
+		    </div>
+	    </div>
 	@endif
 
 	<div class="container margin-top">
@@ -65,8 +63,8 @@
                 <div class="col-md-3 left-column">
                     <!-- SIDEBAR -->
                     <div class="chatter_sidebar">
-                        <button class="btn btn-primary" id="new_discussion_btn"><i class="chatter-new"></i> @lang('chatter::messages.discussion.new')</button>
-                        <a href="/{{ Config::get('chatter.routes.home') }}"><i class="chatter-bubble"></i> @lang('chatter::messages.discussion.all')</a>
+                        <button class="btn btn-primary" id="new_discussion_btn"><i class="chatter-new"></i>@lang('chatter::messages.discussion.new')</button>
+                        <a href="/{{ Config::get('chatter.routes.home') }}"><i class="chatter-bubble"></i>@lang('chatter::messages.discussion.all')</a>
                         <ul class="nav nav-pills nav-stacked">
                             <?php $categories = DevDojo\Chatter\Models\Models::category()->all(); ?>
                             @foreach($categories as $category)
@@ -86,7 +84,7 @@
 		                		<span class="chatter_posts">
 		                			@if(!Auth::guest() && (Auth::user()->id == $post->user->id))
 		                				<div id="delete_warning_{{ $post->id }}" class="chatter_warning_delete">
-		                					<i class="chatter-warning"></i> @lang('chatter::messages.response.confirm')
+		                					<i class="chatter-warning"></i>@lang('chatter::messages.response.confirm')
 		                					<button class="btn btn-sm btn-danger pull-right delete_response">@lang('chatter::messages.response.yes_confirm')</button>
 		                					<button class="btn btn-sm btn-default pull-right">@lang('chatter::messages.response.no_confirm')</button>
 		                				</div>
@@ -112,8 +110,8 @@
 					        				@endif
 
 					        			@else
-					        				<span class="chatter_avatar_circle" style="background-color:#<?= \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode($post->user->{Config::get('chatter.user.database_field_with_user_name')}) ?>">
-					        					{{ ucfirst(substr($post->user->{Config::get('chatter.user.database_field_with_user_name')}, 0, 1)) }}
+					        				<span class="chatter_avatar_circle" style="background-color:#<?= \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode($post->user->email) ?>">
+					        					{{ ucfirst(substr($post->user->email, 0, 1)) }}
 					        				</span>
 					        			@endif
 					        		</div>
@@ -161,8 +159,8 @@
 		        				@endif
 
 		        			@else
-		        				<span class="chatter_avatar_circle" style="background-color:#<?= \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode(Auth::user()->{Config::get('chatter.user.database_field_with_user_name')}) ?>">
-		        					{{ strtoupper(substr(Auth::user()->{Config::get('chatter.user.database_field_with_user_name')}, 0, 1)) }}
+		        				<span class="chatter_avatar_circle" style="background-color:#<?= \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode(Auth::user()->email) ?>">
+		        					{{ strtoupper(substr(Auth::user()->email, 0, 1)) }}
 		        				</span>
 		        			@endif
 		        		</div>
@@ -194,7 +192,7 @@
 
 						</div><!-- #new_discussion -->
 						<div id="discussion_response_email">
-							<button id="submit_response" class="btn btn-success pull-right"><i class="chatter-new"></i> @lang('chatter::messages.response.submit')</button>
+							<button id="submit_response" class="btn btn-success pull-right"><i class="chatter-new"></i>@lang('chatter::messages.response.submit')</button>
 							@if(Config::get('chatter.email.enabled'))
 								<div id="notify_email">
 									<img src="{{ url('/vendor/devdojo/chatter/assets/images/email.gif') }}" class="chatter_email_loader">
@@ -324,6 +322,7 @@
 
 @if(Config::get('chatter.sidebar_in_discussion_view'))
     <script src="/vendor/devdojo/chatter/assets/vendor/spectrum/spectrum.js"></script>
+    <script src="/vendor/devdojo/chatter/assets/js/chatter.js"></script>
 @endif
 
 <script>
@@ -465,6 +464,5 @@
 	});
 </script>
 
-<script src="{{ url('/vendor/devdojo/chatter/assets/js/chatter.js') }}"></script>
 
 @stop

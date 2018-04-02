@@ -1,2 +1,5 @@
 /public/assets/node_modules
 .DS_Store
+composer.lock
+/vendor/
+/.idea/
