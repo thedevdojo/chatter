@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you can specify the specific routes for the different sections of
-    | your forum.
+    | your forum. Please make sure you don't repeat any route name.
     |
     */
 
