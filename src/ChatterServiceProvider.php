@@ -2,6 +2,7 @@
 
 namespace DevDojo\Chatter;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
 class ChatterServiceProvider extends ServiceProvider
