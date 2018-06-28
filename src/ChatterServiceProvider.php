@@ -7,6 +7,13 @@ use Illuminate\Support\ServiceProvider;
 class ChatterServiceProvider extends ServiceProvider
 {
     /**
+     * Where publish routes can be written, and will be registered by Chatter.
+     *
+     * @var string
+     */
+    public $publishRouteFile = '/routes/chatter/web.php';
+
+    /**
      * Bootstrap the application services.
      *
      * @return void
@@ -34,8 +41,11 @@ class ChatterServiceProvider extends ServiceProvider
             __DIR__.'/Lang' => resource_path('lang/vendor/chatter'),
         ], 'chatter_lang');
 
-        // include the routes file
-        include __DIR__.'/Routes/web.php';
+        $this->publishes([
+            __DIR__.'/Routes' => base_path('routes/chatter'),
+        ], 'chatter_routes');
+
+        $this->setupRoutes($this->app->router);
     }
 
     /**
@@ -57,5 +67,20 @@ class ChatterServiceProvider extends ServiceProvider
         $loader->alias('Purifier', 'LukeTowers\Purifier\Facades\Purifier');
 
         $this->loadViewsFrom(__DIR__.'/Views', 'chatter');
+    }
+
+    /**
+     * Define the routes for the application.
+     *
+     * @param \Illuminate\Routing\Router $router
+     *
+     * @return void
+     */
+    public function setupRoutes(Router $router)
+    {
+        // if the custom routes file is published, register its routes
+        if (file_exists(base_path().$this->publishRouteFile)) {
+            $this->loadRoutesFrom(base_path().$this->publishRouteFile);
+        }
     }
 }
