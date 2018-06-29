@@ -8,6 +8,7 @@ use DevDojo\Chatter\Events\ChatterAfterNewResponse;
 use DevDojo\Chatter\Events\ChatterBeforeNewResponse;
 use DevDojo\Chatter\Mail\ChatterDiscussionUpdated;
 use DevDojo\Chatter\Models\Models;
+use DevDojo\Chatter\Requests\ChatterDeletePostRequest;
 use Event;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as Controller;
@@ -210,17 +211,10 @@ class ChatterPostController extends Controller
      *
      * @return \Illuminate\Routing\Redirect
      */
-    public function destroy($id, Request $request)
+    public function destroy($id, ChatterDeletePostRequest $request)
     {
         $post = Models::post()->with('discussion')->findOrFail($id);
-
-        if ($request->user()->id !== (int) $post->user_id) {
-            return redirect('/'.config('chatter.routes.home'))->with([
-                'chatter_alert_type' => 'danger',
-                'chatter_alert'      => trans('chatter::alert.danger.reason.destroy_post'),
-            ]);
-        }
-
+        
         if ($post->discussion->posts()->oldest()->first()->id === $post->id) {
             if(config('chatter.soft_deletes')) {
                 $post->discussion->posts()->delete();
