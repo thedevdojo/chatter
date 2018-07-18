@@ -9,6 +9,7 @@ use DevDojo\Chatter\Events\ChatterBeforeNewResponse;
 use DevDojo\Chatter\Mail\ChatterDiscussionUpdated;
 use DevDojo\Chatter\Models\Models;
 use DevDojo\Chatter\Requests\ChatterDeletePostRequest;
+use DevDojo\Chatter\Requests\ChatterUpdatePostRequest;
 use Event;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as Controller;
@@ -157,7 +158,7 @@ class ChatterPostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ChatterUpdatePostRequest $request, $id)
     {
         $stripped_tags_body = ['body' => strip_tags($request->body)];
         $validator = Validator::make($stripped_tags_body, [
@@ -170,37 +171,29 @@ class ChatterPostController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-
+        
         $post = Models::post()->find($id);
-        if (!Auth::guest() && (Auth::user()->id == $post->user_id)) {
-            if ($post->markdown) {
-                $post->body = $request->body;
-            } else {
- 	        $post->body = Purifier::clean($request->body);
-            }
-            $post->save();
-
-            $discussion = Models::discussion()->find($post->chatter_discussion_id);
-
-            $category = Models::category()->find($discussion->chatter_category_id);
-            if (!isset($category->slug)) {
-                $category = Models::category()->first();
-            }
-
-            $chatter_alert = [
-                'chatter_alert_type' => 'success',
-                'chatter_alert'      => trans('chatter::alert.success.reason.updated_post'),
-                ];
-
-            return redirect('/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$category->slug.'/'.$discussion->slug)->with($chatter_alert);
+        
+        if ($post->markdown) {
+            $post->body = $request->body;
         } else {
-            $chatter_alert = [
-                'chatter_alert_type' => 'danger',
-                'chatter_alert'      => trans('chatter::alert.danger.reason.update_post'),
-                ];
-
-            return redirect('/'.config('chatter.routes.home'))->with($chatter_alert);
+            $post->body = Purifier::clean($request->body);
         }
+        $post->save();
+
+        $discussion = Models::discussion()->find($post->chatter_discussion_id);
+
+        $category = Models::category()->find($discussion->chatter_category_id);
+        if (!isset($category->slug)) {
+            $category = Models::category()->first();
+        }
+
+        $chatter_alert = [
+            'chatter_alert_type' => 'success',
+            'chatter_alert'      => trans('chatter::alert.success.reason.updated_post'),
+            ];
+
+        return redirect('/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$category->slug.'/'.$discussion->slug)->with($chatter_alert);
     }
 
     /**
