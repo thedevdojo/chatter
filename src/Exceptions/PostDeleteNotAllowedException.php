@@ -4,7 +4,7 @@ namespace DevDojo\Chatter\Exceptions;
 
 use Exception;
 
-class ChatterUserIsNotAllowedToDeletePostException extends Exception
+class PostDeleteNotAllowedException extends Exception
 {
     
     /**
