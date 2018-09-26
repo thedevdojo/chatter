@@ -37,8 +37,8 @@ return [
         'notify' => 'Notificarme cuando alguien conteste en la '.mb_strtolower(trans('chatter::intro.titles.discussion')),
     ],
 
-    'auth' => 'Por favor <a href="/:home/login">Inicia sesión</a>
-                o <a href="/:home/register">Regístrate</a>
+    'auth' => 'Por favor <a href="'.route('login').'">Inicia sesión</a>
+                o <a href="'.route('register').'">Regístrate</a>
                 para dejar una respuesta.',
 
 ];

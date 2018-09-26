@@ -37,8 +37,8 @@ return [
         'notify' => 'Notify me when someone replies',
     ],
 
-    'auth' => 'Please <a href="/:home/login">login</a>
-                or <a href="/:home/register">register</a>
+    'auth' => 'Please <a href="'.route('login').'">login</a>
+                or <a href="'.route('register').'">register</a>
                 to leave a response.',
 
 ];
