@@ -24,8 +24,8 @@
 
 	<div id="chatter_header" style="background-color:{{ $discussion->color }}">
 		<div class="container">
-			<a class="back_btn" href="/{{ Config::get('chatter.routes.home') }}"><i class="chatter-back"></i></a>
-			<h1>{{ $discussion->title }}</h1><span class="chatter_head_details"> @lang('chatter::messages.discussion.head_details')<a class="chatter_cat" href="/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.category') }}/{{ $discussion->category->slug }}" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</a></span>
+			<a class="back_btn" href="{{ route('chatter.home') }}"><i class="chatter-back"></i></a>
+			<h1>{{ $discussion->title }}</h1><span class="chatter_head_details"> @lang('chatter::messages.discussion.head_details')<a class="chatter_cat" href="{{ route('chatter.category.show', $discussion->category->slug) }}" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</a></span>
 		</div>
 	</div>
 
@@ -66,11 +66,11 @@
                     <!-- SIDEBAR -->
                     <div class="chatter_sidebar">
                         <button class="btn btn-primary" id="new_discussion_btn"><i class="chatter-new"></i> @lang('chatter::messages.discussion.new')</button>
-                        <a href="/{{ Config::get('chatter.routes.home') }}"><i class="chatter-bubble"></i> @lang('chatter::messages.discussion.all')</a>
+                        <a href="{{ route('chatter.home') }}"><i class="chatter-bubble"></i> @lang('chatter::messages.discussion.all')</a>
                         <ul class="nav nav-pills nav-stacked">
                             <?php $categories = DevDojo\Chatter\Models\Models::category()->all(); ?>
                             @foreach($categories as $category)
-                                <li><a href="/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.category') }}/{{ $category->slug }}"><div class="chatter-box" style="background-color:{{ $category->color }}"></div> {{ $category->name }}</a></li>
+                                <li><a href="{{ route('chatter.category.show', $category->slug) }}"><div class="chatter-box" style="background-color:{{ $category->color }}"></div> {{ $category->name }}</a></li>
                             @endforeach
                         </ul>
                     </div>
@@ -277,7 +277,7 @@
                 <div id="new_discussion_footer">
                     <input type='text' id="color" name="color" /><span class="select_color_text">@lang('chatter::messages.editor.tinymce_placeholder')</span>
                     <button id="submit_discussion" class="btn btn-success pull-right"><i class="chatter-new"></i> Create {{ Config::get('chatter.titles.discussion') }}</button>
-                    <a href="/{{ Config::get('chatter.routes.home') }}" class="btn btn-default pull-right" id="cancel_discussion">Cancel</a>
+                    <a href="{{ route('chatter.home') }}" class="btn btn-default pull-right" id="cancel_discussion">Cancel</a>
                     <div style="clear:both"></div>
                 </div>
             </form>
