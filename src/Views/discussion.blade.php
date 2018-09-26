@@ -112,7 +112,7 @@
 					        				@endif
 
 					        			@else
-					        				<span class="chatter_avatar_circle" style="background-color:#<?= \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode($post->user->{Config::get('chatter.user.database_field_with_user_name')}) ?>">
+					        				<span class="chatter_avatar_circle" style="background-color:#<?php echo \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode($post->user->{Config::get('chatter.user.database_field_with_user_name')}) ?>">
 					        					{{ ucfirst(substr($post->user->{Config::get('chatter.user.database_field_with_user_name')}, 0, 1)) }}
 					        				</span>
 					        			@endif
@@ -124,10 +124,10 @@
 
 					        				@if($post->markdown)
 					        					<pre class="chatter_body_md">{{ $post->body }}</pre>
-					        					<?= \DevDojo\Chatter\Helpers\ChatterHelper::demoteHtmlHeaderTags( GrahamCampbell\Markdown\Facades\Markdown::convertToHtml( $post->body ) ); ?>
+					        					<?php echo \DevDojo\Chatter\Helpers\ChatterHelper::demoteHtmlHeaderTags( GrahamCampbell\Markdown\Facades\Markdown::convertToHtml( $post->body ) ); ?>
 					        					<!--?= GrahamCampbell\Markdown\Facades\Markdown::convertToHtml( $post->body ); ?-->
 					        				@else
-					        					<?= $post->body; ?>
+					        					<?php echo $post->body; ?>
 					        				@endif
 
 					        			</div>
@@ -161,7 +161,7 @@
 		        				@endif
 
 		        			@else
-		        				<span class="chatter_avatar_circle" style="background-color:#<?= \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode(Auth::user()->{Config::get('chatter.user.database_field_with_user_name')}) ?>">
+		        				<span class="chatter_avatar_circle" style="background-color:#<?php echo \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode(Auth::user()->{Config::get('chatter.user.database_field_with_user_name')}) ?>">
 		        					{{ strtoupper(substr(Auth::user()->{Config::get('chatter.user.database_field_with_user_name')}, 0, 1)) }}
 		        				</span>
 		        			@endif
