@@ -4,11 +4,12 @@ namespace DevDojo\Chatter\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use GrahamCampbell\Markdown\Facades\Markdown;
 
 class Post extends Model
 {
     use SoftDeletes;
-    
+
     protected $table = 'chatter_post';
     public $timestamps = true;
     protected $fillable = ['chatter_discussion_id', 'user_id', 'body', 'markdown'];
@@ -22,5 +23,14 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo(config('chatter.user.namespace'));
+    }
+
+    public function getBodyAttribute($field)
+    {
+        if ($this->attributes['markdown'] == true) {
+            $field = Markdown::convertToHtml($discussion->post[0]->body);
+        }
+
+        return $field;
     }
 }

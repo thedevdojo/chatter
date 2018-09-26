@@ -215,7 +215,7 @@
 
 					<div id="login_or_register">
 						<p>
-                            {!! __('chatter::messages.auth', ['home' => Config::get('chatter.routes.home')]) !!}
+                            {!! __('chatter::messages.auth') !!}
                         </p>
 					</div>
 

@@ -29,7 +29,7 @@ class ChatterDiscussionController extends Controller
         if ($request->offset) {
             $offset = $request->offset;
         }
-        $discussions = Models::discussion()->with('user')->with('post')->with('postsCount')->with('category')->orderBy('created_at', 'ASC')->take($total)->offset($offset)->get();*/
+        $discussions = Models::discussion()->with('user')->with('post')->with('category')->orderBy('created_at', 'ASC')->take($total)->offset($offset)->get();*/
 
         // Return an empty array to avoid exposing user data to the public.
         // This index function is not being used anywhere.
@@ -75,7 +75,7 @@ class ChatterDiscussionController extends Controller
 			'body_content.min' => trans('chatter::alert.danger.reason.content_min'),
 			'chatter_category_id.required' => trans('chatter::alert.danger.reason.category_required'),
 		]);
-        
+
 
         Event::fire(new ChatterBeforeNewDiscussion($request, $validator));
         if (function_exists('chatter_before_new_discussion')) {
@@ -217,7 +217,7 @@ class ChatterDiscussionController extends Controller
         }
 
         $discussion->increment('views');
-        
+
         return view('chatter::discussion', compact('discussion', 'posts', 'chatter_editor'));
     }
 

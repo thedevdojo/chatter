@@ -100,18 +100,12 @@
                                         <h3 class="chatter_middle_title">{{ $discussion->title }} <div class="chatter_cat" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</div></h3>
                                         <span class="chatter_middle_details">@lang('chatter::messages.discussion.posted_by') <span data-href="/user">{{ ucfirst($discussion->user->{Config::get('chatter.user.database_field_with_user_name')}) }}</span> {{ \Carbon\Carbon::createFromTimeStamp(strtotime($discussion->created_at))->diffForHumans() }}</span>
 
-
-                                        @if($discussion->post[0]->markdown)
-                                            <?php $discussion_body = GrahamCampbell\Markdown\Facades\Markdown::convertToHtml( $discussion->post[0]->body ); ?>
-                                        @else
-                                            <?php $discussion_body = $discussion->post[0]->body; ?>
-                                        @endif
-                                        <p>{{ substr(strip_tags($discussion_body), 0, 200) }}@if(strlen(strip_tags($discussion_body)) > 200){{ '...' }}@endif</p>
+                                        <p>{!! str_limit(strip_tags($discussion->post->body), 200) !!}</p>
                                     </div>
 
                                     <div class="chatter_right">
 
-                                        <div class="chatter_count"><i class="chatter-bubble"></i> {{ $discussion->postsCount[0]->total }}</div>
+                                        <div class="chatter_count"><i class="chatter-bubble"></i> {{ $discussion->posts()->count() - 1 }}</div>
                                     </div>
 
                                     <div class="chatter_clear"></div>
