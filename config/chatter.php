@@ -30,11 +30,12 @@ return [
     | description from the language files will be used.
     |
     |   *headline_logo*: If this is set an image will be used on the forum home
-    |       instead of text. Specify the relative path to the image here.
+    |       instead of text. Specify the relative path to the image here. If the
+    |       value is false, nothing will be displayed.
     |
     */
 
-    'headline_logo' => '/vendor/devdojo/chatter/assets/images/logo-light.png',
+    'headline_logo' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -253,7 +254,7 @@ return [
     'paginate' => [
         'num_of_results' => 10,
     ],
-    
+
     /*
     |--------------------------------------------------------------------------
     | Show missing fields to users in forms
