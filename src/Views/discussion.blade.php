@@ -174,7 +174,7 @@
 							    <div></div>
 							</div>
 
-				            <form id="chatter_form_editor" action="/{{ Config::get('chatter.routes.home') }}/posts" method="POST">
+				            <form id="chatter_form_editor" action="{{ route('chatter.posts.store') }}" method="POST">
 
 						        <!-- BODY -->
 						    	<div id="editor">
@@ -215,7 +215,7 @@
 
 					<div id="login_or_register">
 						<p>
-                            @lang('chatter::messages.auth', ['home' => Config::get('chatter.routes.home')])
+                            {!! __('chatter::messages.auth', ['home' => Config::get('chatter.routes.home')]) !!}
                         </p>
 					</div>
 
