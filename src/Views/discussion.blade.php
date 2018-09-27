@@ -323,7 +323,7 @@
 @endif
 
 @if(Config::get('chatter.sidebar_in_discussion_view'))
-    <script src="/vendor/devdojo/chatter/assets/vendor/spectrum/spectrum.js"></script>
+    <script src="{{ url('/vendor/devdojo/chatter/assets/vendor/spectrum/spectrum.js') }}"></script>
 @endif
 
 <script>
@@ -438,7 +438,7 @@
             });
             $('#new_discussion_btn').click(function(){
                 @if(Auth::guest())
-                    window.location.href = "/{{ Config::get('chatter.routes.home') }}/login";
+                    window.location.href = "{{ route('chatter.login') }}";
                 @else
                     $('#new_discussion_in_discussion_view').slideDown();
                     $('#title').focus();
@@ -461,7 +461,6 @@
                 $('#title').focus();
             @endif
         @endif
-
 	});
 </script>
 
