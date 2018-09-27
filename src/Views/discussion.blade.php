@@ -234,7 +234,7 @@
                 <div></div>
             </div>
 
-            <form id="chatter_form_editor_in_discussion_view" action="/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.discussion') }}" method="POST">
+            <form id="chatter_form_editor_in_discussion_view" action="{{ route('chatter.discussion.store') }}" method="POST">
                 <div class="row">
                     <div class="col-md-7">
                         <!-- TITLE -->
@@ -403,7 +403,7 @@
                 @endif
 			}
 
-			$.form('/{{ Config::get('chatter.routes.home') }}/posts/' + post_id, { _token: '{{ csrf_token() }}', _method: 'PATCH', 'body' : update_body }, 'POST').submit();
+			$.form('{{ str_replace('/holder', '/', route('chatter.posts.update', 'holder')) }}' + post_id, { _token: '{{ csrf_token() }}', _method: 'PATCH', 'body' : update_body }, 'POST').submit();
 		});
 
 		$('#submit_response').click(function(){
@@ -428,7 +428,7 @@
 
 		$('.delete_response').click(function(){
 			post_id = $(this).parents('li').data('id');
-			$.form('/{{ Config::get('chatter.routes.home') }}/posts/' + post_id, { _token: '{{ csrf_token() }}', _method: 'DELETE'}, 'POST').submit();
+			$.form('{{ str_replace('/holder', '/', route('chatter.posts.destroy', 'holder')) }}' + post_id, { _token: '{{ csrf_token() }}', _method: 'DELETE'}, 'POST').submit();
 		});
 
 		// logic for when a new discussion needs to be created from the slideUp
