@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "luketowers/purifier": "~3.0"
+        "mewebstudio/purifier": "~2.1*"
     },
     "require-dev": {
         "illuminate/cache": "~5.1.20|5.2.*|5.3.*",
