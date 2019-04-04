@@ -102,8 +102,11 @@ class ChatterDiscussionController extends Controller
             }
         }
 
-        // *** Let's gaurantee that we always have a generic slug *** //
-        $slug = str_slug($request->title, '-');
+        do {
+            $length = Models::discussion()->count();
+            $length = $length >= 10 ? (int)log10($length) : 0;
+            $slug = str_random(20 + $length);
+        } while (Models::discussion()->where('slug', $slug)->exists());
 
         $discussion_exists = Models::discussion()->where('slug', '=', $slug)->withTrashed()->first();
         $incrementer = 1;
