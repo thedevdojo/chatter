@@ -3,6 +3,7 @@
 namespace DevDojo\Chatter;
 
 use Illuminate\Support\ServiceProvider;
+use DevDojo\Chatter\Models\Models;
 
 class ChatterServiceProvider extends ServiceProvider
 {
@@ -36,6 +37,10 @@ class ChatterServiceProvider extends ServiceProvider
 
         // include the routes file
         include __DIR__.'/Routes/web.php';
+
+        view()->composer(['chatter::blocks.sidebar', 'chatter::discussion', 'chatter::home'], function($view) {
+            $view->with('categories', Models::category()->orderBy('order')->get());
+        });
     }
 
     /**
