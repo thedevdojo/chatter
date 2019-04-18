@@ -6,7 +6,7 @@ return [
     'body'            => 'Te informamos que alguien ha respondido a una '.mb_strtolower(trans('chatter::intro.titles.discussion')).' publicada en',
     'view_discussion' => 'Ver la '.mb_strtolower(trans('chatter::intro.titles.discussion')),
     'farewell'        => 'Que tengas un buen día.',
-    'unsubscribe'      => [
+    'unsubscribe'     => [
         'message' => 'Si ya no deseas ser notificado cuando alguien más responda, asegurate de desmarcar la configuración de notificación al final de la página :)',
         'action'  => '¿No le gustan estos correos electrónicos?',
         'link'    => 'Anular la suscripción a la '.mb_strtolower(trans('chatter::intro.titles.discussion')),
