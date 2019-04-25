@@ -148,6 +148,17 @@ class ChatterPostController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        $post = Models::post()->with('discussion')->findOrFail($id);
+
+        if ($post) {
+            return redirect(null, 301)->route('chatter.discussion.showInCategory', [$post->discussion->category->slug, $post->discussion->slug]);
+        }
+
+        abort(404);
+    }
+
     /**
      * Update the specified resource in storage.
      *
