@@ -4,6 +4,7 @@ namespace DevDojo\Chatter\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 
 class Discussion extends Model
@@ -44,6 +45,13 @@ class Discussion extends Model
         return $this->belongsToMany(config('chatter.user.namespace'), 'chatter_user_discussion', 'discussion_id', 'user_id');
     }
 
+    public function getBodyAttribute()
+    {
+        $post = $this->posts()->orderBy('created_at', 'asc')->first();
+
+        return $post->body;
+    }
+
     /**
      * Get the indexable data array for the model.
      *
@@ -51,10 +59,17 @@ class Discussion extends Model
      */
     public function toSearchableArray()
     {
+        $posts = [];
+        $this->posts()->select(['body'])->take(6)->get()->each(function ($post) use (&$posts) {
+            $posts[] = Str::words($post->body, 50); // limit post body to 50 words
+        });
+
         $array = $this->toArray();
 
-        $array['category'] = array_values($this->category->pluck('name', 'slug', 'id')->toArray());
-        $array['posts'] = array_values($this->posts->pluck('body')->toArray());
+        $array['category'] = $this->category->name;
+        $array['body'] = $this->posts()->orderBy('created_at', 'asc')->first()->body;
+        $array['posts'] = $posts;
+        $array['posts_count'] = $this->posts->count();
 
         return $array;
     }
