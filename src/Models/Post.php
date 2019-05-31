@@ -27,7 +27,7 @@ class Post extends Model
 
     public function getBodyAttribute($field)
     {
-        if ($this->attributes['markdown'] == true) {
+        if (isset($this->attributes['markdown']) && $this->attributes['markdown'] == true) {
             $field = Markdown::convertToHtml($discussion->post[0]->body);
         }
 
