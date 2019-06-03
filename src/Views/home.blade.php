@@ -66,11 +66,12 @@
                 <div class="chatter_sidebar">
                     <button class="btn btn-primary" id="new_discussion_btn"><i class="chatter-new"></i> @lang('chatter::messages.discussion.new')</button>
                     <a href="{{ route('chatter.home') }}"><i class="chatter-bubble"></i> @lang('chatter::messages.discussion.all')</a>
-          {!! $categoriesMenu !!}
+                    {!! $categoriesMenu !!}
                 </div>
                 <!-- END SIDEBAR -->
             </div>
             <div class="col-md-9 right-column">
+                @includeWhen(config('scout.driver'), 'chatter::blocks.search')
                 <div class="panel">
                     <ul class="discussions">
                         @foreach($discussions as $discussion)

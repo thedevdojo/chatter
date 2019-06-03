@@ -4,12 +4,10 @@ namespace DevDojo\Chatter\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
-use Laravel\Scout\Searchable;
 
 class Discussion extends Model
 {
-    use SoftDeletes, Searchable;
+    use SoftDeletes;
 
     protected $table = 'chatter_discussion';
     public $timestamps = true;
@@ -50,27 +48,5 @@ class Discussion extends Model
         $post = $this->posts()->orderBy('created_at', 'asc')->first();
 
         return $post->body;
-    }
-
-    /**
-     * Get the indexable data array for the model.
-     *
-     * @return array
-     */
-    public function toSearchableArray()
-    {
-        $posts = [];
-        $this->posts()->select(['body'])->take(6)->get()->each(function ($post) use (&$posts) {
-            $posts[] = Str::words($post->body, 50); // limit post body to 50 words
-        });
-
-        $array = $this->toArray();
-
-        $array['category'] = $this->category->name;
-        $array['body'] = $this->posts()->orderBy('created_at', 'asc')->first()->body;
-        $array['posts'] = $posts;
-        $array['posts_count'] = $this->posts->count();
-
-        return $array;
     }
 }

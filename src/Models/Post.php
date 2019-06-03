@@ -5,10 +5,11 @@ namespace DevDojo\Chatter\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use GrahamCampbell\Markdown\Facades\Markdown;
+use Laravel\Scout\Searchable;
 
 class Post extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Searchable;
 
     protected $table = 'chatter_post';
     public $timestamps = true;
@@ -28,9 +29,15 @@ class Post extends Model
     public function getBodyAttribute($field)
     {
         if (isset($this->attributes['markdown']) && $this->attributes['markdown'] == true) {
-            $field = Markdown::convertToHtml($discussion->post[0]->body);
+            // todo: verify $discussion was intentional or meant to be $this->discussion
+            $field = Markdown::convertToHtml($this->discussion->post[0]->body);
         }
 
         return $field;
+    }
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
     }
 }
