@@ -11,7 +11,7 @@
         @endif
 
     @else
-        <span class="chatter_avatar_circle" style="background-color:#<?php echo \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode($user->{Config::get('chatter.user.database_field_with_user_name')}) ?>">
+        <span class="chatter_avatar_circle" style="background-color:#<?php echo \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode($discussion->user->{Config::get('chatter.user.database_field_with_user_name')}) ?>">
             {{ ucfirst(substr($discussion->user->{Config::get('chatter.user.database_field_with_user_name')}, 0, 1)) }}
         </span>
     @endif
