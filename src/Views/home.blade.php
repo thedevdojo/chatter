@@ -71,7 +71,7 @@
                 <!-- END SIDEBAR -->
             </div>
             <div class="col-md-9 right-column">
-                @includeWhen(config('scout.driver'), 'chatter::blocks.search')
+                @includeWhen(env('SCOUT_DRIVER'), 'chatter::blocks.search')
                 <div class="panel">
                     <ul class="discussions">
                         @foreach($discussions as $discussion)
