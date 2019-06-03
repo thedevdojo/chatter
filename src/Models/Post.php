@@ -38,6 +38,6 @@ class Post extends Model
 
     public function toSearchableArray()
     {
-        $array = $this->toArray();
+        return $this->toArray();
     }
 }
