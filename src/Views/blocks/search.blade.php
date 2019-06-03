@@ -1,4 +1,4 @@
-<form class="form-inline w-100" action="{{ route('chatter.search') }}">
+<form class="form-inline w-100" action="{{ route('chatter.discussion.search') }}">
     <div class="form-group flex-fill mb-2">
         <input type="text" class="form-control" name="q" placeholder="Search...">
     </div>
