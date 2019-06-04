@@ -99,7 +99,7 @@
                 </div>
 
                 <div id="pagination">
-                    {{ $discussions->links() }}
+                    {{ $discussions->appends(['q' => request('q')])->links() }}
                 </div>
 
             </div>

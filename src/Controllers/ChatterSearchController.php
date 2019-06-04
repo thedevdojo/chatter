@@ -12,6 +12,8 @@ class ChatterSearchController extends Controller
     public function index()
     {
         $query = request('q');
+        $orderBy = config('chatter.order_by.discussions.order');
+        $orderDirection = config('chatter.order_by.discussions.by');
         $pagination_results = config('chatter.paginate.num_of_results');
 
         $posts = Post::search($query)->get()->pluck('chatter_discussion_id')->toArray();
@@ -22,7 +24,7 @@ class ChatterSearchController extends Controller
                              ->with('category')
                              ->whereIn('id', $discussionIds)
                              ->groupBy('id')
-                             ->orderBy(config('chatter.order_by.discussions.order'), config('chatter.order_by.discussions.by'))
+                             ->orderBy($orderBy, $orderDirection)
                              ->paginate($pagination_results);
 
         $current_category_id = null;
