@@ -65,6 +65,19 @@ class ChatterPostController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
+        $cleaned_response = $request->input('body');
+
+        if (config('chatter.response.strip_tags')) {
+            $allowed_tags = config('chagger.response.allowed_tags') ?: null;
+            $cleaned_response = strip_tags($cleaned_response, $allowed_tags);
+        }
+
+        if (config('chatter.response.strip_styles')) {
+            $cleaned_response = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $cleaned_response);
+        }
+
+        $request->merge(['body' => $cleaned_response]);
+
         if (config('chatter.security.limit_time_between_posts')) {
             if ($this->notEnoughTimeBetweenPosts()) {
                 $minutes = trans_choice('chatter::messages.words.minutes', config('chatter.security.time_between_posts'));
@@ -97,7 +110,7 @@ class ChatterPostController extends Controller
         if ($new_post->id) {
             $discussion->last_reply_at = $discussion->freshTimestamp();
             $discussion->save();
-            
+
             Event::dispatch(new ChatterAfterNewResponse($request, $new_post));
             if (function_exists('chatter_after_new_response')) {
                 chatter_after_new_response($request);
