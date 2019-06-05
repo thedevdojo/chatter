@@ -66,6 +66,7 @@ class ChatterPostController extends Controller
         }
 
         $cleaned_response = $request->input('body');
+        $cleaned_response = '<p class="something" style="color: red; font-size: 8px;">Here is the text that should pass the length issue.</p>';
 
         if (config('chatter.response.strip_tags')) {
             $allowed_tags = config('chagger.response.allowed_tags') ?: null;
@@ -73,7 +74,8 @@ class ChatterPostController extends Controller
         }
 
         if (config('chatter.response.strip_styles')) {
-            $cleaned_response = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $cleaned_response);
+            $cleaned_response = preg_replace('/(<[^>]+) class=".*?"/i', '$1', $cleaned_response); //  remove classes
+            $cleaned_response = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $cleaned_response); //  remove styles
         }
 
         $request->merge(['body' => $cleaned_response]);
