@@ -65,7 +65,7 @@
                 <div class="col-md-3 left-column">
                     <!-- SIDEBAR -->
                     <div class="chatter_sidebar">
-                        <button class="btn btn-primary" id="new_discussion_btn"><i class="chatter-new"></i> @lang('chatter::messages.discussion.new')</button>
+                        <button class="btn btn-primary new_discussion_btn"><i class="chatter-new"></i> @lang('chatter::messages.discussion.new')</button>
                         <a href="{{ route('chatter.home') }}"><i class="chatter-bubble"></i> @lang('chatter::messages.discussion.all')</a>
                         <ul class="nav nav-pills nav-stacked">
                             <?php $categories = DevDojo\Chatter\Models\Models::category()->all(); ?>
@@ -420,7 +420,7 @@
             $('.chatter-close, #cancel_discussion').click(function(){
                 $('#new_discussion_in_discussion_view').slideUp();
             });
-            $('#new_discussion_btn').click(function(){
+            $('.new_discussion_btn').click(function(){
                 @if(Auth::guest())
                     window.location.href = "{{ route('chatter.login') }}";
                 @else
