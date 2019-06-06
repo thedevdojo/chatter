@@ -41,6 +41,6 @@ class ChatterSearchController extends Controller
             \App::register('GrahamCampbell\Markdown\MarkdownServiceProvider');
         }
 
-        return view('chatter::home', compact('discussions', 'categoriesMenu', 'chatter_editor', 'current_category_id'));
+        return view('chatter::home', compact('discussions', 'categoriesMenu', 'chatter_editor', 'current_category_id', 'query'));
     }
 }

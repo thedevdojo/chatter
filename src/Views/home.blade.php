@@ -74,27 +74,32 @@
                 @includeWhen(env('SCOUT_DRIVER'), 'chatter::blocks.search')
                 <div class="panel">
                     <ul class="discussions">
-                        @foreach($discussions as $discussion)
-                            <li>
-                                <a class="discussion_list" href="{{ route('chatter.discussion.showInCategory', [$discussion->category->slug, $discussion->slug]) }}">
-                                    @include('chatter::blocks.avatar')
+                        @includeWhen(env('SCOUT_DRIVER'), 'chatter::blocks.search-count')
+                        @if ($discussions->count() > 0)
+                            @foreach($discussions as $discussion)
+                                <li>
+                                    <a class="discussion_list" href="{{ route('chatter.discussion.showInCategory', [$discussion->category->slug, $discussion->slug]) }}">
+                                        @include('chatter::blocks.avatar')
 
-                                    <div class="chatter_middle">
-                                        <h3 class="chatter_middle_title">{{ $discussion->title }} <div class="chatter_cat" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</div></h3>
-                                        <span class="chatter_middle_details">@lang('chatter::messages.discussion.posted_by') <span data-href="/user">{{ ucfirst($discussion->user->{Config::get('chatter.user.database_field_with_user_name')}) }}</span> {{ \Carbon\Carbon::createFromTimeStamp(strtotime($discussion->created_at))->diffForHumans() }}</span>
+                                        <div class="chatter_middle">
+                                            <h3 class="chatter_middle_title">{{ $discussion->title }} <div class="chatter_cat" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</div></h3>
+                                            <span class="chatter_middle_details">@lang('chatter::messages.discussion.posted_by') <span data-href="/user">{{ ucfirst($discussion->user->{Config::get('chatter.user.database_field_with_user_name')}) }}</span> {{ \Carbon\Carbon::createFromTimeStamp(strtotime($discussion->created_at))->diffForHumans() }}</span>
 
-                                        <p>{!! str_limit(strip_tags($discussion->post->body), 200) !!}</p>
-                                    </div>
+                                            <p>{!! str_limit(strip_tags($discussion->post->body), 200) !!}</p>
+                                        </div>
 
-                                    <div class="chatter_right">
+                                        <div class="chatter_right">
 
-                                        <div class="chatter_count"><i class="chatter-bubble"></i> {{ $discussion->posts()->count() - 1 }}</div>
-                                    </div>
+                                            <div class="chatter_count"><i class="chatter-bubble"></i> {{ $discussion->posts()->count() - 1 }}</div>
+                                        </div>
 
-                                    <div class="chatter_clear"></div>
-                                </a>
-                            </li>
-                        @endforeach
+                                        <div class="chatter_clear"></div>
+                                    </a>
+                                </li>
+                            @endforeach
+                        @else
+                            @includeWhen(env('SCOUT_DRIVER'), 'chatter::blocks.search-empty')
+                        @endif
                     </ul>
                 </div>
 
