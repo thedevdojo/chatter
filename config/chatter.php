@@ -193,6 +193,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Response Settings
+    |--------------------------------------------------------------------------
+    |
+    | Whether chatter should strip all styles attributes and remove tags
+    | from new responses.
+    |
+    */
+
+    'response' => [
+        'strip_styles' => true,
+        'strip_tags' => true,
+        'allowed_tags' => '<a><ul><ol><li><strong><b><i><u><p><br>',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Default orderby
     |--------------------------------------------------------------------------
     |
