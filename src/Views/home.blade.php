@@ -64,7 +64,7 @@
             <div class="col-md-3 left-column">
                 <!-- SIDEBAR -->
                 <div class="chatter_sidebar">
-                    <button class="btn btn-primary" id="new_discussion_btn"><i class="chatter-new"></i> @lang('chatter::messages.discussion.new')</button>
+                    <button class="btn btn-primary new_discussion_button"><i class="chatter-new"></i> @lang('chatter::messages.discussion.new')</button>
                     <a href="{{ route('chatter.home') }}"><i class="chatter-bubble"></i> @lang('chatter::messages.discussion.all')</a>
                     {!! $categoriesMenu !!}
                 </div>
@@ -211,7 +211,8 @@
         $('.chatter-close, #cancel_discussion').click(function(){
             $('#new_discussion').slideUp();
         });
-        $('#new_discussion_btn').click(function(){
+
+        $('.new_discussion_btn').click(function(){
             @if(Auth::guest())
                 window.location.href = "{{ route('login') }}";
             @else
