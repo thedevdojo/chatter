@@ -66,7 +66,6 @@ class ChatterPostController extends Controller
         }
 
         $cleaned_response = $request->input('body');
-        $cleaned_response = '<p class="something" style="color: red; font-size: 8px;">Here is the text that should pass the length issue.</p>';
 
         if (config('chatter.response.strip_tags')) {
             $allowed_tags = config('chagger.response.allowed_tags') ?: null;
