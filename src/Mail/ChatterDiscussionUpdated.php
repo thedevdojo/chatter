@@ -1,8 +1,8 @@
 <?php
 
-namespace DevDojo\Chatter\Mail;
+namespace Kokoen\Chatter\Mail;
 
-use DevDojo\Chatter\Models\Discussion;
+use Kokoen\Chatter\Models\Discussion;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
