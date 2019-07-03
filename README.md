@@ -3,14 +3,12 @@
 <p align="center">
 <a href="https://travis-ci.org/thedevdojo/chatter"><img src="https://travis-ci.org/thedevdojo/chatter.svg?branch=master" alt="Build Status"></a>
 <a href="https://styleci.io/repos/64518333/shield?style=flat"><img src="https://styleci.io/repos/64518333/shield?style=flat" alt="Build Status"></a>
-<a href="https://packagist.org/packages/kokoen/chatter"><img src="https://poser.pugx.org/kokoen/chatter/downloads.svg?format=flat" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/kokoen/chatter"><img src="https://poser.pugx.org/kokoen/chatter/v/stable.svg?format=flat" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/tcg/voyager"><img src="https://poser.pugx.org/kokoen/chatter/license.svg?format=flat" alt="License"></a>
+<a href="https://packagist.org/packages/devdojo/chatter"><img src="https://poser.pugx.org/devdojo/chatter/downloads.svg?format=flat" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/devdojo/chatter"><img src="https://poser.pugx.org/devdojo/chatter/v/stable.svg?format=flat" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/tcg/voyager"><img src="https://poser.pugx.org/devdojo/chatter/license.svg?format=flat" alt="License"></a>
 </p>
 
 # Laravel Forum Package - Chatter
-
-## Kokoen's Fork
 
 ### Installation
 
@@ -27,13 +25,13 @@ Quick Note: If this is a new project, make sure to install the default user auth
    **If you're installing on Laravel 5.5+ skip this step**
 
     ```
-    Kokoen\Chatter\KokoenChatterServiceProvider::class,
+    DevDojo\Chatter\ChatterServiceProvider::class,
     ```
 
 3. Publish the Vendor Assets files by running:
 
     ```
-    php artisan vendor:publish --provider="Kokoen\Chatter\KokoenChatterServiceProvider"
+    php artisan vendor:publish --provider="DevDojo\Chatter\ChatterServiceProvider"
     ```
 
 4. Now that we have published a few new files to our application we need to reload them with the following command:
@@ -213,7 +211,7 @@ For example, to register a listener for the "before new discussion" event, add t
 
 ```php
 protected $listen = [
-    'Kokoen\Chatter\Events\ChatterBeforeNewDiscussion' => [
+    'DevDojo\Chatter\Events\ChatterBeforeNewDiscussion' => [
         'App\Listeners\HandleNewDiscussion',
     ],
 ];
@@ -229,7 +227,7 @@ You can access the object that triggered the event in your listener with
         // $event->post
     }
 ```
-and
+and 
 ```php
     public function handle(ChatterAfterNewResponse $event)
     {

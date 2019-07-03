@@ -6,7 +6,7 @@
  * Time: 11:58.
  */
 
-namespace Kokoen\Chatter\Models;
+namespace DevDojo\Chatter\Models;
 
 class Models
 {
@@ -58,7 +58,7 @@ class Models
      *
      * @param array $attributes
      *
-     * @return \Kokoen\Chatter\Models\Category
+     * @return \DevDojo\Chatter\Models\Category
      */
     public static function category(array $attributes = [])
     {
@@ -70,7 +70,7 @@ class Models
      *
      * @param array $attributes
      *
-     * @return \Kokoen\Chatter\Models\Discussion
+     * @return \DevDojo\Chatter\Models\Discussion
      */
     public static function discussion(array $attributes = [])
     {
@@ -82,7 +82,7 @@ class Models
      *
      * @param array $attributes
      *
-     * @return \Kokoen\Chatter\Models\Post
+     * @return \DevDojo\Chatter\Models\Post
      */
     public static function post(array $attributes = [])
     {

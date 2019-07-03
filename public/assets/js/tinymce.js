@@ -10,7 +10,7 @@ tinymce.init({
 	menubar: false,
 	statusbar: false,
 	height : '220',
-	content_css : '/vendor/kokoen/chatter/assets/css/chatter.css',
+	content_css : '/vendor/devdojo/chatter/assets/css/chatter.css',
 	template_popup_height: 380,
 	setup: function (editor) {
         editor.on('init', function(args) {
@@ -49,7 +49,7 @@ function initializeNewTinyMCE(id){
         menubar: false,
         statusbar: false,
         height : '300',
-        content_css : '/vendor/kokoen/chatter/assets/css/chatter.css',
+        content_css : '/vendor/devdojo/chatter/assets/css/chatter.css',
         template_popup_height: 380
     });
 }
