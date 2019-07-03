@@ -1,10 +1,10 @@
 <?php
 
-namespace DevDojo\Chatter;
+namespace Kokoen\Chatter;
 
 use Illuminate\Support\ServiceProvider;
 
-class ChatterServiceProvider extends ServiceProvider
+class KokoenChatterServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -15,7 +15,7 @@ class ChatterServiceProvider extends ServiceProvider
     {
         $this->loadTranslationsFrom(__DIR__.'/Lang', 'chatter');
         $this->publishes([
-            __DIR__.'/../public/assets' => public_path('vendor/devdojo/chatter/assets'),
+            __DIR__.'/../public/assets' => public_path('vendor/kokoen/chatter/assets'),
         ], 'chatter_assets');
 
         $this->publishes([
@@ -35,7 +35,8 @@ class ChatterServiceProvider extends ServiceProvider
         ], 'chatter_lang');
 
         // include the routes file
-        include __DIR__.'/Routes/web.php';
+        //include __DIR__.'/Routes/web.php';
+        $this->loadRoutesFrom( __DIR__ . '/Routes/web.php' );
     }
 
     /**

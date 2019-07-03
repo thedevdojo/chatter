@@ -1,12 +1,12 @@
 <?php
 
-namespace DevDojo\Chatter\Controllers;
+namespace Kokoen\Chatter\Controllers;
 
 use Auth;
 use Carbon\Carbon;
-use DevDojo\Chatter\Events\ChatterAfterNewDiscussion;
-use DevDojo\Chatter\Events\ChatterBeforeNewDiscussion;
-use DevDojo\Chatter\Models\Models;
+use Kokoen\Chatter\Events\ChatterAfterNewDiscussion;
+use Kokoen\Chatter\Events\ChatterBeforeNewDiscussion;
+use Kokoen\Chatter\Models\Models;
 use Event;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as Controller;
@@ -77,7 +77,7 @@ class ChatterDiscussionController extends Controller
 		]);
         
 
-        Event::fire(new ChatterBeforeNewDiscussion($request, $validator));
+        Event::dispatch(new ChatterBeforeNewDiscussion($request, $validator));
         if (function_exists('chatter_before_new_discussion')) {
             chatter_before_new_discussion($request, $validator);
         }
@@ -149,7 +149,7 @@ class ChatterDiscussionController extends Controller
         $post = Models::post()->create($new_post);
 
         if ($post->id) {
-            Event::fire(new ChatterAfterNewDiscussion($request, $discussion, $post));
+            Event::dispatch(new ChatterAfterNewDiscussion($request, $discussion, $post));
             if (function_exists('chatter_after_new_discussion')) {
                 chatter_after_new_discussion($request);
             }

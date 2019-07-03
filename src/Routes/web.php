@@ -28,7 +28,7 @@ Route::group([
     'as'         => 'chatter.',
     'prefix'     => $route('home'),
     'middleware' => $middleware('global', 'web'),
-    'namespace'  => 'DevDojo\Chatter\Controllers',
+    'namespace'  => 'Kokoen\Chatter\Controllers',
 ], function () use ($route, $middleware, $authMiddleware) {
 
     // Home view.
@@ -212,6 +212,6 @@ Route::group([
  */
 Route::get($route('home').'.atom', [
     'as'         => 'chatter.atom',
-    'uses'       => 'DevDojo\Chatter\Controllers\ChatterAtomController@index',
+    'uses'       => 'Kokoen\Chatter\Controllers\ChatterAtomController@index',
     'middleware' => $middleware('home'),
 ]);
