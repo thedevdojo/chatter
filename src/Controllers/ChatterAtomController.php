@@ -1,9 +1,9 @@
 <?php
 
-namespace Kokoen\Chatter\Controllers;
+namespace DevDojo\Chatter\Controllers;
 
 use Carbon\Carbon;
-use Kokoen\Chatter\Models\Discussion;
+use DevDojo\Chatter\Models\Discussion;
 use Illuminate\Routing\Controller as Controller;
 use SimpleXMLElement;
 

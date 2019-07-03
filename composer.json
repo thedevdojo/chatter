@@ -1,10 +1,10 @@
 {
-    "name": "kokoen/chatter",
-    "description": "Kokoen fork from devdojos chatter package. Long Term support intended",
+    "name": "devdojo/chatter",
+    "description": "A simple forum package for your laravel app",
     "authors": [
         {
-            "name": "Kokoen GmbH",
-            "email": "info@kokoen.net"
+            "name": "Tony Lea",
+            "email": "tony@devdojo.com"
         }
     ],
     "require": {
@@ -18,7 +18,7 @@
     },
     "autoload": {
 	    "psr-4": {
-	      "Kokoen\\Chatter\\": "/src"
+	      "DevDojo\\Chatter\\": "/src"
 		}
 	},
     "autoload-dev": {
@@ -29,7 +29,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Kokoen\\Chatter\\KokoenChatterServiceProvider"
+                "DevDojo\\Chatter\\ChatterServiceProvider"
             ]
         }
     }

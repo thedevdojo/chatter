@@ -34,7 +34,7 @@ return [
     |
     */
 
-    'headline_logo' => '/vendor/kokoen/chatter/assets/images/logo-light.png',
+    'headline_logo' => '/vendor/devdojo/chatter/assets/images/logo-light.png',
 
     /*
     |--------------------------------------------------------------------------

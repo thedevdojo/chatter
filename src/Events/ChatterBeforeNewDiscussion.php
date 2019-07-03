@@ -1,6 +1,6 @@
 <?php
 
-namespace Kokoen\Chatter\Events;
+namespace DevDojo\Chatter\Events;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
