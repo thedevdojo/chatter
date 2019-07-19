@@ -75,7 +75,7 @@ class ChatterDiscussionController extends Controller
 			'body_content.min' => trans('chatter::alert.danger.reason.content_min'),
 			'chatter_category_id.required' => trans('chatter::alert.danger.reason.category_required'),
 		]);
-        
+
 
         Event::dispatch(new ChatterBeforeNewDiscussion($request, $validator));
         if (function_exists('chatter_before_new_discussion')) {
@@ -217,7 +217,7 @@ class ChatterDiscussionController extends Controller
         }
 
         $discussion->increment('views');
-        
+
         return view('chatter::discussion', compact('discussion', 'posts', 'chatter_editor'));
     }
 

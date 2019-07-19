@@ -45,6 +45,12 @@ Route::group([
         'middleware' => $middleware('category.show'),
     ]);
 
+    Route::get( $route('api.category').'/{slug}', [
+        'as'         => 'api_category.show',
+        'uses'       => 'ChatterApiDiscussionController@index',
+        'middleware' => $middleware('category.show'),
+    ]);
+
     /*
      * Auth routes.
      */
