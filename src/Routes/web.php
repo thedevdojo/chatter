@@ -46,7 +46,7 @@ Route::group([
     ]);
 
     Route::get( $route('api.category').'/{slug}', [
-        'as'         => 'api_category.show',
+        'as'         => 'categoryapi.show',
         'uses'       => 'ChatterApiDiscussionController@index',
         'middleware' => $middleware('category.show'),
     ]);

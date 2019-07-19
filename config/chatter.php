@@ -20,7 +20,7 @@ return [
         'register'   => 'register',
         'login'      => 'login',
         'api'           => [
-            'category'  => 'api-category'
+            'category'  => 'categoryapi'
         ],
     ],
 
