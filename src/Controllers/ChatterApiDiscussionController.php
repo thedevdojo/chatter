@@ -29,9 +29,9 @@ class ChatterApiDiscussionController extends Controller
             }
         }
 
-        $discussions = $discussions->take( 3 );
+        $data = $discussions->take(3)->get();
 
-        return response()->json( compact( 'success', 'discussions' ) );
+        return response()->json( compact( 'success', 'data' ) );
         //return view('chatter::home', compact('discussions', 'categories', 'categoriesMenu', 'chatter_editor', 'current_category_id'));
     }
 }
