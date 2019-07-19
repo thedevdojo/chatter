@@ -6,6 +6,7 @@ use Auth;
 use DevDojo\Chatter\Helpers\ChatterHelper as Helper;
 use DevDojo\Chatter\Models\Models;
 use Illuminate\Routing\Controller as Controller;
+use Illuminate\Http\Response;
 
 class ChatterApiDiscussionController extends Controller
 {

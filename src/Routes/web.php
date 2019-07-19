@@ -39,7 +39,7 @@ Route::group([
     ]);
 
     // Single category view.
-    Route::get($route('category').'/{slug}', [
+    Route::get( $route('category').'/{slug}', [
         'as'         => 'category.show',
         'uses'       => 'ChatterController@index',
         'middleware' => $middleware('category.show'),
