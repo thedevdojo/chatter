@@ -6,7 +6,6 @@ use Auth;
 use DevDojo\Chatter\Helpers\ChatterHelper as Helper;
 use DevDojo\Chatter\Models\Models;
 use Illuminate\Routing\Controller as Controller;
-use Illuminate\Http\Response;
 
 class ChatterApiDiscussionController extends Controller
 {
@@ -32,7 +31,7 @@ class ChatterApiDiscussionController extends Controller
 
         $discussions = $discussions->take( 3 );
 
-        return resposne()->json( compact( 'success', 'discussions' ) );
+        return response()->json( compact( 'success', 'discussions' ) );
         //return view('chatter::home', compact('discussions', 'categories', 'categoriesMenu', 'chatter_editor', 'current_category_id'));
     }
 }
