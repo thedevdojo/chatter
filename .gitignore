@@ -1,2 +1,8 @@
 /public/assets/node_modules
 .DS_Store
+.idea/$CACHE_FILE$
+.idea/$PRODUCT_WORKSPACE_FILE$
+.idea/php.xml
+.idea/workspace.xml
+*.iml
+*.xml

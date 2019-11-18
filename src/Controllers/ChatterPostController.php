@@ -13,208 +13,234 @@ use Validator;
 
 class ChatterPostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        $total = 10;
-        $offset = 0;
-        if ($request->total) {
-            $total = $request->total;
-        }
-        if ($request->offset) {
-            $offset = $request->offset;
-        }
-        $posts = Models::post()->with('user')->orderBy('created_at', 'DESC')->take($total)->offset($offset)->get();
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index(Request $request)
+	{
+		$total  = 10;
+		$offset = 0;
+		if ($request->total) {
+			$total = $request->total;
+		}
+		if ($request->offset) {
+			$offset = $request->offset;
+		}
+		$posts = Models::post()->with('user')->orderBy('created_at', 'DESC')->take($total)->offset($offset)->get();
 
-        return response()->json($posts);
-    }
+		return response()->json($posts);
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $stripped_tags_body = ['body' => strip_tags($request->body)];
-        $validator = Validator::make($stripped_tags_body, [
-            'body' => 'required|min:10',
-        ]);
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param \Illuminate\Http\Request $request
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store(Request $request)
+	{
+		$stripped_tags_body = ['body' => strip_tags($request->body)];
+		$validator          = Validator::make($stripped_tags_body, [
+			'body' => 'required|min:10',
+		]);
 
-        if (function_exists('chatter_before_new_response')) {
-            chatter_before_new_response($request, $validator);
-        }
+		if (function_exists('chatter_before_new_response')) {
+			chatter_before_new_response($request, $validator);
+		}
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+		if ($validator->fails()) {
+			if (request()->ajax() || request()->wantsJson()) {
+				return response()->json($validator, 404);
+			}
+			return back()->withErrors($validator)->withInput();
+		}
 
-        if (config('chatter.security.limit_time_between_posts')) {
-            if ($this->notEnoughTimeBetweenPosts()) {
-                $minute_copy = (config('chatter.security.time_between_posts') == 1) ? ' minute' : ' minutes';
-                $chatter_alert = [
-                    'chatter_alert_type' => 'danger',
-                    'chatter_alert'      => 'In order to prevent spam, Please allow at least '.config('chatter.security.time_between_posts').$minute_copy.' inbetween submitting content.',
-                    ];
+		if (config('chatter.security.limit_time_between_posts')) {
+			if ($this->notEnoughTimeBetweenPosts()) {
+				$minute_copy   = (config('chatter.security.time_between_posts') == 1) ? ' minute' : ' minutes';
+				$chatter_alert = [
+					'chatter_alert_type' => 'danger',
+					'chatter_alert'      => 'In order to prevent spam, Please allow at least ' . config('chatter.security.time_between_posts') . $minute_copy . ' inbetween submitting content.',
+				];
 
-                return back()->with($chatter_alert)->withInput();
-            }
-        }
+				if (request()->ajax() || request()->wantsJson()) {
+					return response()->json($chatter_alert, 404);
+				}
 
-        $request->request->add(['user_id' => Auth::user()->id]);
+				return back()->with($chatter_alert)->withInput();
+			}
+		}
 
-        if (config('chatter.editor') == 'simplemde'):
-            $request->request->add(['markdown' => 1]);
-        endif;
+		$request->request->add(['user_id' => Auth::user()->id]);
 
-        $new_post = Models::post()->create($request->all());
+		if (config('chatter.editor') == 'simplemde'):
+			$request->request->add(['markdown' => 1]);
+		endif;
 
-        $discussion = Models::discussion()->find($request->chatter_discussion_id);
+		$new_post = Models::post()->create($request->all());
 
-        $category = Models::category()->find($discussion->chatter_category_id);
-        if (!isset($category->slug)) {
-            $category = Models::category()->first();
-        }
+		$discussion = Models::discussion()->find($request->chatter_discussion_id);
 
-        if ($new_post->id) {
-            if (function_exists('chatter_after_new_response')) {
-                chatter_after_new_response($request);
-            }
+		$category = Models::category()->find($discussion->chatter_category_id);
+		if (!isset($category->slug)) {
+			$category = Models::category()->first();
+		}
 
-            // if email notifications are enabled
-            if (config('chatter.email.enabled')) {
-                // Send email notifications about new post
-                $this->sendEmailNotifications($new_post->discussion);
-            }
+		if ($new_post->id) {
+			if (function_exists('chatter_after_new_response')) {
+				chatter_after_new_response($request);
+			}
 
-            $chatter_alert = [
-                'chatter_alert_type' => 'success',
-                'chatter_alert'      => 'Response successfully submitted to '.config('chatter.titles.discussion').'.',
-                ];
+			// if email notifications are enabled
+			if (config('chatter.email.enabled')) {
+				// Send email notifications about new post
+				$this->sendEmailNotifications($new_post->discussion);
+			}
 
-            return redirect('/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$category->slug.'/'.$discussion->slug)->with($chatter_alert);
-        } else {
-            $chatter_alert = [
-                'chatter_alert_type' => 'danger',
-                'chatter_alert'      => 'Sorry, there seems to have been a problem submitting your response.',
-                ];
+			$chatter_alert = [
+				'chatter_alert_type' => 'success',
+				'chatter_alert'      => 'Response successfully submitted to ' . config('chatter.titles.discussion') . '.',
+			];
+			if (request()->ajax() || request()->wantsJson()) {
+				return response()->json($chatter_alert, 200);
+			}
+			return redirect('/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $category->slug . '/' . $discussion->slug)->with($chatter_alert);
+		} else {
+			$chatter_alert = [
+				'chatter_alert_type' => 'danger',
+				'chatter_alert'      => 'Sorry, there seems to have been a problem submitting your response.',
+			];
+			if (request()->ajax() || request()->wantsJson()) {
+				return response()->json($chatter_alert, 404);
+			}
+			return redirect('/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $category->slug . '/' . $discussion->slug)->with($chatter_alert);
+		}
+	}
 
-            return redirect('/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$category->slug.'/'.$discussion->slug)->with($chatter_alert);
-        }
-    }
+	private function notEnoughTimeBetweenPosts()
+	{
+		$user = Auth::user();
 
-    private function notEnoughTimeBetweenPosts()
-    {
-        $user = Auth::user();
+		$past = Carbon::now()->subMinutes(config('chatter.security.time_between_posts'));
 
-        $past = Carbon::now()->subMinutes(config('chatter.security.time_between_posts'));
+		$last_post = Models::post()->where('user_id', '=', $user->id)->where('created_at', '>=', $past)->first();
 
-        $last_post = Models::post()->where('user_id', '=', $user->id)->where('created_at', '>=', $past)->first();
+		if (isset($last_post)) {
+			return true;
+		}
 
-        if (isset($last_post)) {
-            return true;
-        }
+		return false;
+	}
 
-        return false;
-    }
+	private function sendEmailNotifications($discussion)
+	{
+		$users = $discussion->users->except(Auth::user()->id);
+		foreach ($users as $user) {
+			Mail::to($user)->queue(new ChatterDiscussionUpdated($discussion));
+		}
+	}
 
-    private function sendEmailNotifications($discussion)
-    {
-        $users = $discussion->users->except(Auth::user()->id);
-        foreach ($users as $user) {
-            Mail::to($user)->queue(new ChatterDiscussionUpdated($discussion));
-        }
-    }
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param \Illuminate\Http\Request $request
+	 * @param int $id
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update(Request $request, $id)
+	{
+		$stripped_tags_body = ['body' => strip_tags($request->body)];
+		$validator          = Validator::make($stripped_tags_body, [
+			'body' => 'required|min:10',
+		]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $stripped_tags_body = ['body' => strip_tags($request->body)];
-        $validator = Validator::make($stripped_tags_body, [
-            'body' => 'required|min:10',
-        ]);
+		if ($validator->fails()) {
+			if (request()->ajax() || request()->wantsJson()) {
+				return response()->json($validator, 404);
+			}
+			return back()->withErrors($validator)->withInput();
+		}
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+		$post = Models::post()->find($id);
+		if (!Auth::guest() && (Auth::user()->id == $post->user_id)) {
+			$post->body = $request->body;
+			$post->save();
 
-        $post = Models::post()->find($id);
-        if (!Auth::guest() && (Auth::user()->id == $post->user_id)) {
-            $post->body = $request->body;
-            $post->save();
+			$discussion = Models::discussion()->find($post->chatter_discussion_id);
 
-            $discussion = Models::discussion()->find($post->chatter_discussion_id);
+			$category = Models::category()->find($discussion->chatter_category_id);
+			if (!isset($category->slug)) {
+				$category = Models::category()->first();
+			}
 
-            $category = Models::category()->find($discussion->chatter_category_id);
-            if (!isset($category->slug)) {
-                $category = Models::category()->first();
-            }
+			$chatter_alert = [
+				'chatter_alert_type' => 'success',
+				'chatter_alert'      => 'Successfully updated the ' . config('chatter.titles.discussion') . '.',
+			];
+			if (request()->ajax() || request()->wantsJson()) {
+				return response()->json($chatter_alert, 200);
+			}
+			return redirect('/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $category->slug . '/' . $discussion->slug)->with($chatter_alert);
+		} else {
+			$chatter_alert = [
+				'chatter_alert_type' => 'danger',
+				'chatter_alert'      => 'Nah ah ah... Could not update your response. Make sure you\'re not doing anything shady.',
+			];
+			if (request()->ajax() || request()->wantsJson()) {
+				return response()->json($chatter_alert, 400);
+			}
+			return redirect('/' . config('chatter.routes.home'))->with($chatter_alert);
+		}
+	}
 
-            $chatter_alert = [
-                'chatter_alert_type' => 'success',
-                'chatter_alert'      => 'Successfully updated the '.config('chatter.titles.discussion').'.',
-                ];
+	/**
+	 * Delete post.
+	 *
+	 * @param string $id
+	 * @param \Illuminate\Http\Request
+	 *
+	 * @return \Illuminate\Routing\Redirect
+	 */
+	public function destroy($id, Request $request)
+	{
+		$post = Models::post()->with('discussion')->findOrFail($id);
 
-            return redirect('/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$category->slug.'/'.$discussion->slug)->with($chatter_alert);
-        } else {
-            $chatter_alert = [
-                'chatter_alert_type' => 'danger',
-                'chatter_alert'      => 'Nah ah ah... Could not update your response. Make sure you\'re not doing anything shady.',
-                ];
+		if ($request->user()->id !== (int)$post->user_id) {
+			return redirect('/' . config('chatter.routes.home'))->with([
+																		   'chatter_alert_type' => 'danger',
+																		   'chatter_alert'      => 'Nah ah ah... Could not delete the response. Make sure you\'re not doing anything shady.',
+																	   ]);
+		}
 
-            return redirect('/'.config('chatter.routes.home'))->with($chatter_alert);
-        }
-    }
+		if ($post->discussion->posts()->oldest()->first()->id === $post->id) {
+			$post->discussion->posts()->delete();
+			$post->discussion()->delete();
+			$chatter_alert = [
+				'chatter_alert_type' => 'success',
+				'chatter_alert'      => 'Successfully deleted response and ' . strtolower(config('chatter.titles.discussion')) . '.',
+			];
+			if (request()->ajax() || request()->wantsJson()) {
+				return response()->json($chatter_alert, 200);
+			}
+			return redirect('/' . config('chatter.routes.home'))->with(compact('chatter_alert'));
+		}
 
-    /**
-     * Delete post.
-     *
-     * @param string $id
-     * @param  \Illuminate\Http\Request
-     *
-     * @return \Illuminate\Routing\Redirect
-     */
-    public function destroy($id, Request $request)
-    {
-        $post = Models::post()->with('discussion')->findOrFail($id);
+		$post->delete();
 
-        if ($request->user()->id !== (int) $post->user_id) {
-            return redirect('/'.config('chatter.routes.home'))->with([
-                'chatter_alert_type' => 'danger',
-                'chatter_alert'      => 'Nah ah ah... Could not delete the response. Make sure you\'re not doing anything shady.',
-            ]);
-        }
+		$url           = '/' . config('chatter.routes.home') . '/' . config('chatter.routes.discussion') . '/' . $post->discussion->category->slug . '/' . $post->discussion->slug;
+		$chatter_alert = [
+			'chatter_alert_type' => 'success',
+			'chatter_alert'      => 'Successfully deleted response and ' . strtolower(config('chatter.titles.discussion')) . '.',
+		];
 
-        if ($post->discussion->posts()->oldest()->first()->id === $post->id) {
-            $post->discussion->posts()->delete();
-            $post->discussion()->delete();
+		if (request()->ajax() || request()->wantsJson()) {
+			return response()->json($chatter_alert, 200);
+		}
 
-            return redirect('/'.config('chatter.routes.home'))->with([
-                'chatter_alert_type' => 'success',
-                'chatter_alert'      => 'Successfully deleted response and '.strtolower(config('chatter.titles.discussion')).'.',
-            ]);
-        }
-
-        $post->delete();
-
-        $url = '/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$post->discussion->category->slug.'/'.$post->discussion->slug;
-
-        return redirect($url)->with([
-            'chatter_alert_type' => 'success',
-            'chatter_alert'      => 'Successfully deleted response from the '.config('chatter.titles.discussion').'.',
-        ]);
-    }
+		return redirect($url)->with(compact('chatter_alert'));
+	}
 }

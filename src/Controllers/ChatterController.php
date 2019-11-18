@@ -25,6 +25,9 @@ class ChatterController extends Controller
 
         // Dynamically register markdown service provider
         \App::register('GrahamCampbell\Markdown\MarkdownServiceProvider');
+        if (request()->ajax() || request()->wantsJson()) {
+        	return response()->json([$discussions, $categories,$chatter_editor], 200);
+		}
 
         return view('chatter::home', compact('discussions', 'categories', 'chatter_editor'));
     }
