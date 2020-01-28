@@ -1,10 +1,10 @@
 {
-    "name": "devdojo/chatter",
+    "name": "jordyparks/chatter",
     "description": "A simple forum package for your laravel app",
     "authors": [
         {
-            "name": "Tony Lea",
-            "email": "tony@devdojo.com"
+            "name": "Jordan Parker",
+            "email": "jordan@agefour.com"
         }
     ],
     "require": {
