@@ -56,7 +56,7 @@ class ChatterPostController extends Controller
 			'body.min' => trans('chatter::alert.danger.reason.content_min'),
 		]);
 
-        Event::fire(new ChatterBeforeNewResponse($request, $validator));
+        Event::dispatch(new ChatterBeforeNewResponse($request, $validator));
         if (function_exists('chatter_before_new_response')) {
             chatter_before_new_response($request, $validator);
         }
@@ -97,8 +97,8 @@ class ChatterPostController extends Controller
         if ($new_post->id) {
             $discussion->last_reply_at = $discussion->freshTimestamp();
             $discussion->save();
-            
-            Event::fire(new ChatterAfterNewResponse($request, $new_post));
+
+            Event::dispatch(new ChatterAfterNewResponse($request, $new_post));
             if (function_exists('chatter_after_new_response')) {
                 chatter_after_new_response($request);
             }
