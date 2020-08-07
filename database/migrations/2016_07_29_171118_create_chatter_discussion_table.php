@@ -9,14 +9,21 @@ class CreateChatterDiscussionTable extends Migration
     public function up()
     {
         Schema::create('chatter_discussion', function (Blueprint $table) {
-            $table->increments('id');
-            $table->bigInteger('chatter_category_id')->unsigned()->default('1');
+            $table->id('id');
+            $table->unsignedBigInteger('chatter_category_id')->default('1');
             $table->string('title');
-            $table->bigInteger('user_id')->unsigned();
+            $table->unsignedBigInteger('user_id')->unsigned();
             $table->boolean('sticky')->default(false);
             $table->integer('views')->unsigned()->default('0');
             $table->boolean('answered')->default(0);
             $table->timestamps();
+
+
+            $table->foreign('chatter_category_id')
+                ->references('id')
+                ->on('chatter_categories')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

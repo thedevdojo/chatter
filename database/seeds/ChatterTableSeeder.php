@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ChatterTableSeeder extends Seeder
 {
@@ -14,8 +15,8 @@ class ChatterTableSeeder extends Seeder
 
         // CREATE THE USER
 
-        if (!\DB::table('users')->find(1)) {
-            \DB::table('users')->insert([
+        if (!DB::table('users')->find(1)) {
+            DB::table('users')->insert([
                 0 => [
                     'id'             => 1,
                     'name'           => 'Tony Lea',
@@ -30,9 +31,9 @@ class ChatterTableSeeder extends Seeder
 
         // CREATE THE CATEGORIES
 
-        \DB::table('chatter_categories')->delete();
+        DB::table('chatter_categories')->delete();
 
-        \DB::table('chatter_categories')->insert([
+        DB::table('chatter_categories')->insert([
             0 => [
                 'id'         => 1,
                 'parent_id'  => null,
@@ -117,9 +118,9 @@ class ChatterTableSeeder extends Seeder
 
         // CREATE THE DISCUSSIONS
 
-        \DB::table('chatter_discussion')->delete();
+        DB::table('chatter_discussion')->delete();
 
-        \DB::table('chatter_discussion')->insert([
+        DB::table('chatter_discussion')->insert([
             0 => [
                 'id'                  => 3,
                 'chatter_category_id' => 1,
@@ -189,9 +190,9 @@ class ChatterTableSeeder extends Seeder
 
         // CREATE THE POSTS
 
-        \DB::table('chatter_post')->delete();
+        DB::table('chatter_post')->delete();
 
-        \DB::table('chatter_post')->insert([
+        DB::table('chatter_post')->insert([
                     0 => [
                         'id'                    => 1,
                         'chatter_discussion_id' => 3,

@@ -3,13 +3,12 @@
 namespace DevDojo\Chatter\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use GrahamCampbell\Markdown\Facades\Markdown;
-use Laravel\Scout\Searchable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use SoftDeletes, Searchable;
+    use SoftDeletes;
 
     protected $table = 'chatter_post';
     public $timestamps = true;
@@ -36,6 +35,7 @@ class Post extends Model
         return $field;
     }
 
+	// @todo delete
     public function toSearchableArray()
     {
         return $this->toArray();

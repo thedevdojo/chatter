@@ -3,15 +3,13 @@ language: php
 sudo: true
 
 php:
-- 5.6
-- 7.0
-- 7.1
+- 7.4
 - hhvm
 - nightly
 
 matrix:
   fast_finish: true
- 
+
   allow_failures:
     - php: hhvm
     - php: nightly
@@ -22,10 +20,10 @@ services:
 before_script:
   # prevent MySQL went away error
   - mysql -u root -e 'SET @@GLOBAL.wait_timeout=28800;'
-  
+
   # Create a new database and add all priveleges
   - mysql -u root -e "create database IF NOT EXISTS chatter;"
-  
+
   # Current DIR
   - pwd
 
@@ -33,7 +31,7 @@ before_script:
   - cd ../
 
   # Create a New Laravel App
-  - composer create-project --prefer-dist laravel/laravel=5.3.* chatter-app
+  - composer create-project --prefer-dist laravel/laravel chatter-app
 
   # CD into the new laravel app
   - cd chatter-app
@@ -41,6 +39,7 @@ before_script:
   # Include Chatter Package & Markdown package
   - composer require devdojo/chatter dev-master
   - composer require graham-campbell/markdown
+  - composer require laravel/ui
 
   # Remove the current version
   - rm -rf vendor/devdojo/chatter
@@ -65,12 +64,12 @@ before_script:
   - sed 's/App\\Providers\\RouteServiceProvider\:\:class,/App\\Providers\\RouteServiceProvider\:\:class, DevDojo\\Chatter\\ChatterServiceProvider\:\:class,/g' config/app.php > config/app-temp.php
   - rm config/app.php
   - mv config/app-temp.php config/app.php
-    
+
   # Temponary fix for testing with another charset
   - php -r "file_put_contents('config/database.php', str_replace('utf8mb4', 'utf8', file_get_contents('config/database.php')));"
-  
+
   # Install chatter
-  - php artisan make:auth
+  - php artisan ui bootstrap --auth
   - php artisan vendor:publish
   - composer dump-autoload
   - php artisan migrate --verbose
@@ -79,7 +78,7 @@ before_script:
   # Remove the default phpunit.xml and replace it with chatter phpunit.xml
   - rm phpunit.xml
   - cp vendor/devdojo/chatter/phpunit.xml phpunit.xml
-  
+
 
 script:
   # - vendor/bin/phpunit

@@ -10,10 +10,23 @@ class CreateChatterPostTable extends Migration
     {
         Schema::create('chatter_post', function (Blueprint $table) {
             $table->id('id');
-            $table->bigInteger('chatter_discussion_id')->unsigned();
-            $table->bigInteger('user_id')->unsigned();
-            $table->text('body');
+            $table->unsignedBigInteger('chatter_discussion_id');
+            $table->unsignedBigInteger('user_id');
+            $table->longText('body');
             $table->timestamps();
+
+
+            $table->foreign('chatter_discussion_id')
+                ->references('id')
+                ->on('chatter_discussion')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

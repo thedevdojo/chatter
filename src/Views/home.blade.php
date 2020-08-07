@@ -85,7 +85,7 @@
                                             <h3 class="chatter_middle_title">{{ $discussion->title }} <div class="chatter_cat" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</div></h3>
                                             <span class="chatter_middle_details">@lang('chatter::messages.discussion.posted_by') <span data-href="/user">{{ ucfirst($discussion->user->{Config::get('chatter.user.database_field_with_user_name')}) }}</span> {{ \Carbon\Carbon::createFromTimeStamp(strtotime($discussion->created_at))->diffForHumans() }}</span>
 
-                                            <p>{!! str_limit(strip_tags($discussion->post->body), 200) !!}</p>
+                                            <p>{!! Str::limit(strip_tags($discussion->post->body), 200) !!}</p>
                                         </div>
 
                                         <div class="chatter_right">

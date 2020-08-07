@@ -47,7 +47,7 @@ class ChatterServiceProvider extends ServiceProvider
         include __DIR__.'/Routes/web.php';
 
         view()->composer(['chatter::blocks.sidebar', 'chatter::discussion', 'chatter::home'], function($view) {
-            $view->with('categories', Models::category()->orderBy('order')->get());
+            $view->with('categories', \DevDojo\Chatter\Models\Models::category()->orderBy('order')->get());
         });
     }
 
