@@ -8,8 +8,7 @@
         }
     ],
     "require": {
-        "mews/purifier": "2.1.*",
-        "laravel/scout": "^7.1"
+        "mews/purifier": "^3.2"
     },
     "require-dev": {
         "illuminate/cache": "~5.1.20|5.2.*|5.3.*",
