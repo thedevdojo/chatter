@@ -13,7 +13,8 @@
             "homepage": "https://angelcruz.dev",
             "role": "Developer"
         }
-    ],
+	],
+	"license": "MIT",
     "require": {
         "mews/purifier": "~3.0"
     },
