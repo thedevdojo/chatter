@@ -66,6 +66,12 @@ Quick Note: If this is a new project, make sure to install the default user auth
     @yield('js')
     ```
 
+    If you're using Laravel 5.6+ remove defer from the app ```<script>``` tag in ```<head>```:
+    ```
+    <script src="{{ asset('js/app.js') }}"></script>
+    ```
+    Optionally, you can move the script tag to just before ```</body>``` for a similar effect.
+
 Now, visit your site.com/forums and you should see your new forum in front of you!
 
 ### Upgrading
