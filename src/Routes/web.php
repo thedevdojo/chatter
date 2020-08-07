@@ -6,12 +6,12 @@
 
 // Route helper.
 $route = function ($accessor, $default = '') {
-    return $this->app->config->get('chatter.routes.'.$accessor, $default);
+    return app()->config->get('chatter.routes.'.$accessor, $default);
 };
 
 // Middleware helper.
 $middleware = function ($accessor, $default = []) {
-    return $this->app->config->get('chatter.middleware.'.$accessor, $default);
+    return app()->config->get('chatter.middleware.'.$accessor, $default);
 };
 
 // Authentication middleware helper.
