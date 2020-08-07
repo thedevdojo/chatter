@@ -196,9 +196,9 @@ class ChatterPostController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-        
+
         $post = Models::post()->find($id);
-        
+
         if ($post->markdown) {
             $post->body = $request->body;
         } else {
@@ -232,7 +232,7 @@ class ChatterPostController extends Controller
     public function destroy($id, ChatterDeletePostRequest $request)
     {
         $post = Models::post()->with('discussion')->findOrFail($id);
-        
+
         if ($post->discussion->posts()->oldest()->first()->id === $post->id) {
             if(config('chatter.soft_deletes')) {
                 $post->discussion->posts()->delete();
