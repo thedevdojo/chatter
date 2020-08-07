@@ -4,11 +4,7 @@ namespace DevDojo\Chatter;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-<<<<<<< HEAD
-use DevDojo\Chatter\Models\Models;
-=======
 use Mews\Purifier\PurifierServiceProvider;
->>>>>>> eb6ea466a9b7e55c6ebb5a83497f50d10a538b65
 
 class ChatterServiceProvider extends ServiceProvider
 {
