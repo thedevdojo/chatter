@@ -1,13 +1,5 @@
 <p align="center"><img width="300" src="https://raw.githubusercontent.com/abr4xas/chatter/master/public/assets/images/logo.png"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/abr4xas/chatter"><img src="https://travis-ci.org/abr4xas/chatter.svg?branch=master" alt="Build Status"></a>
-<a href="https://styleci.io/repos/64518333/shield?style=flat"><img src="https://styleci.io/repos/64518333/shield?style=flat" alt="Build Status"></a>
-<a href="https://packagist.org/packages/devdojo/chatter"><img src="https://poser.pugx.org/devdojo/chatter/downloads.svg?format=flat" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/devdojo/chatter"><img src="https://poser.pugx.org/devdojo/chatter/v/stable.svg?format=flat" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/tcg/voyager"><img src="https://poser.pugx.org/devdojo/chatter/license.svg?format=flat" alt="License"></a>
-</p>
-
 # Laravel Forum Package - Chatter
 
 ### Installation
@@ -17,7 +9,7 @@ Quick Note: If this is a new project, make sure to install the default user auth
 1. Include the package in your project
 
     ```
-    composer require "devdojo/chatter=0.2.*"
+    composer require "abr4xas/chatter=0.2.*"
     ```
 
 2. Add the service provider to your `config/app.php` providers array:
@@ -25,13 +17,13 @@ Quick Note: If this is a new project, make sure to install the default user auth
    **If you're installing on Laravel 5.5+ skip this step**
 
     ```
-    DevDojo\Chatter\ChatterServiceProvider::class,
+    abr4xas\Chatter\ChatterServiceProvider::class,
     ```
 
 3. Publish the Vendor Assets files by running:
 
     ```
-    php artisan vendor:publish --provider="DevDojo\Chatter\ChatterServiceProvider"
+    php artisan vendor:publish --provider="abr4xas\Chatter\ChatterServiceProvider"
     ```
 
 4. Now that we have published a few new files to our application we need to reload them with the following command:
@@ -79,7 +71,7 @@ Now, visit your site.com/forums and you should see your new forum in front of yo
 Make sure that your composer.json file is requiring the latest version of chatter:
 
 ```
-"devdojo/chatter": "0.2.*"
+"abr4xas/chatter": "0.2.*"
 ```
 
 Then you'll run:
@@ -130,7 +122,7 @@ Trumbowyg requires jQuery >= 1.8 to be included.
 
 ### VIDEOS
 
-[Introduction and Installation of Chatter](https://devdojo.com/episode/create-a-laravel-forum)
+[Introduction and Installation of Chatter](https://abr4xas.com/episode/create-a-laravel-forum)
 
 ### Configuration
 
@@ -217,7 +209,7 @@ For example, to register a listener for the "before new discussion" event, add t
 
 ```php
 protected $listen = [
-    'DevDojo\Chatter\Events\ChatterBeforeNewDiscussion' => [
+    'abr4xas\Chatter\Events\ChatterBeforeNewDiscussion' => [
         'App\Listeners\HandleNewDiscussion',
     ],
 ];
