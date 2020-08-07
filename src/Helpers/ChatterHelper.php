@@ -107,7 +107,7 @@ class ChatterHelper
 
         foreach ($categories as $category) {
             $menu .= '<li>';
-            $menu .= '<a href="/'.config('chatter.routes.home').'/'.config('chatter.routes.category').'/'.$category['slug'].'">';
+            $menu .= '<a href="'.route('chatter.category.show', $category['slug']).'">';
             $menu .= '<div class="chatter-box" style="background-color:'.$category['color'].'"></div>';
             $menu .= $category['name'].'</a>';
 

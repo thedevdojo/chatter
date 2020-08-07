@@ -102,7 +102,7 @@
                             </tr>
                           </tbody>
                         </table>
-                        <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">@lang('chatter::email.unsuscribe.message')</p>
+                        <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">@lang('chatter::email.unsubscribe.message')</p>
                         <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">@lang('chatter::email.farewell')</p>
                       </td>
                     </tr>
@@ -116,7 +116,7 @@
               <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;width:100%;">
                 <tr>
                   <td class="content-block" style="font-family:sans-serif;font-size:14px;vertical-align:top;color:#999999;font-size:12px;text-align:center;">
-                     @lang('chatter::email.unsuscribe.action') <a href="{{ url('/') }}/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.discussion') }}/{{ $discussion->category->slug }}/{{ $discussion->slug }}" style="color:#3498db;text-decoration:underline;color:#999999;font-size:12px;text-align:center;">@lang('chatter::email.unsuscribe.link')</a>.
+                     @lang('chatter::email.unsubscribe.action') <a href="{{ url('/') }}/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.discussion') }}/{{ $discussion->category->slug }}/{{ $discussion->slug }}" style="color:#3498db;text-decoration:underline;color:#999999;font-size:12px;text-align:center;">@lang('chatter::email.unsuscribe.link')</a>.
                   </td>
                 </tr>
               </table>
