@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'subject'         => 'Discussiereactie',
     'preheader'       => 'We laten je even weten dat iemand gereageerd heeft op een forum discussie.',
     'greeting'        => 'Hallo,',
     'body'            => 'We laten je even weten dat iemand gereageerd heeft op een forum discussie op',

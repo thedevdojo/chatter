@@ -37,8 +37,8 @@ return [
         'notify' => 'Anunță-mă când cineva răspunde',
     ],
 
-    'auth' => 'Te rog <a href="/:home/login">autentifică-te</a>
-                sau <a href="/:home/register">înregistrează-te</a>
+    'auth' => 'Te rog <a href="'.route(config('chatter.routes.login')).'">autentifică-te</a>
+                sau <a href="'.route(config('chatter.routes.register')).'">înregistrează-te</a>
                 pentru a lăsa un răspuns.',
 
 ];

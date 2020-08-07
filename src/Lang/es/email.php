@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'subject'         => 'Responder a la discusión',
     'preheader'       => 'Este texto es como un encabezado. Algunos clientes muestran este texto como una vista previa.',
     'greeting'        => 'Hola,',
     'body'            => 'Te informamos que alguien ha respondido a una '.mb_strtolower(trans('chatter::intro.titles.discussion')).' publicada en',

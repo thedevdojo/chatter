@@ -3,23 +3,23 @@ var chatter_tinymce_plugins = $('#chatter_tinymce_plugins').val();
 
 // Initiate the tinymce editor on any textarea with a class of richText
 tinymce.init({
-	selector:'textarea.richText',
-	skin: 'chatter',
-	plugins: chatter_tinymce_plugins,
-	toolbar: chatter_tinymce_toolbar,
-	menubar: false,
-	statusbar: false,
-	height : '220',
-	content_css : '/vendor/devdojo/chatter/assets/css/chatter.css',
-	template_popup_height: 380,
-	setup: function (editor) {
+    selector:'textarea.richText',
+    skin: 'chatter',
+    plugins: chatter_tinymce_plugins,
+    toolbar: chatter_tinymce_toolbar,
+    menubar: false,
+    statusbar: false,
+    height : '220',
+    content_css : document.querySelector('[href$="chatter.css"]').href,
+    template_popup_height: 380,
+    setup: function (editor) {
         editor.on('init', function(args) {
-        	// The tinymce editor is ready
+            // The tinymce editor is ready
             document.getElementById('new_discussion_loader').style.display = "none";
             if(!editor.getContent()){
                 document.getElementById('tinymce_placeholder').style.display = "block";
             }
-			document.getElementById('chatter_form_editor').style.display = "block";
+            document.getElementById('chatter_form_editor').style.display = "block";
 
             // check if user is in discussion view
             if ($('#new_discussion_loader_in_discussion_view').length > 0) {
@@ -28,14 +28,14 @@ tinymce.init({
             }
         });
         editor.on('keyup', function(e) {
-        	content = editor.getContent();
-        	if(content){
-        		//$('#tinymce_placeholder').fadeOut();
-        		document.getElementById('tinymce_placeholder').style.display = "none";
-        	} else {
-        		//$('#tinymce_placeholder').fadeIn();
-        		document.getElementById('tinymce_placeholder').style.display = "block";
-        	}
+            content = editor.getContent();
+            if(content){
+                //$('#tinymce_placeholder').fadeOut();
+                document.getElementById('tinymce_placeholder').style.display = "none";
+            } else {
+                //$('#tinymce_placeholder').fadeIn();
+                document.getElementById('tinymce_placeholder').style.display = "block";
+            }
         });
     }
 });
@@ -49,7 +49,7 @@ function initializeNewTinyMCE(id){
         menubar: false,
         statusbar: false,
         height : '300',
-        content_css : '/vendor/devdojo/chatter/assets/css/chatter.css',
+        content_css : document.querySelector('[href$="chatter.css"]').href,
         template_popup_height: 380
     });
 }

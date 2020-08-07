@@ -33,6 +33,7 @@ class ChatterDiscussionUpdated extends Mailable
         return $this->view(config('chatter.email.view'))
                     ->with([
                         'discussion' => $this->discussion,
-                    ]);
+                    ])
+                    ->subject(trans('chatter::email.subject'));
     }
 }

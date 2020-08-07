@@ -58,7 +58,7 @@ class ChatterPostController extends Controller
 			'body.min' => trans('chatter::alert.danger.reason.content_min'),
 		]);
 
-        Event::fire(new ChatterBeforeNewResponse($request, $validator));
+        Event::dispatch(new ChatterBeforeNewResponse($request, $validator));
         if (function_exists('chatter_before_new_response')) {
             chatter_before_new_response($request, $validator);
         }
@@ -66,6 +66,20 @@ class ChatterPostController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
+
+        $cleaned_response = $request->input('body');
+
+        if (config('chatter.response.strip_tags')) {
+            $allowed_tags = config('chagger.response.allowed_tags') ?: null;
+            $cleaned_response = strip_tags($cleaned_response, $allowed_tags);
+        }
+
+        if (config('chatter.response.strip_styles')) {
+            $cleaned_response = preg_replace('/(<[^>]+) class=".*?"/i', '$1', $cleaned_response); //  remove classes
+            $cleaned_response = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $cleaned_response); //  remove styles
+        }
+
+        $request->merge(['body' => $cleaned_response]);
 
         if (config('chatter.security.limit_time_between_posts')) {
             if ($this->notEnoughTimeBetweenPosts()) {
@@ -99,8 +113,8 @@ class ChatterPostController extends Controller
         if ($new_post->id) {
             $discussion->last_reply_at = $discussion->freshTimestamp();
             $discussion->save();
-            
-            Event::fire(new ChatterAfterNewResponse($request, $new_post));
+
+            Event::dispatch(new ChatterAfterNewResponse($request, $new_post));
             if (function_exists('chatter_after_new_response')) {
                 chatter_after_new_response($request);
             }
@@ -148,6 +162,17 @@ class ChatterPostController extends Controller
         foreach ($users as $user) {
             Mail::to($user)->queue(new ChatterDiscussionUpdated($discussion));
         }
+    }
+
+    public function show($id)
+    {
+        $post = Models::post()->with('discussion')->findOrFail($id);
+
+        if ($post) {
+            return redirect(null, 301)->route('chatter.discussion.showInCategory', [$post->discussion->category->slug, $post->discussion->slug]);
+        }
+
+        abort(404);
     }
 
     /**

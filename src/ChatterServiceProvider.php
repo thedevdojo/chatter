@@ -4,6 +4,7 @@ namespace DevDojo\Chatter;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use DevDojo\Chatter\Models\Models;
 
 class ChatterServiceProvider extends ServiceProvider
 {
@@ -42,11 +43,12 @@ class ChatterServiceProvider extends ServiceProvider
             __DIR__.'/Lang' => resource_path('lang/vendor/chatter'),
         ], 'chatter_lang');
 
-        $this->publishes([
-            __DIR__.'/Routes' => base_path('routes/chatter'),
-        ], 'chatter_routes');
+        // include the routes file
+        include __DIR__.'/Routes/web.php';
 
-        $this->setupRoutes($this->app->router);
+        view()->composer(['chatter::blocks.sidebar', 'chatter::discussion', 'chatter::home'], function($view) {
+            $view->with('categories', Models::category()->orderBy('order')->get());
+        });
     }
 
     /**
@@ -59,13 +61,13 @@ class ChatterServiceProvider extends ServiceProvider
         /*
          * Register the service provider for the dependency.
          */
-        $this->app->register(\LukeTowers\Purifier\PurifierServiceProvider::class);
+        $this->app->register(\Mews\Purifier\PurifierServiceProvider::class);
 
         /*
          * Create aliases for the dependency.
          */
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-        $loader->alias('Purifier', 'LukeTowers\Purifier\Facades\Purifier');
+        $loader->alias('Purifier', 'Mews\Purifier\Facades\Purifier');
 
         $this->loadViewsFrom(__DIR__.'/Views', 'chatter');
     }

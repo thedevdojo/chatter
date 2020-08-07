@@ -76,6 +76,12 @@ Route::group([
             'middleware' => $middleware('discussion.index'),
         ]);
 
+        // Search discussions view.
+        Route::get('search', [
+            'as'    => 'search',
+            'uses'  => 'ChatterSearchController@index'
+        ]);
+
         // Create discussion view.
         Route::get('create', [
             'as'         => 'create',
