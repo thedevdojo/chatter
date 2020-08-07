@@ -1,20 +1,25 @@
 {
-    "name": "devdojo/chatter",
+    "name": "abr4xas/chatter",
     "description": "A simple forum package for your laravel app",
     "authors": [
         {
             "name": "Tony Lea",
-            "email": "tony@devdojo.com"
+            "email": "tony@devdojo.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Angel Cruz",
+            "email": "bullgram@gmail.com",
+            "homepage": "https://angelcruz.dev",
+            "role": "Developer"
         }
     ],
     "require": {
-        "mews/purifier": "^3.2"
+        "mews/purifier": "~3.0"
     },
     "require-dev": {
-        "illuminate/cache": "~5.1.20|5.2.*|5.3.*",
-        "illuminate/console": "~5.1.20|5.2.*|5.3.*",
-        "mockery/mockery": "^0.9.5",
-        "phpunit/phpunit": "~5.7.14"
+        "mockery/mockery": "^1.4",
+        "phpunit/phpunit": "^9.2"
     },
     "autoload": {
 	    "psr-4": {

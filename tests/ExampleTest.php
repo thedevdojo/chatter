@@ -9,9 +9,7 @@ class ExampleTest extends TestCase
      */
     public function testBasicExample()
     {
-        $this->visit('/')
-             ->see('Laravel');
-        $this->visit('/forums')
-             ->see('New Discussion');
+        $this->visit('/')->see('Laravel');
+        $this->visit('/forums')->see('New Discussion');
     }
 }

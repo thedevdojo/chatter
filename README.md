@@ -1,7 +1,7 @@
-<p align="center"><img width="300" src="https://raw.githubusercontent.com/thedevdojo/chatter/master/public/assets/images/logo.png"></p>
+<p align="center"><img width="300" src="https://raw.githubusercontent.com/abr4xas/chatter/master/public/assets/images/logo.png"></p>
 
 <p align="center">
-<a href="https://travis-ci.org/thedevdojo/chatter"><img src="https://travis-ci.org/thedevdojo/chatter.svg?branch=master" alt="Build Status"></a>
+<a href="https://travis-ci.org/abr4xas/chatter"><img src="https://travis-ci.org/abr4xas/chatter.svg?branch=master" alt="Build Status"></a>
 <a href="https://styleci.io/repos/64518333/shield?style=flat"><img src="https://styleci.io/repos/64518333/shield?style=flat" alt="Build Status"></a>
 <a href="https://packagist.org/packages/devdojo/chatter"><img src="https://poser.pugx.org/devdojo/chatter/downloads.svg?format=flat" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/devdojo/chatter"><img src="https://poser.pugx.org/devdojo/chatter/v/stable.svg?format=flat" alt="Latest Stable Version"></a>
@@ -167,8 +167,8 @@ Since the forum uses your master layout file, you will need to include the neces
 
 In order to override Chatter's built in views, simply create a `chatter` folder in your `vendor` views folder, i.e. `ROOT/resources/views/vendor/chatter`. Then simply drop in the Chatter view files you would like to override.
 
-- [home.blade.php](https://github.com/thedevdojo/chatter/blob/master/src/Views/home.blade.php)
-- [discussion.blade.php](https://github.com/thedevdojo/chatter/blob/master/src/Views/discussion.blade.php)
+- [home.blade.php](https://github.com/abr4xas/chatter/blob/master/src/Views/home.blade.php)
+- [discussion.blade.php](https://github.com/abr4xas/chatter/blob/master/src/Views/discussion.blade.php)
 
 ### Custom Function Hooks for the forum
 
@@ -233,7 +233,7 @@ You can access the object that triggered the event in your listener with
         // $event->post
     }
 ```
-and 
+and
 ```php
     public function handle(ChatterAfterNewResponse $event)
     {
@@ -243,4 +243,4 @@ and
 
 ### Screenshots
 
-![](https://raw.githubusercontent.com/thedevdojo/chatter/master/public/assets/images/chatter-screenshot.jpg)
+![](https://raw.githubusercontent.com/abr4xas/chatter/master/public/assets/images/chatter-screenshot.jpg)
