@@ -1,4 +1,4 @@
-<p align="center"><img width="300" src="https://raw.githubusercontent.com/abr4xas/chatter/master/public/assets/images/logo.png"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/abr4xas/chatter/master/public/assets/images/logo.png"></p>
 
 # Laravel Forum Package - Chatter
 
