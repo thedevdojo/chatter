@@ -11,9 +11,9 @@ return [
     ],
 
     'discussion' => [
-        'new'          => 'Nou '.trans('chatter::intro.titles.discussion'),
-        'all'          => 'Toate '.trans('chatter::intro.titles.discussion'),
-        'create'       => 'Creează '.trans('chatter::intro.titles.discussion'),
+        'new'          => 'Nou '.trans('forum::intro.titles.discussion'),
+        'all'          => 'Toate '.trans('forum::intro.titles.discussion'),
+        'create'       => 'Creează '.trans('forum::intro.titles.discussion'),
         'posted_by'    => 'Publicat de',
         'head_details' => 'Publicat în categorie',
 
@@ -27,10 +27,10 @@ return [
     ],
 
     'editor' => [
-        'title'               => 'Titlul lui '.trans('chatter::intro.titles.discussion'),
+        'title'               => 'Titlul lui '.trans('forum::intro.titles.discussion'),
         'select'              => 'Selectează o categorie',
-        'tinymce_placeholder' => 'Scrie '.trans('chatter::intro.titles.discussion').' aici...',
-        'select_color_text'   => 'Alege o culoare pentru '.trans('chatter::intro.titles.discussion').' (opțional)',
+        'tinymce_placeholder' => 'Scrie '.trans('forum::intro.titles.discussion').' aici...',
+        'select_color_text'   => 'Alege o culoare pentru '.trans('forum::intro.titles.discussion').' (opțional)',
     ],
 
     'email' => [

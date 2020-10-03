@@ -11,7 +11,7 @@ class RoutesTest extends TestCase
     {
         $urls = [
             '/forums',
-            '/forums/discussion/general/welcome-to-the-chatter-laravel-forum-package',
+            '/forums/discussion/general/welcome-to-the-forum-laravel-forum-package',
             '/forums/category/introductions',
         ];
 

@@ -15,5 +15,5 @@ require('laravel-elixir-vue');
 
 
 elixir(function(mix) {
-    mix.less('./less/chatter.less', './css/chatter.css' );
+    mix.less('./less/forum.less', './css/forum.css' );
 });

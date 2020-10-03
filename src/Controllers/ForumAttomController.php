@@ -1,13 +1,13 @@
 <?php
 
-namespace DevDojo\Chatter\Controllers;
+namespace MeinderA\Forum\Controllers;
 
 use Carbon\Carbon;
-use DevDojo\Chatter\Models\Discussion;
+use MeinderA\Forum\Models\Discussion;
 use Illuminate\Routing\Controller as Controller;
 use SimpleXMLElement;
 
-class ChatterAtomController extends Controller
+class ForumAttomController extends Controller
 {
     /**
      * Create an feed response for whole forum section.
@@ -21,16 +21,16 @@ class ChatterAtomController extends Controller
 
         $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xml:lang="en-US"/>');
 
-        $xml->addChild('id', route('chatter.home'));
+        $xml->addChild('id', route('forum.home'));
 
         $link = $xml->addChild('link');
         $link->addAttribute('type', 'text/html');
-        $link->addAttribute('href', route('chatter.home'));
+        $link->addAttribute('href', route('forum.home'));
 
         $link = $xml->addChild('link');
         $link->addAttribute('type', 'application/atom+xml');
         $link->addAttribute('rel', 'self');
-        $link->addAttribute('href', route('chatter.atom'));
+        $link->addAttribute('href', route('forum.atom'));
 
         $xml->addChild('title', config('app.name').' Discussions');
 
@@ -40,13 +40,13 @@ class ChatterAtomController extends Controller
 
         foreach ($discussions as $discussion) {
             $child = $xml->addChild('entry');
-            $child->addChild('id', route('chatter.discussion.show', ['discussion' => $discussion->slug]));
+            $child->addChild('id', route('forum.discussion.show', ['discussion' => $discussion->slug]));
             $child->addChild('title', $discussion->title);
 
             $link = $child->addChild('link');
             $link->addAttribute('type', 'text/html');
             $link->addAttribute('rel', 'alternate');
-            $link->addAttribute('href', route('chatter.discussion.show', ['discussion' => $discussion->slug]));
+            $link->addAttribute('href', route('forum.discussion.show', ['discussion' => $discussion->slug]));
 
             $child->addChild('updated', Carbon::parse($discussion->created_at)->toAtomString());
 

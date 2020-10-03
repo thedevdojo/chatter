@@ -9,7 +9,7 @@ body{
 	background:#fff;
 }
 
-#chatter{
+#forum{
 
 	padding-bottom:30px;
 
@@ -30,7 +30,7 @@ body{
 	    }
 	}
 
-	#chatter_hero{
+	#forum_hero{
 		background-image:url('../images/hero_bg.jpg');
 		width:100%;
 		min-height:150px;
@@ -45,7 +45,7 @@ body{
     		position:relative;
 		}
 
-		#chatter_hero_dimmer{
+		#forum_hero_dimmer{
 			
 			background:rgba(0, 0, 0, 0.2);
 			position:absolute;
@@ -74,7 +74,7 @@ body{
 
 	}
 
-	.chatter_container{
+	.forum_container{
 		margin-top:40px;
 	}
 
@@ -114,7 +114,7 @@ body{
 	    	padding:10px 15px;
 	    }
 
-	    .chatter-close{
+	    .forum-close{
 	    	color: #7089A9;
 		    position: relative;
 		    top: 17px;
@@ -173,7 +173,7 @@ body{
 		/********** END COLOR PICKER STYLE OVERRIDES **********/
 	}
 
-	#chatter_header{
+	#forum_header{
 		background:#263238;
 		width:100%;
 		min-height:80px;
@@ -196,7 +196,7 @@ body{
 			font-size:12px;
 		}
 
-		a.chatter_cat{
+		a.forum_cat{
 			border-radius:15px;
 			color:#fff;
 			padding:5px 10px;
@@ -264,7 +264,7 @@ body{
 			padding-left:30px;
 			padding-right:0px;
 			position:relative;
-			.chatter-box{
+			.forum-box{
 				width:10px;
 				height:10px;
 				border-radius:2px;
@@ -281,14 +281,14 @@ body{
 		}
 	}
 
-	.chatter_avatar{
+	.forum_avatar{
 		float:left;
 		margin:5px;
 		margin-right:15px;
 		position:absolute;
 		left:10px;
 
-		span.chatter_avatar_circle{
+		span.forum_avatar_circle{
 			width: 60px;
 		    height: 60px;
 		    line-height: 62px;
@@ -320,7 +320,7 @@ body{
 
 		li{
 
-			a.discussion_list, .chatter_posts{
+			a.discussion_list, .forum_posts{
 
 				background:#ffffff;
 				padding:15px;
@@ -330,7 +330,7 @@ body{
 				display:block;
 				position:relative;
 
-				.chatter_warning_delete{
+				.forum_warning_delete{
 					background: #f1f1f1;
 				    z-index: 999;
 				    display:none;
@@ -358,7 +358,7 @@ body{
 				    }
 				}
 
-				.chatter_post_actions{
+				.forum_post_actions{
 					position:absolute;
 					right:0px;
 					top:15px;
@@ -385,11 +385,11 @@ body{
 				
 				}			
 
-				.chatter_middle{
+				.forum_middle{
 					float:left;
 					margin-left:80px;
 					margin-right:90px;
-					h3.chatter_middle_title{
+					h3.forum_middle_title{
 						margin:0px;
 						padding:0px;
 						color: #111;
@@ -397,7 +397,7 @@ body{
     					font-size: 18px;
     					font-weight: bold;
     					margin-top:5px;
-    					.chatter_cat{
+    					.forum_cat{
 							background:#ccc;
 							border-radius:@border-radius;
 							font-weight:bold;
@@ -409,14 +409,14 @@ body{
 							top:-2px;
 						}
 					}
-					span.chatter_middle_details{
+					span.forum_middle_details{
 						font-size:10px;
 						color:#9DADC4;
 						transition:color 0.3s ease;
 					}
 
-					.chatter_body{
-						.chatter_body_md{
+					.forum_body{
+						.forum_body_md{
 							display:none;
 						}
 						padding-top:5px;
@@ -433,13 +433,13 @@ body{
 					
 				}
 
-				.chatter_right{
+				.forum_right{
 					float:right;
 					right:25px;
 					text-align:right;
 					position:absolute;
 					
-					.chatter_count{
+					.forum_count{
 						padding: 8px 20px;
 					    border-radius: 3px;
 					    margin-top: 10px;
@@ -454,7 +454,7 @@ body{
 					}
 				}
 
-				.chatter_clear{
+				.forum_clear{
 					clear:both;
 				}
 
@@ -465,7 +465,7 @@ body{
 				&:hover{
 					background:#F3F6F9;
 					text-decoration:none;
-					.chatter_middle{
+					.forum_middle{
 						h3{
 							color:#000;
 						}
@@ -479,19 +479,19 @@ body{
 						}
 					}
 
-					.chatter_right{
-						.chatter_count{
+					.forum_right{
+						.forum_count{
 							color: #7D8D94;
 						}
 					}
 				}
 			}
 
-			.chatter_posts{
+			.forum_posts{
 				margin-bottom:15px;
 				
 
-				.chatter_middle{
+				.forum_middle{
 					&>span{
 						font-weight:bold;
 						display:block;
@@ -508,7 +508,7 @@ body{
 							font-weight:400;
 						}
 					}
-					.chatter_middle_details{
+					.forum_middle_details{
 						a{
 							display:inline-block;
 							background:none;
@@ -527,7 +527,7 @@ body{
 
 			&.editing{
 				overflow:hidden;
-				.chatter_middle_details, .chatter_body, .chatter_post_actions, .chatter_middle > span.chatter_middle_details a{
+				.forum_middle_details, .forum_body, .forum_post_actions, .forum_middle > span.forum_middle_details a{
 					display:none;
 				}
 				.mce-toolbar-grp.mce-container.mce-panel{
@@ -539,11 +539,11 @@ body{
 				textarea{
 					width:100%;
 				}
-				.chatter_middle{
+				.forum_middle{
 					width: 100%;
     				padding-right: 80px;
 				}
-				.chatter_update_actions{
+				.forum_update_actions{
 					background: #fcfcfc;
 				    display: block;
 				    height: 50px;
@@ -552,14 +552,14 @@ body{
 				    position: relative;
 				    border: 1px solid #f1f1f1;
     				border-top: 0px;
-    				.cancel_chatter_edit{
+    				.cancel_forum_edit{
     					margin-right:5px;
     				}
 				}
 			}
 
 			&.delete_warning{
-				.chatter_post_actions{
+				.forum_post_actions{
 					top:75px;
 				}
 			}
@@ -569,8 +569,8 @@ body{
 
 	}
 
-	&.chatter_home{
-		.chatter_middle{
+	&.forum_home{
+		.forum_middle{
 			p{
 				margin-bottom:0px;
 				padding-bottom:0px;
@@ -586,8 +586,8 @@ body{
 		margin-bottom:20px;
 		ul.discussions{
 			li{
-				.chatter_posts{
-					.chatter_middle{
+				.forum_posts{
+					.forum_middle{
 						margin-left:0px;
 						padding-left:80px;
 						padding-right:0px;
@@ -624,7 +624,7 @@ body{
 			#body{
 				display:block;
 			}
-			.chatter_loader{
+			.forum_loader{
 				display:none;
 			}
 		}
@@ -638,19 +638,19 @@ body{
 
 
 
-	#chatter_category_id{
+	#forum_category_id{
 		height:50px;
 		color:#777;
 		position:relative;
 		left:-10px;
 	}
 
-	.chatter_cat{
+	.forum_cat{
 		padding-left:10px;
 		padding-right:10px;
 	}
 
-	.chatter-alert{
+	.forum-alert{
 		width:100%;
 		margin-bottom:0px;
 		border-radius:0px;
@@ -674,7 +674,7 @@ body{
 			border:0px;
 			color:#fff;
 		}
-		.chatter-close{
+		.forum-close{
 			float: right;
 		    position: relative;
 		    top: 1px;
@@ -682,7 +682,7 @@ body{
 		}
 	}
 
-	.chatter_sidebar{
+	.forum_sidebar{
 		&>a{
 			padding:20px;
 			display:block;
@@ -718,7 +718,7 @@ body{
 			padding-left:100px;
 			padding-right:15px;
 		
-			.chatter_avatar{
+			.forum_avatar{
 				margin-left:20px;
 			}
 
@@ -735,15 +735,15 @@ body{
 			}
 		}
 
-		ul.discussions li .chatter_posts .chatter_middle > span{
+		ul.discussions li .forum_posts .forum_middle > span{
 			padding-bottom:0px;
 		}
 
-		span.chatter_middle_details{
+		span.forum_middle_details{
 			padding-top:5px;
 		}
 
-		.chatter_middle{
+		.forum_middle{
 			margin-right:0px !important;
 		}
 
@@ -766,20 +766,20 @@ body{
 
 	/********** LOADER **********/
 
-	.chatter_loader_container{
+	.forum_loader_container{
 		background:#fff;
 		border-radius:3px;
 		padding:2px;
 		width:100%;
 	}
-	.chatter_loader,
-	.chatter_loader > div {
+	.forum_loader,
+	.forum_loader > div {
 	    position: relative;
 	    -webkit-box-sizing: border-box;
 	       -moz-box-sizing: border-box;
 	            box-sizing: border-box;
 	}
-	.chatter_loader {
+	.forum_loader {
 	    display: block;
 	    font-size: 0;
 	    margin:20px auto;
@@ -788,20 +788,20 @@ body{
 	    	display:none;
 	    }
 	}
-	.chatter_loader.dark {
+	.forum_loader.dark {
 	    color: @main-color;
 	}
-	.chatter_loader > div {
+	.forum_loader > div {
 	    display: inline-block;
 	    float: none;
 	    background-color: currentColor;
 	    border: 0 solid currentColor;
 	}
-	.chatter_loader {
+	.forum_loader {
 	    width: 32px;
 	    height: 32px;
 	}
-	.chatter_loader > div {
+	.forum_loader > div {
 	    width: 32px;
 	    height: 32px;
 	    background: transparent;
@@ -813,29 +813,29 @@ body{
 	         -o-animation: ball-clip-rotate .75s linear infinite;
 	            animation: ball-clip-rotate .75s linear infinite;
 	}
-	.chatter_loader.la-sm {
+	.forum_loader.la-sm {
 	    width: 16px;
 	    height: 16px;
 	}
-	.chatter_loader.la-sm > div {
+	.forum_loader.la-sm > div {
 	    width: 16px;
 	    height: 16px;
 	    border-width: 1px;
 	}
-	.chatter_loader.la-2x {
+	.forum_loader.la-2x {
 	    width: 64px;
 	    height: 64px;
 	}
-	.chatter_loader.la-2x > div {
+	.forum_loader.la-2x > div {
 	    width: 64px;
 	    height: 64px;
 	    border-width: 4px;
 	}
-	.chatter_loader.la-3x {
+	.forum_loader.la-3x {
 	    width: 96px;
 	    height: 96px;
 	}
-	.chatter_loader.la-3x > div {
+	.forum_loader.la-3x > div {
 	    width: 96px;
 	    height: 96px;
 	    border-width: 6px;
@@ -911,7 +911,7 @@ body{
 }
 
 /********** MORE COLOR PICKER STYLE OVERRIDES **********/
-.chatter-color-picker{
+.forum-color-picker{
 	background: #ffffff;
     border: 2px solid #f1f5f9;
     border-radius: 10px;
@@ -1018,7 +1018,7 @@ div.mce-edit-area{
 
 /********** START SimpleMDE Overrides **********/
 
-#editor .editor-toolbar, .chatter_middle .editor-toolbar{
+#editor .editor-toolbar, .forum_middle .editor-toolbar{
 	border-radius: 0px;
     border-color: #eee;
     a{
@@ -1029,19 +1029,19 @@ div.mce-edit-area{
     }
 }
 
-#editor .CodeMirror, .chatter_middle .CodeMirror{
+#editor .CodeMirror, .forum_middle .CodeMirror{
 	height:220px;
 	min-height:220px;
 	border-radius: 0px;
     border-color: #eee;
 }
 
-#editor .CodeMirror-scroll, .chatter_middle .CodeMirror-scroll{
+#editor .CodeMirror-scroll, .forum_middle .CodeMirror-scroll{
 	min-height:204px;
 }
 
 .simplemde{
-	#chatter{
+	#forum{
 		#new_discussion{
 			width: 100%;
 		    height: 100%;
@@ -1050,7 +1050,7 @@ div.mce-edit-area{
 	}
 }
 
-#chatter{
+#forum{
 	#new_response{
 		#new_discussion{
 			z-index:3;
@@ -1058,7 +1058,7 @@ div.mce-edit-area{
 	}
 }
 
-#chatter{
+#forum{
 	.editor-toolbar.fullscreen{
 		z-index:9999;
 	}
@@ -1066,24 +1066,24 @@ div.mce-edit-area{
 /********** END SimpleMDE Overrides **********/
 
 
-/********** FONTS USED FOR CHATTER **********/
+/********** FONTS USED FOR forum **********/
 
 @charset "UTF-8";
 
 @font-face {
-  font-family: "chatter";
-  src:url("../fonts/chatter.eot");
-  src:url("../fonts/chatter.eot?#iefix") format("embedded-opentype"),
-    url("../fonts/chatter.woff") format("woff"),
-    url("../fonts/chatter.ttf") format("truetype"),
-    url("../fonts/chatter.svg#chatter") format("svg");
+  font-family: "forum";
+  src:url("../fonts/forum.eot");
+  src:url("../fonts/forum.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/forum.woff") format("woff"),
+    url("../fonts/forum.ttf") format("truetype"),
+    url("../fonts/forum.svg#forum") format("svg");
   font-weight: normal;
   font-style: normal;
 
 }
 
 [data-icon]:before {
-  font-family: "chatter" !important;
+  font-family: "forum" !important;
   content: attr(data-icon);
   font-style: normal !important;
   font-weight: normal !important;
@@ -1095,9 +1095,9 @@ div.mce-edit-area{
   -moz-osx-font-smoothing: grayscale;
 }
 
-[class^="chatter-"]:before,
-[class*=" chatter-"]:before {
-  font-family: "chatter" !important;
+[class^="forum-"]:before,
+[class*=" forum-"]:before {
+  font-family: "forum" !important;
   font-style: normal !important;
   font-weight: normal !important;
   font-variant: normal !important;
@@ -1108,36 +1108,36 @@ div.mce-edit-area{
   -moz-osx-font-smoothing: grayscale;
 }
 
-.chatter-bubble:before {
+.forum-bubble:before {
   content: "\61";
 }
-.chatter-thumbtack:before {
+.forum-thumbtack:before {
   content: "\62";
 }
-.chatter-check:before {
+.forum-check:before {
   content: "\63";
 }
-.chatter-new:before {
+.forum-new:before {
   content: "\64";
 }
-.chatter-back:before {
+.forum-back:before {
   content: "\65";
 }
-.chatter-close:before {
+.forum-close:before {
   content: "\66";
 }
-.chatter-delete:before {
+.forum-delete:before {
   content: "\69";
 }
-.chatter-edit:before {
+.forum-edit:before {
   content: "\68";
 }
-.chatter-warning:before {
+.forum-warning:before {
   content: "\67";
 }
 
 
-/********** END FONTS USED FOR CHATTER **********/
+/********** END FONTS USED FOR forum **********/
 
 
 /********** START Toggle Switch CSS **********/
@@ -1161,7 +1161,7 @@ div.mce-edit-area{
 		-ms-user-select: none;
     }
 
-    .chatter_email_loader{
+    .forum_email_loader{
     	display:none;
     	position: relative;
 		top: -1px;

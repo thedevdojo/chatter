@@ -1,11 +1,11 @@
 <?php
 
-namespace DevDojo\Chatter\Events;
+namespace MeinderA\Forum\Events;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
 
-class ChatterBeforeNewResponse
+class ForumBeforeNewDiscussion
 {
     /**
      * @var Request

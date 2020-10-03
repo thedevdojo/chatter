@@ -1,21 +1,21 @@
 <?php
 
-namespace DevDojo\Chatter\Controllers;
+namespace MeinderA\Forum\Controllers;
 
 use Auth;
-use Carbon\Carbon;
-use DevDojo\Chatter\Events\ChatterAfterNewResponse;
-use DevDojo\Chatter\Events\ChatterBeforeNewResponse;
-use DevDojo\Chatter\Mail\ChatterDiscussionUpdated;
-use DevDojo\Chatter\Models\Models;
 use Event;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as Controller;
-use Illuminate\Support\Facades\Mail;
 use Purifier;
 use Validator;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use MeinderA\Forum\Models\Models;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Routing\Controller as Controller;
+use MeinderA\Forum\Mail\ForumDiscussionUpdated;
+use MeinderA\Forum\Events\ForumAfterNewResponse;
+use MeinderA\Forum\Events\ForumBeforeNewResponse;
 
-class ChatterPostController extends Controller
+class ForumPostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -52,44 +52,44 @@ class ChatterPostController extends Controller
         $validator = Validator::make($stripped_tags_body, [
             'body' => 'required|min:10',
         ],[
-			'body.required' => trans('chatter::alert.danger.reason.content_required'),
-			'body.min' => trans('chatter::alert.danger.reason.content_min'),
+			'body.required' => trans('forum::alert.danger.reason.content_required'),
+			'body.min' => trans('forum::alert.danger.reason.content_min'),
 		]);
 
-        Event::fire(new ChatterBeforeNewResponse($request, $validator));
-        if (function_exists('chatter_before_new_response')) {
-            chatter_before_new_response($request, $validator);
+        Event::dispatch(new ForumBeforeNewResponse($request, $validator));
+        if (function_exists('forum_before_new_response')) {
+            forum_before_new_response($request, $validator);
         }
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
-        if (config('chatter.security.limit_time_between_posts')) {
+        if (config('forum.security.limit_time_between_posts')) {
             if ($this->notEnoughTimeBetweenPosts()) {
-                $minutes = trans_choice('chatter::messages.words.minutes', config('chatter.security.time_between_posts'));
-                $chatter_alert = [
-                    'chatter_alert_type' => 'danger',
-                    'chatter_alert'      => trans('chatter::alert.danger.reason.prevent_spam', [
+                $minutes = trans_choice('forum::messages.words.minutes', config('forum.security.time_between_posts'));
+                $forum_alert = [
+                    'forum_alert_type' => 'danger',
+                    'forum_alert'      => trans('forum::alert.danger.reason.prevent_spam', [
                                                 'minutes' => $minutes,
                                             ]),
                     ];
 
-                return back()->with($chatter_alert)->withInput();
+                return back()->with($forum_alert)->withInput();
             }
         }
 
         $request->request->add(['user_id' => Auth::user()->id]);
 
-        if (config('chatter.editor') == 'simplemde'):
+        if (config('forum.editor') == 'simplemde'):
             $request->request->add(['markdown' => 1]);
         endif;
 
         $new_post = Models::post()->create($request->all());
 
-        $discussion = Models::discussion()->find($request->chatter_discussion_id);
+        $discussion = Models::discussion()->find($request->forum_discussion_id);
 
-        $category = Models::category()->find($discussion->chatter_category_id);
+        $category = Models::category()->find($discussion->forum_category_id);
         if (!isset($category->slug)) {
             $category = Models::category()->first();
         }
@@ -97,31 +97,32 @@ class ChatterPostController extends Controller
         if ($new_post->id) {
             $discussion->last_reply_at = $discussion->freshTimestamp();
             $discussion->save();
-            
-            Event::fire(new ChatterAfterNewResponse($request, $new_post));
-            if (function_exists('chatter_after_new_response')) {
-                chatter_after_new_response($request);
+
+
+            Event::dispatch(new ForumAfterNewResponse($request, $new_post));
+            if (function_exists('forum_after_new_response')) {
+                forum_after_new_response($request);
             }
 
             // if email notifications are enabled
-            if (config('chatter.email.enabled')) {
+            if (config('forum.email.enabled')) {
                 // Send email notifications about new post
                 $this->sendEmailNotifications($new_post->discussion);
             }
 
-            $chatter_alert = [
-                'chatter_alert_type' => 'success',
-                'chatter_alert'      => trans('chatter::alert.success.reason.submitted_to_post'),
+            $forum_alert = [
+                'forum_alert_type' => 'success',
+                'forum_alert'      => trans('forum::alert.success.reason.submitted_to_post'),
                 ];
 
-            return redirect('/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$category->slug.'/'.$discussion->slug)->with($chatter_alert);
+            return redirect('/'.config('forum.routes.home').'/'.config('forum.routes.discussion').'/'.$category->slug.'/'.$discussion->slug)->with($forum_alert);
         } else {
-            $chatter_alert = [
-                'chatter_alert_type' => 'danger',
-                'chatter_alert'      => trans('chatter::alert.danger.reason.trouble'),
+            $forum_alert = [
+                'forum_alert_type' => 'danger',
+                'forum_alert'      => trans('forum::alert.danger.reason.trouble'),
                 ];
 
-            return redirect('/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$category->slug.'/'.$discussion->slug)->with($chatter_alert);
+            return redirect('/'.config('forum.routes.home').'/'.config('forum.routes.discussion').'/'.$category->slug.'/'.$discussion->slug)->with($forum_alert);
         }
     }
 
@@ -129,7 +130,7 @@ class ChatterPostController extends Controller
     {
         $user = Auth::user();
 
-        $past = Carbon::now()->subMinutes(config('chatter.security.time_between_posts'));
+        $past = Carbon::now()->subMinutes(config('forum.security.time_between_posts'));
 
         $last_post = Models::post()->where('user_id', '=', $user->id)->where('created_at', '>=', $past)->first();
 
@@ -144,7 +145,7 @@ class ChatterPostController extends Controller
     {
         $users = $discussion->users->except(Auth::user()->id);
         foreach ($users as $user) {
-            Mail::to($user)->queue(new ChatterDiscussionUpdated($discussion));
+            Mail::to($user)->queue(new ForumDiscussionUpdated($discussion));
         }
     }
 
@@ -162,8 +163,8 @@ class ChatterPostController extends Controller
         $validator = Validator::make($stripped_tags_body, [
             'body' => 'required|min:10',
         ],[
-			'body.required' => trans('chatter::alert.danger.reason.content_required'),
-			'body.min' => trans('chatter::alert.danger.reason.content_min'),
+			'body.required' => trans('forum::alert.danger.reason.content_required'),
+			'body.min' => trans('forum::alert.danger.reason.content_min'),
 		]);
 
         if ($validator->fails()) {
@@ -179,26 +180,26 @@ class ChatterPostController extends Controller
             }
             $post->save();
 
-            $discussion = Models::discussion()->find($post->chatter_discussion_id);
+            $discussion = Models::discussion()->find($post->forum_discussion_id);
 
-            $category = Models::category()->find($discussion->chatter_category_id);
+            $category = Models::category()->find($discussion->forum_category_id);
             if (!isset($category->slug)) {
                 $category = Models::category()->first();
             }
 
-            $chatter_alert = [
-                'chatter_alert_type' => 'success',
-                'chatter_alert'      => trans('chatter::alert.success.reason.updated_post'),
+            $forum_alert = [
+                'forum_alert_type' => 'success',
+                'forum_alert'      => trans('forum::alert.success.reason.updated_post'),
                 ];
 
-            return redirect('/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$category->slug.'/'.$discussion->slug)->with($chatter_alert);
+            return redirect('/'.config('forum.routes.home').'/'.config('forum.routes.discussion').'/'.$category->slug.'/'.$discussion->slug)->with($forum_alert);
         } else {
-            $chatter_alert = [
-                'chatter_alert_type' => 'danger',
-                'chatter_alert'      => trans('chatter::alert.danger.reason.update_post'),
+            $forum_alert = [
+                'forum_alert_type' => 'danger',
+                'forum_alert'      => trans('forum::alert.danger.reason.update_post'),
                 ];
 
-            return redirect('/'.config('chatter.routes.home'))->with($chatter_alert);
+            return redirect('/'.config('forum.routes.home'))->with($forum_alert);
         }
     }
 
@@ -215,14 +216,14 @@ class ChatterPostController extends Controller
         $post = Models::post()->with('discussion')->findOrFail($id);
 
         if ($request->user()->id !== (int) $post->user_id) {
-            return redirect('/'.config('chatter.routes.home'))->with([
-                'chatter_alert_type' => 'danger',
-                'chatter_alert'      => trans('chatter::alert.danger.reason.destroy_post'),
+            return redirect('/'.config('forum.routes.home'))->with([
+                'forum_alert_type' => 'danger',
+                'forum_alert'      => trans('forum::alert.danger.reason.destroy_post'),
             ]);
         }
 
         if ($post->discussion->posts()->oldest()->first()->id === $post->id) {
-            if(config('chatter.soft_deletes')) {
+            if(config('forum.soft_deletes')) {
                 $post->discussion->posts()->delete();
                 $post->discussion()->delete();
             } else {
@@ -230,19 +231,19 @@ class ChatterPostController extends Controller
                 $post->discussion()->forceDelete();
             }
 
-            return redirect('/'.config('chatter.routes.home'))->with([
-                'chatter_alert_type' => 'success',
-                'chatter_alert'      => trans('chatter::alert.success.reason.destroy_post'),
+            return redirect('/'.config('forum.routes.home'))->with([
+                'forum_alert_type' => 'success',
+                'forum_alert'      => trans('forum::alert.success.reason.destroy_post'),
             ]);
         }
 
         $post->delete();
 
-        $url = '/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$post->discussion->category->slug.'/'.$post->discussion->slug;
+        $url = '/'.config('forum.routes.home').'/'.config('forum.routes.discussion').'/'.$post->discussion->category->slug.'/'.$post->discussion->slug;
 
         return redirect($url)->with([
-            'chatter_alert_type' => 'success',
-            'chatter_alert'      => trans('chatter::alert.success.reason.destroy_from_discussion'),
+            'forum_alert_type' => 'success',
+            'forum_alert'      => trans('forum::alert.success.reason.destroy_from_discussion'),
         ]);
     }
 }

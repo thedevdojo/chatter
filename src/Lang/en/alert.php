@@ -4,11 +4,11 @@ return [
     'success' => [
         'title'  => 'Well done!',
         'reason' => [
-            'submitted_to_post'       => 'Response successfully submitted to '.mb_strtolower(trans('chatter::intro.titles.discussion')).'.',
-            'updated_post'            => 'Successfully updated the '.mb_strtolower(trans('chatter::intro.titles.discussion')).'.',
-            'destroy_post'            => 'Successfully deleted the response and '.mb_strtolower(trans('chatter::intro.titles.discussion')).'.',
-            'destroy_from_discussion' => 'Successfully deleted the response from the '.mb_strtolower(trans('chatter::intro.titles.discussion')).'.',
-            'created_discussion'      => 'Successfully created a new '.mb_strtolower(trans('chatter::intro.titles.discussion')).'.',
+            'submitted_to_post'       => 'Response successfully submitted to '.mb_strtolower(trans('forum::intro.titles.discussion')).'.',
+            'updated_post'            => 'Successfully updated the '.mb_strtolower(trans('forum::intro.titles.discussion')).'.',
+            'destroy_post'            => 'Successfully deleted the response and '.mb_strtolower(trans('forum::intro.titles.discussion')).'.',
+            'destroy_from_discussion' => 'Successfully deleted the response from the '.mb_strtolower(trans('forum::intro.titles.discussion')).'.',
+            'created_discussion'      => 'Successfully created a new '.mb_strtolower(trans('forum::intro.titles.discussion')).'.',
         ],
     ],
     'info' => [
@@ -25,7 +25,7 @@ return [
             'trouble'           => 'Sorry, there seems to have been a problem submitting your response.',
             'update_post'       => 'Nah ah ah... Could not update your response. Make sure you\'re not doing anything shady.',
             'destroy_post'      => 'Nah ah ah... Could not delete the response. Make sure you\'re not doing anything shady.',
-            'create_discussion' => 'Whoops :( There seems to be a problem creating your '.mb_strtolower(trans('chatter::intro.titles.discussion')).'.',
+            'create_discussion' => 'Whoops :( There seems to be a problem creating your '.mb_strtolower(trans('forum::intro.titles.discussion')).'.',
         	'title_required'    => 'Please write a title',
         	'title_min'		    => 'The title has to have at least :min characters.',
         	'title_max'		    => 'The title has to have no more than :max characters.',

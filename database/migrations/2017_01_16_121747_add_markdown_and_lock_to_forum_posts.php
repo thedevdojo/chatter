@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSlugFieldForDiscussions extends Migration
+class AddMarkdownAndLockToForumPosts extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddSlugFieldForDiscussions extends Migration
      */
     public function up()
     {
-        Schema::table('chatter_discussion', function (Blueprint $table) {
-            $table->string('slug')->unique();
+        Schema::table('forum_post', function (Blueprint $table) {
+            $table->boolean('markdown')->default(0);
+            $table->boolean('locked')->default(0);
         });
     }
 
@@ -25,8 +26,8 @@ class AddSlugFieldForDiscussions extends Migration
      */
     public function down()
     {
-        Schema::table('chatter_discussion', function ($table) {
-            $table->dropColumn('slug');
+        Schema::table('forum_post', function ($table) {
+            $table->dropColumn(['markdown', 'locked']);
         });
     }
 }

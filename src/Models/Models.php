@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stefan
- * Date: 07-09-16
- * Time: 11:58.
- */
 
-namespace DevDojo\Chatter\Models;
+namespace MeinderA\Forum\Models;
 
 class Models
 {
@@ -58,7 +52,7 @@ class Models
      *
      * @param array $attributes
      *
-     * @return \DevDojo\Chatter\Models\Category
+     * @return \MeinderA\Forum\Models\Category
      */
     public static function category(array $attributes = [])
     {
@@ -70,7 +64,7 @@ class Models
      *
      * @param array $attributes
      *
-     * @return \DevDojo\Chatter\Models\Discussion
+     * @return \MeinderA\Forum\Models\Discussion
      */
     public static function discussion(array $attributes = [])
     {
@@ -82,7 +76,7 @@ class Models
      *
      * @param array $attributes
      *
-     * @return \DevDojo\Chatter\Models\Post
+     * @return \MeinderA\Forum\Models\Post
      */
     public static function post(array $attributes = [])
     {

@@ -1,8 +1,8 @@
 <?php
 
-namespace DevDojo\Chatter\Helpers;
+namespace MeinderA\Forum\Helpers;
 
-class ChatterHelper
+class ForumHelper
 {
     /**
      * Convert any string to a color code.
@@ -27,7 +27,7 @@ class ChatterHelper
      */
     public static function userLink($user)
     {
-        $url = config('chatter.user.relative_url_to_profile', '');
+        $url = config('forum.user.relative_url_to_profile', '');
 
         if ('' === $url) {
             return '#_';
@@ -107,8 +107,8 @@ class ChatterHelper
 
         foreach ($categories as $category) {
             $menu .= '<li>';
-            $menu .= '<a href="/'.config('chatter.routes.home').'/'.config('chatter.routes.category').'/'.$category['slug'].'">';
-            $menu .= '<div class="chatter-box" style="background-color:'.$category['color'].'"></div>';
+            $menu .= '<a href="/'.config('forum.routes.home').'/'.config('forum.routes.category').'/'.$category['slug'].'">';
+            $menu .= '<div class="forum-box" style="background-color:'.$category['color'].'"></div>';
             $menu .= $category['name'].'</a>';
 
             if (count($category['parents'])) {

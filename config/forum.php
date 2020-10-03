@@ -34,7 +34,7 @@ return [
     |
     */
 
-    'headline_logo' => '/vendor/devdojo/chatter/assets/images/logo-light.png',
+    'headline_logo' => '/vendor/devdojo/forum/assets/images/logo-light.png',
 
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +43,7 @@ return [
     |
     | Chatter needs to add css or javascript to the header and footer of your
     | master layout file. You can choose what these will be called. FYI,
-    | chatter will only load resources when you hit a forum route.
+    | forum will only load resources when you hit a forum route.
     |
     | example:
     | Inside of your <head></head> tag of your master file, you'll need to
@@ -122,7 +122,7 @@ return [
     */
 
     'user' => [
-        'namespace'                     => 'App\User',
+        'namespace'                     => 'App\Models\User',
         'database_field_with_user_name' => 'name',
         'relative_url_to_profile'       => '',
         'relative_url_to_image_assets'  => '',
@@ -224,7 +224,7 @@ return [
 
     'email' => [
         'enabled' => false,
-        'view'    => 'chatter::email',
+        'view'    => 'forum::email',
     ],
 
     /*

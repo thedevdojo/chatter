@@ -1,8 +1,10 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
-class ChatterTableSeeder extends Seeder
+class ForumTableSeeder extends Seeder
 {
     /**
      * Auto generated seed file.
@@ -18,9 +20,9 @@ class ChatterTableSeeder extends Seeder
             \DB::table('users')->insert([
                 0 => [
                     'id'             => 1,
-                    'name'           => 'Tony Lea',
-                    'email'          => 'tony@hello.com',
-                    'password'       => '$2y$10$9ED4Exe2raEeaeOzk.EW6uMBKn3Ib5Q.7kABWaf4QHagOgYHU8ca.',
+                    'name'           => 'zbang',
+                    'email'          => 'zbang@forum.dab',
+                    'password'       => bcrypt('ganggang'),
                     'remember_token' => 'RvlORzs8dyG8IYqssJGcuOY2F0vnjBy2PnHHTX2MoV7Hh6udjJd6hcTox3un',
                     'created_at'     => '2016-07-29 15:13:02',
                     'updated_at'     => '2016-08-18 14:33:50',
@@ -30,9 +32,9 @@ class ChatterTableSeeder extends Seeder
 
         // CREATE THE CATEGORIES
 
-        \DB::table('chatter_categories')->delete();
+        \DB::table('forum_categories')->delete();
 
-        \DB::table('chatter_categories')->insert([
+        \DB::table('forum_categories')->insert([
             0 => [
                 'id'         => 1,
                 'parent_id'  => null,
@@ -117,12 +119,12 @@ class ChatterTableSeeder extends Seeder
 
         // CREATE THE DISCUSSIONS
 
-        \DB::table('chatter_discussion')->delete();
+        \DB::table('forum_discussion')->delete();
 
-        \DB::table('chatter_discussion')->insert([
+        \DB::table('forum_discussion')->insert([
             0 => [
                 'id'                  => 3,
-                'chatter_category_id' => 1,
+                'forum_category_id' => 1,
                 'title'               => 'Hello Everyone, This is my Introduction',
                 'user_id'             => 1,
                 'sticky'              => 0,
@@ -135,20 +137,20 @@ class ChatterTableSeeder extends Seeder
             ],
             1 => [
                 'id'                  => 6,
-                'chatter_category_id' => 2,
-                'title'               => 'Login Information for Chatter',
+                'forum_category_id' => 2,
+                'title'               => 'Login Information for Forum',
                 'user_id'             => 1,
                 'sticky'              => 0,
                 'views'               => 0,
                 'answered'            => 0,
                 'created_at'          => '2016-08-18 14:39:36',
                 'updated_at'          => '2016-08-18 14:39:36',
-                'slug'                => 'login-information-for-chatter',
+                'slug'                => 'login-information-for-forum',
                 'color'               => '#1a1067',
             ],
             2 => [
                 'id'                  => 7,
-                'chatter_category_id' => 3,
+                'forum_category_id' => 3,
                 'title'               => 'Leaving Feedback',
                 'user_id'             => 1,
                 'sticky'              => 0,
@@ -161,7 +163,7 @@ class ChatterTableSeeder extends Seeder
             ],
             3 => [
                 'id'                  => 8,
-                'chatter_category_id' => 4,
+                'forum_category_id' => 4,
                 'title'               => 'Just a random post',
                 'user_id'             => 1,
                 'sticky'              => 0,
@@ -174,58 +176,55 @@ class ChatterTableSeeder extends Seeder
             ],
             4 => [
                 'id'                  => 9,
-                'chatter_category_id' => 2,
-                'title'               => 'Welcome to the Chatter Laravel Forum Package',
+                'forum_category_id' => 2,
+                'title'               => 'Welcome to the Forum Laravel Forum Package',
                 'user_id'             => 1,
                 'sticky'              => 0,
                 'views'               => 0,
                 'answered'            => 0,
                 'created_at'          => '2016-08-18 14:59:37',
                 'updated_at'          => '2016-08-18 14:59:37',
-                'slug'                => 'welcome-to-the-chatter-laravel-forum-package',
+                'slug'                => 'welcome-to-the-forum-laravel-forum-package',
                 'color'               => '',
             ],
         ]);
 
         // CREATE THE POSTS
 
-        \DB::table('chatter_post')->delete();
+        \DB::table('forum_post')->delete();
 
-        \DB::table('chatter_post')->insert([
+        \DB::table('forum_post')->insert([
                     0 => [
                         'id'                    => 1,
-                        'chatter_discussion_id' => 3,
+                        'forum_discussion_id' => 3,
                         'user_id'               => 1,
-                        'body'                  => '<p>My name is Tony and I\'m a developer at <a href="https://devdojo.com" target="_blank">https://devdojo.com</a> and I also work with an awesome company in PB called The Control Group: <a href="http://www.thecontrolgroup.com" target="_blank">http://www.thecontrolgroup.com</a></p>
-        <p>You can check me out on twitter at <a href="http://www.twitter.com/tnylea" target="_blank">http://www.twitter.com/tnylea</a></p>
-        <p>or you can subscribe to me on YouTube at <a href="http://www.youtube.com/devdojo" target="_blank">http://www.youtube.com/devdojo</a></p>',
+                        'body'                  => '<p>hi, what\'s up?</p>',
                         'created_at' => '2016-08-18 14:27:56',
                         'updated_at' => '2016-08-18 14:27:56',
                     ],
                     1 => [
                         'id'                    => 5,
-                        'chatter_discussion_id' => 6,
+                        'forum_discussion_id' => 6,
                         'user_id'               => 1,
                         'body'                  => '<p>Hey!</p>
-        <p>Thanks again for checking out chatter. If you want to login with the default user you can login with the following credentials:</p>
-        <p><strong>email address</strong>: tony@hello.com</p>
-        <p><strong>password</strong>: password</p>
+        <p>Thanks again for checking out forum. If you want to login with the default user you can login with the following credentials:</p>
+        <p><strong>email address</strong>: zbang@forum.dab</p>
+        <p><strong>password</strong>: ganggang</p>
         <p>You\'ll probably want to delete this user, but if for some reason you want to keep it... Go ahead :)</p>',
                     'created_at' => '2016-08-18 14:39:36',
                     'updated_at' => '2016-08-18 14:39:36',
                 ],
                 2 => [
                     'id'                    => 6,
-                    'chatter_discussion_id' => 7,
+                    'forum_discussion_id' => 7,
                     'user_id'               => 1,
-                    'body'                  => '<p>If you would like to leave some feedback or have any issues be sure to visit the github page here: <a href="https://github.com/thedevdojo/chatter" target="_blank">https://github.com/thedevdojo/chatter</a>&nbsp;and I\'m sure I can help out.</p>
-        <p>Let\'s make this package the go to Laravel Forum package. Feel free to contribute and share your ideas :)</p>',
+                    'body'                  => '<p>What a great place to share some ideas!</p>',
                 'created_at' => '2016-08-18 14:42:29',
                 'updated_at' => '2016-08-18 14:42:29',
             ],
             3 => [
                 'id'                    => 7,
-                'chatter_discussion_id' => 8,
+                'forum_discussion_id' => 8,
                 'user_id'               => 1,
                 'body'                  => '<p>This is just a random post to show you some of the formatting that you can do in the WYSIWYG editor. You can make your text <strong>bold</strong>, <em>italic</em>, or <span style="text-decoration: underline;">underlined</span>.</p>
         <p style="text-align: center;">Additionally, you can center align text.</p>
@@ -241,7 +240,7 @@ class ChatterTableSeeder extends Seeder
         <li><span style="line-height: 1.6;">add a numbered list</span></li>
         </ol>
         <p style="padding-left: 30px;"><span style="line-height: 1.6;">We can choose to indent our text</span></p>
-        <p><span style="line-height: 1.6;">Post links: <a href="https://devdojo.com" target="_blank">https://devdojo.com</a></span></p>
+        <p><span style="line-height: 1.6;">Post links: <a href="http://themostseconds.com/" target="_blank">lol</a></span></p>
         <p><span style="line-height: 1.6;">and add images:</span></p>
         <p><span style="line-height: 1.6;"><img src="https://media.giphy.com/media/o0vwzuFwCGAFO/giphy.gif" alt="" width="300" height="300" /></span></p>',
                 'created_at' => '2016-08-18 14:46:38',
@@ -249,7 +248,7 @@ class ChatterTableSeeder extends Seeder
             ],
             4 => [
                 'id'                    => 8,
-                'chatter_discussion_id' => 8,
+                'forum_discussion_id' => 8,
                 'user_id'               => 1,
             'body'                      => '<p>Haha :) Cats!</p>
         <p><img src="https://media.giphy.com/media/5Vy3WpDbXXMze/giphy.gif" alt="" width="250" height="141" /></p>
@@ -259,17 +258,16 @@ class ChatterTableSeeder extends Seeder
         ],
         5 => [
             'id'                    => 9,
-            'chatter_discussion_id' => 9,
+            'forum_discussion_id' => 9,
             'user_id'               => 1,
             'body'                  => '<p>Hey There!</p>
-        <p>My name is Tony and I\'m the creator of this package that you\'ve just installed. Thanks for checking out it out and if you have any questions or want to contribute be sure to checkout the repo here: <a href="https://github.com/thedevdojo/chatter" target="_blank">https://github.com/thedevdojo/chatter</a></p>
         <p>Happy programming!</p>',
             'created_at' => '2016-08-18 14:59:37',
             'updated_at' => '2016-08-18 14:59:37',
         ],
         6 => [
             'id'                    => 10,
-            'chatter_discussion_id' => 9,
+            'forum_discussion_id' => 9,
             'user_id'               => 1,
             'body'                  => '<p>Hell yeah Bro Sauce!</p>
         <p><img src="https://media.giphy.com/media/j5QcmXoFWl4Q0/giphy.gif" alt="" width="366" height="229" /></p>',

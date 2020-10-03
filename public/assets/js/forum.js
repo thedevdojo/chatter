@@ -1,16 +1,16 @@
 $('document').ready(function(){
-	$('.chatter-alert .chatter-close').click(function(){
-		$(this).parents('.chatter-alert').slideUp();
+	$('.forum-alert .forum-close').click(function(){
+		$(this).parents('.forum-alert').slideUp();
 	});
 
     //***** Only if email notify is enabled
     $('#notify_email').change(function() {
-        var chatter_email_loader = $(this).find('.chatter_email_loader');
-        chatter_email_loader.addClass('loading');
+        var forum_email_loader = $(this).find('.forum_email_loader');
+        forum_email_loader.addClass('loading');
         // Call ajax post
         // Then hide loader....
         $.post('/' + $('#current_path').val() + '/email', { '_token' : $('#csrf_token_field').val(), }, function(data){
-            chatter_email_loader.removeClass('loading');
+            forum_email_loader.removeClass('loading');
             if(data){
                 $('#email_notification').prop( "checked", true );
             } else {

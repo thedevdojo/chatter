@@ -1,13 +1,13 @@
 <?php
 
-namespace DevDojo\Chatter\Mail;
+namespace MeinderA\Forum\Mail;
 
-use DevDojo\Chatter\Models\Discussion;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use MeinderA\Forum\Models\Discussion;
 use Illuminate\Queue\SerializesModels;
 
-class ChatterDiscussionUpdated extends Mailable
+class ForumDiscussionUpdated extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,7 +30,7 @@ class ChatterDiscussionUpdated extends Mailable
      */
     public function build()
     {
-        return $this->view(config('chatter.email.view'))
+        return $this->view(config('forum.email.view'))
                     ->with([
                         'discussion' => $this->discussion,
                     ]);

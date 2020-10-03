@@ -1,10 +1,10 @@
 <?php
 
-namespace DevDojo\Chatter\Events;
+namespace MeinderA\Forum\Events;
 
 use Illuminate\Http\Request;
 
-class ChatterAfterNewResponse
+class ForumAfterNewResponse
 {
     /**
      * @var Request

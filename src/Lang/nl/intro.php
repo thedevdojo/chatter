@@ -31,7 +31,7 @@ return [
     |
     */
 
-    'headline'      => 'Welkom bij Chatter',
+    'headline'      => 'Welkom bij forum',
     'description'   => 'Een simpel forum package voor je Laravel app.',
 
 ];

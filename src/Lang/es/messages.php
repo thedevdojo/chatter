@@ -11,9 +11,9 @@ return [
     ],
 
     'discussion' => [
-        'new'          => 'Nueva '.mb_strtolower(trans('chatter::intro.titles.discussion')),
-        'all'          => 'Todas las '.mb_strtolower(trans('chatter::intro.titles.discussions')),
-        'create'       => 'Crear una '.mb_strtolower(trans('chatter::intro.titles.discussion')),
+        'new'          => 'Nueva '.mb_strtolower(trans('forum::intro.titles.discussion')),
+        'all'          => 'Todas las '.mb_strtolower(trans('forum::intro.titles.discussions')),
+        'create'       => 'Crear una '.mb_strtolower(trans('forum::intro.titles.discussion')),
         'posted_by'    => 'Publicado por',
         'head_details' => 'Publicado en categoria',
 
@@ -27,14 +27,14 @@ return [
     ],
 
     'editor' => [
-        'title'               => 'Titulo de la '.mb_strtolower(trans('chatter::intro.titles.discussion')),
+        'title'               => 'Titulo de la '.mb_strtolower(trans('forum::intro.titles.discussion')),
         'select'              => 'Selecciona una categoria',
-        'tinymce_placeholder' => 'Agrega el contenido para la '.mb_strtolower(trans('chatter::intro.titles.discussion')).' aquí...',
-        'select_color_text'   => 'Selecciona un color para la '.mb_strtolower(trans('chatter::intro.titles.discussion')).' (opcional)',
+        'tinymce_placeholder' => 'Agrega el contenido para la '.mb_strtolower(trans('forum::intro.titles.discussion')).' aquí...',
+        'select_color_text'   => 'Selecciona un color para la '.mb_strtolower(trans('forum::intro.titles.discussion')).' (opcional)',
     ],
 
     'email' => [
-        'notify' => 'Notificarme cuando alguien conteste en la '.mb_strtolower(trans('chatter::intro.titles.discussion')),
+        'notify' => 'Notificarme cuando alguien conteste en la '.mb_strtolower(trans('forum::intro.titles.discussion')),
     ],
 
     'auth' => 'Por favor <a href="/:home/login">Inicia sesión</a>

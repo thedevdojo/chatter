@@ -6,12 +6,12 @@
 
 // Route helper.
 $route = function ($accessor, $default = '') {
-    return $this->app->config->get('chatter.routes.'.$accessor, $default);
+    return $this->app->config->get('forum.routes.'.$accessor, $default);
 };
 
 // Middleware helper.
 $middleware = function ($accessor, $default = []) {
-    return $this->app->config->get('chatter.middleware.'.$accessor, $default);
+    return $this->app->config->get('forum.middleware.'.$accessor, $default);
 };
 
 // Authentication middleware helper.
@@ -22,26 +22,26 @@ $authMiddleware = function ($accessor) use ($middleware) {
 };
 
 /*
- * Chatter routes.
+ * Forum routes.
  */
 Route::group([
-    'as'         => 'chatter.',
+    'as'         => 'forum.',
     'prefix'     => $route('home'),
     'middleware' => $middleware('global', 'web'),
-    'namespace'  => 'DevDojo\Chatter\Controllers',
+    'namespace'  => 'MeinderA\Forum\Controllers',
 ], function () use ($route, $middleware, $authMiddleware) {
 
     // Home view.
     Route::get('/', [
         'as'         => 'home',
-        'uses'       => 'ChatterController@index',
+        'uses'       => 'ForumController@index',
         'middleware' => $middleware('home'),
     ]);
 
     // Single category view.
     Route::get($route('category').'/{slug}', [
         'as'         => 'category.show',
-        'uses'       => 'ChatterController@index',
+        'uses'       => 'ForumController@index',
         'middleware' => $middleware('category.show'),
     ]);
 
@@ -52,13 +52,13 @@ Route::group([
     // Login view.
     Route::get('login', [
         'as'   => 'login',
-        'uses' => 'ChatterController@login',
+        'uses' => 'ForumController@login',
     ]);
 
     // Register view.
     Route::get('register', [
         'as'   => 'register',
-        'uses' => 'ChatterController@register',
+        'uses' => 'ForumController@register',
     ]);
 
     /*
@@ -72,35 +72,35 @@ Route::group([
         // All discussions view.
         Route::get('/', [
             'as'         => 'index',
-            'uses'       => 'ChatterDiscussionController@index',
+            'uses'       => 'ForumDiscussionController@index',
             'middleware' => $middleware('discussion.index'),
         ]);
 
         // Create discussion view.
         Route::get('create', [
             'as'         => 'create',
-            'uses'       => 'ChatterDiscussionController@create',
+            'uses'       => 'ForumDiscussionController@create',
             'middleware' => $authMiddleware('discussion.create'),
         ]);
 
         // Store discussion action.
         Route::post('/', [
             'as'         => 'store',
-            'uses'       => 'ChatterDiscussionController@store',
+            'uses'       => 'ForumDiscussionController@store',
             'middleware' => $authMiddleware('discussion.store'),
         ]);
 
         // Single discussion view.
         Route::get('{category}/{slug}', [
             'as'         => 'showInCategory',
-            'uses'       => 'ChatterDiscussionController@show',
+            'uses'       => 'ForumDiscussionController@show',
             'middleware' => $middleware('discussion.show'),
         ]);
 
         // Add user notification to discussion
         Route::post('{category}/{slug}/email', [
             'as'         => 'email',
-            'uses'       => 'ChatterDiscussionController@toggleEmailNotification',
+            'uses'       => 'ForumDiscussionController@toggleEmailNotification',
         ]);
 
         /*
@@ -113,28 +113,28 @@ Route::group([
             // Single discussion view.
             Route::get('/', [
                 'as'         => 'show',
-                'uses'       => 'ChatterDiscussionController@show',
+                'uses'       => 'ForumDiscussionController@show',
                 'middleware' => $middleware('discussion.show'),
             ]);
 
             // Edit discussion view.
             Route::get('edit', [
                 'as'         => 'edit',
-                'uses'       => 'ChatterDiscussionController@edit',
+                'uses'       => 'ForumDiscussionController@edit',
                 'middleware' => $authMiddleware('discussion.edit'),
             ]);
 
             // Update discussion action.
             Route::match(['PUT', 'PATCH'], '/', [
                 'as'         => 'update',
-                'uses'       => 'ChatterDiscussionController@update',
+                'uses'       => 'ForumDiscussionController@update',
                 'middleware' => $authMiddleware('discussion.update'),
             ]);
 
             // Destroy discussion action.
             Route::delete('/', [
                 'as'         => 'destroy',
-                'uses'       => 'ChatterDiscussionController@destroy',
+                'uses'       => 'ForumDiscussionController@destroy',
                 'middleware' => $authMiddleware('discussion.destroy'),
             ]);
         });
@@ -151,21 +151,21 @@ Route::group([
         // All posts view.
         Route::get('/', [
             'as'         => 'index',
-            'uses'       => 'ChatterPostController@index',
+            'uses'       => 'ForumPostController@index',
             'middleware' => $middleware('post.index'),
         ]);
 
         // Create post view.
         Route::get('create', [
             'as'         => 'create',
-            'uses'       => 'ChatterPostController@create',
+            'uses'       => 'ForumPostController@create',
             'middleware' => $authMiddleware('post.create'),
         ]);
 
         // Store post action.
         Route::post('/', [
             'as'         => 'store',
-            'uses'       => 'ChatterPostController@store',
+            'uses'       => 'ForumPostController@store',
             'middleware' => $authMiddleware('post.store'),
         ]);
 
@@ -179,28 +179,28 @@ Route::group([
             // Single post view.
             Route::get('/', [
                 'as'         => 'show',
-                'uses'       => 'ChatterPostController@show',
+                'uses'       => 'ForumPostController@show',
                 'middleware' => $middleware('post.show'),
             ]);
 
             // Edit post view.
             Route::get('edit', [
                 'as'         => 'edit',
-                'uses'       => 'ChatterPostController@edit',
+                'uses'       => 'ForumPostController@edit',
                 'middleware' => $authMiddleware('post.edit'),
             ]);
 
             // Update post action.
             Route::match(['PUT', 'PATCH'], '/', [
                 'as'         => 'update',
-                'uses'       => 'ChatterPostController@update',
+                'uses'       => 'ForumPostController@update',
                 'middleware' => $authMiddleware('post.update'),
             ]);
 
             // Destroy post action.
             Route::delete('/', [
                 'as'         => 'destroy',
-                'uses'       => 'ChatterPostController@destroy',
+                'uses'       => 'ForumPostController@destroy',
                 'middleware' => $authMiddleware('post.destroy'),
             ]);
         });
@@ -211,7 +211,7 @@ Route::group([
  * Atom routes
  */
 Route::get($route('home').'.atom', [
-    'as'         => 'chatter.atom',
-    'uses'       => 'DevDojo\Chatter\Controllers\ChatterAtomController@index',
+    'as'         => 'forum.atom',
+    'uses'       => 'MeinderA\Forum\Controllers\ForumAtomController@index',
     'middleware' => $middleware('home'),
 ]);

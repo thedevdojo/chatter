@@ -3,11 +3,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateChatterCategoriesTable extends Migration
+class CreateForumCategoriesTable extends Migration
 {
     public function up()
     {
-        Schema::create('chatter_categories', function (Blueprint $table) {
+        Schema::create('forum_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('parent_id')->unsigned()->nullable();
             $table->integer('order')->default(1);
@@ -20,6 +20,6 @@ class CreateChatterCategoriesTable extends Migration
 
     public function down()
     {
-        Schema::drop('chatter_categories');
+        Schema::drop('forum_categories');
     }
 }

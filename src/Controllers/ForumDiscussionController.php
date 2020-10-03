@@ -1,18 +1,18 @@
 <?php
 
-namespace DevDojo\Chatter\Controllers;
+namespace MeinderA\Forum\Controllers;
 
 use Auth;
-use Carbon\Carbon;
-use DevDojo\Chatter\Events\ChatterAfterNewDiscussion;
-use DevDojo\Chatter\Events\ChatterBeforeNewDiscussion;
-use DevDojo\Chatter\Models\Models;
 use Event;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as Controller;
 use Validator;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use MeinderA\Forum\Models\Models;
+use Illuminate\Routing\Controller as Controller;
+use MeinderA\Forum\Events\ForumAfterNewDiscussion;
+use MeinderA\Forum\Events\ForumBeforeNewDiscussion;
 
-class ChatterDiscussionController extends Controller
+class ForumDiscussionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -45,7 +45,7 @@ class ChatterDiscussionController extends Controller
     {
         $categories = Models::category()->all();
 
-        return view('chatter::discussion.create', compact('categories'));
+        return view('forum::discussion.create', compact('categories'));
     }
 
     /**
@@ -62,24 +62,24 @@ class ChatterDiscussionController extends Controller
         $validator = Validator::make($request->all(), [
             'title'               => 'required|min:5|max:255',
             'body_content'        => 'required|min:10',
-            'chatter_category_id' => 'required',
+            'forum_category_id' => 'required',
          ],[
-			'title.required' =>  trans('chatter::alert.danger.reason.title_required'),
+			'title.required' =>  trans('forum::alert.danger.reason.title_required'),
 			'title.min'     => [
-				'string'  => trans('chatter::alert.danger.reason.title_min'),
+				'string'  => trans('forum::alert.danger.reason.title_min'),
 			],
 			'title.max' => [
-				'string'  => trans('chatter::alert.danger.reason.title_max'),
+				'string'  => trans('forum::alert.danger.reason.title_max'),
 			],
-			'body_content.required' => trans('chatter::alert.danger.reason.content_required'),
-			'body_content.min' => trans('chatter::alert.danger.reason.content_min'),
-			'chatter_category_id.required' => trans('chatter::alert.danger.reason.category_required'),
+			'body_content.required' => trans('forum::alert.danger.reason.content_required'),
+			'body_content.min' => trans('forum::alert.danger.reason.content_min'),
+			'forum_category_id.required' => trans('forum::alert.danger.reason.category_required'),
 		]);
         
 
-        Event::fire(new ChatterBeforeNewDiscussion($request, $validator));
-        if (function_exists('chatter_before_new_discussion')) {
-            chatter_before_new_discussion($request, $validator);
+        Event::fire(new ForumBeforeNewDiscussion($request, $validator));
+        if (function_exists('forum_before_new_discussion')) {
+            forum_before_new_discussion($request, $validator);
         }
 
         if ($validator->fails()) {
@@ -88,17 +88,17 @@ class ChatterDiscussionController extends Controller
 
         $user_id = Auth::user()->id;
 
-        if (config('chatter.security.limit_time_between_posts')) {
+        if (config('forum.security.limit_time_between_posts')) {
             if ($this->notEnoughTimeBetweenDiscussion()) {
-                $minutes = trans_choice('chatter::messages.words.minutes', config('chatter.security.time_between_posts'));
-                $chatter_alert = [
-                    'chatter_alert_type' => 'danger',
-                    'chatter_alert'      => trans('chatter::alert.danger.reason.prevent_spam', [
+                $minutes = trans_choice('forum::messages.words.minutes', config('forum.security.time_between_posts'));
+                $forum_alert = [
+                    'forum_alert_type' => 'danger',
+                    'forum_alert'      => trans('forum::alert.danger.reason.prevent_spam', [
                                                 'minutes' => $minutes,
                                             ]),
                     ];
 
-                return redirect('/'.config('chatter.routes.home'))->with($chatter_alert)->withInput();
+                return redirect('/'.config('forum.routes.home'))->with($forum_alert)->withInput();
             }
         }
 
@@ -120,13 +120,13 @@ class ChatterDiscussionController extends Controller
 
         $new_discussion = [
             'title'               => $request->title,
-            'chatter_category_id' => $request->chatter_category_id,
+            'forum_category_id' => $request->forum_category_id,
             'user_id'             => $user_id,
             'slug'                => $slug,
             'color'               => $request->color,
             ];
 
-        $category = Models::category()->find($request->chatter_category_id);
+        $category = Models::category()->find($request->forum_category_id);
         if (!isset($category->slug)) {
             $category = Models::category()->first();
         }
@@ -134,12 +134,12 @@ class ChatterDiscussionController extends Controller
         $discussion = Models::discussion()->create($new_discussion);
 
         $new_post = [
-            'chatter_discussion_id' => $discussion->id,
+            'forum_discussion_id' => $discussion->id,
             'user_id'               => $user_id,
             'body'                  => $request->body,
             ];
 
-        if (config('chatter.editor') == 'simplemde'):
+        if (config('forum.editor') == 'simplemde'):
            $new_post['markdown'] = 1;
         endif;
 
@@ -149,24 +149,24 @@ class ChatterDiscussionController extends Controller
         $post = Models::post()->create($new_post);
 
         if ($post->id) {
-            Event::fire(new ChatterAfterNewDiscussion($request, $discussion, $post));
-            if (function_exists('chatter_after_new_discussion')) {
-                chatter_after_new_discussion($request);
+            Event::fire(new ForumAfterNewDiscussion($request, $discussion, $post));
+            if (function_exists('forum_after_new_discussion')) {
+                forum_after_new_discussion($request);
             }
 
-            $chatter_alert = [
-                'chatter_alert_type' => 'success',
-                'chatter_alert'      => trans('chatter::alert.success.reason.created_discussion'),
+            $forum_alert = [
+                'forum_alert_type' => 'success',
+                'forum_alert'      => trans('forum::alert.success.reason.created_discussion'),
                 ];
 
-            return redirect('/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$category->slug.'/'.$slug)->with($chatter_alert);
+            return redirect('/'.config('forum.routes.home').'/'.config('forum.routes.discussion').'/'.$category->slug.'/'.$slug)->with($forum_alert);
         } else {
-            $chatter_alert = [
-                'chatter_alert_type' => 'danger',
-                'chatter_alert'      => trans('chatter::alert.danger.reason.create_discussion'),
+            $forum_alert = [
+                'forum_alert_type' => 'danger',
+                'forum_alert'      => trans('forum::alert.danger.reason.create_discussion'),
             ];
 
-            return redirect('/'.config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$category->slug.'/'.$slug)->with($chatter_alert);
+            return redirect('/'.config('forum.routes.home').'/'.config('forum.routes.discussion').'/'.$category->slug.'/'.$slug)->with($forum_alert);
         }
     }
 
@@ -174,7 +174,7 @@ class ChatterDiscussionController extends Controller
     {
         $user = Auth::user();
 
-        $past = Carbon::now()->subMinutes(config('chatter.security.time_between_posts'));
+        $past = Carbon::now()->subMinutes(config('forum.security.time_between_posts'));
 
         $last_discussion = Models::discussion()->where('user_id', '=', $user->id)->where('created_at', '>=', $past)->first();
 
@@ -195,7 +195,7 @@ class ChatterDiscussionController extends Controller
     public function show($category, $slug = null)
     {
         if (!isset($category) || !isset($slug)) {
-            return redirect(config('chatter.routes.home'));
+            return redirect(config('forum.routes.home'));
         }
 
         $discussion = Models::discussion()->where('slug', '=', $slug)->first();
@@ -203,22 +203,22 @@ class ChatterDiscussionController extends Controller
             abort(404);
         }
 
-        $discussion_category = Models::category()->find($discussion->chatter_category_id);
+        $discussion_category = Models::category()->find($discussion->forum_category_id);
         if ($category != $discussion_category->slug) {
-            return redirect(config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$discussion_category->slug.'/'.$discussion->slug);
+            return redirect(config('forum.routes.home').'/'.config('forum.routes.discussion').'/'.$discussion_category->slug.'/'.$discussion->slug);
         }
-        $posts = Models::post()->with('user')->where('chatter_discussion_id', '=', $discussion->id)->orderBy(config('chatter.order_by.posts.order'), config('chatter.order_by.posts.by'))->paginate(10);
+        $posts = Models::post()->with('user')->where('forum_discussion_id', '=', $discussion->id)->orderBy(config('forum.order_by.posts.order'), config('forum.order_by.posts.by'))->paginate(10);
 
-        $chatter_editor = config('chatter.editor');
+        $forum_editor = config('forum.editor');
 
-        if ($chatter_editor == 'simplemde') {
+        if ($forum_editor == 'simplemde') {
             // Dynamically register markdown service provider
             \App::register('GrahamCampbell\Markdown\MarkdownServiceProvider');
         }
 
         $discussion->increment('views');
         
-        return view('chatter::discussion', compact('discussion', 'posts', 'chatter_editor'));
+        return view('forum::discussion', compact('discussion', 'posts', 'forum_editor'));
     }
 
     /**
@@ -287,7 +287,7 @@ class ChatterDiscussionController extends Controller
     public function toggleEmailNotification($category, $slug = null)
     {
         if (!isset($category) || !isset($slug)) {
-            return redirect(config('chatter.routes.home'));
+            return redirect(config('forum.routes.home'));
         }
 
         $discussion = Models::discussion()->where('slug', '=', $slug)->first();

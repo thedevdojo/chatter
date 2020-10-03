@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddMarkdownAndLockToChatterPosts extends Migration
+class AddColorRowToForumDiscussions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddMarkdownAndLockToChatterPosts extends Migration
      */
     public function up()
     {
-        Schema::table('chatter_post', function (Blueprint $table) {
-            $table->boolean('markdown')->default(0);
-            $table->boolean('locked')->default(0);
+        Schema::table('forum_discussion', function (Blueprint $table) {
+            $table->string('color', 20)->nullable()->default('#232629');
         });
     }
 
@@ -26,8 +25,8 @@ class AddMarkdownAndLockToChatterPosts extends Migration
      */
     public function down()
     {
-        Schema::table('chatter_post', function ($table) {
-            $table->dropColumn(['markdown', 'locked']);
+        Schema::table('forum_discussion', function ($table) {
+            $table->dropColumn('color');
         });
     }
 }

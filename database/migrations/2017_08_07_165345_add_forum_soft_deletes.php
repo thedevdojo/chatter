@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddChatterSoftDeletes extends Migration
+class AddForumSoftDeletes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class AddChatterSoftDeletes extends Migration
      */
     public function up()
     {
-        Schema::table('chatter_discussion', function (Blueprint $table) {
+        Schema::table('forum_discussion', function (Blueprint $table) {
             $table->softDeletes();
         });
-        Schema::table('chatter_post', function (Blueprint $table) {
+        Schema::table('forum_post', function (Blueprint $table) {
             $table->softDeletes();
         });
     }

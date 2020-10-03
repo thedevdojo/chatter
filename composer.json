@@ -1,24 +1,29 @@
 {
-    "name": "devdojo/chatter",
+    "name": "meinder-a/forum",
     "description": "A simple forum package for your laravel app",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Tony Lea",
             "email": "tony@devdojo.com"
+        },
+        {
+            "name": "Anthony Meinder",
+            "email": "me@meinder-a.com"
         }
     ],
     "require": {
-        "luketowers/purifier": "~3.0"
+        "mews/purifier": "~3.0"
     },
     "require-dev": {
-        "illuminate/cache": "~5.1.20|5.2.*|5.3.*",
-        "illuminate/console": "~5.1.20|5.2.*|5.3.*",
-        "mockery/mockery": "^0.9.5",
-        "phpunit/phpunit": "~5.7.14"
+        "illuminate/cache": "^8.0",
+        "illuminate/console": "^8.0",
+        "mockery/mockery": "^1.3.1",
+        "phpunit/phpunit": "^9.3"
     },
     "autoload": {
 	    "psr-4": {
-	      "DevDojo\\Chatter\\": "/src"
+	      "MeinderA\\Forum\\": "/src"
 		}
 	},
     "autoload-dev": {
@@ -29,7 +34,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "DevDojo\\Chatter\\ChatterServiceProvider"
+                "MeinderA\\Forum\\ForumServiceProvider"
             ]
         }
     }

@@ -11,9 +11,9 @@ return [
     ],
 
     'discussion' => [
-        'new'          => 'New '.trans('chatter::intro.titles.discussion'),
-        'all'          => 'All '.trans('chatter::intro.titles.discussion'),
-        'create'       => 'Create '.trans('chatter::intro.titles.discussion'),
+        'new'          => 'New '.trans('forum::intro.titles.discussion'),
+        'all'          => 'All '.trans('forum::intro.titles.discussion'),
+        'create'       => 'Create '.trans('forum::intro.titles.discussion'),
         'posted_by'    => 'Posted by',
         'head_details' => 'Posted in Category',
 
@@ -27,10 +27,10 @@ return [
     ],
 
     'editor' => [
-        'title'               => 'Title of '.trans('chatter::intro.titles.discussion'),
+        'title'               => 'Title of '.trans('forum::intro.titles.discussion'),
         'select'              => 'Select a Category',
-        'tinymce_placeholder' => 'Type Your '.trans('chatter::intro.titles.discussion').' Here...',
-        'select_color_text'   => 'Select a Color for this '.trans('chatter::intro.titles.discussion').' (optional)',
+        'tinymce_placeholder' => 'Type Your '.trans('forum::intro.titles.discussion').' Here...',
+        'select_color_text'   => 'Select a Color for this '.trans('forum::intro.titles.discussion').' (optional)',
     ],
 
     'email' => [
