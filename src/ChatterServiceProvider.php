@@ -3,6 +3,7 @@
 namespace DevDojo\Chatter;
 
 use Illuminate\Support\ServiceProvider;
+use DevDojo\Chatter\Models\Models;
 
 class ChatterServiceProvider extends ServiceProvider
 {
@@ -36,6 +37,10 @@ class ChatterServiceProvider extends ServiceProvider
 
         // include the routes file
         include __DIR__.'/Routes/web.php';
+
+        view()->composer(['chatter::blocks.sidebar', 'chatter::discussion', 'chatter::home'], function($view) {
+            $view->with('categories', Models::category()->orderBy('order')->get());
+        });
     }
 
     /**
@@ -48,13 +53,13 @@ class ChatterServiceProvider extends ServiceProvider
         /*
          * Register the service provider for the dependency.
          */
-        $this->app->register(\LukeTowers\Purifier\PurifierServiceProvider::class);
+        $this->app->register(\Mews\Purifier\PurifierServiceProvider::class);
 
         /*
          * Create aliases for the dependency.
          */
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-        $loader->alias('Purifier', 'LukeTowers\Purifier\Facades\Purifier');
+        $loader->alias('Purifier', 'Mews\Purifier\Facades\Purifier');
 
         $this->loadViewsFrom(__DIR__.'/Views', 'chatter');
     }

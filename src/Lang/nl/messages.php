@@ -38,8 +38,8 @@ return [
         'notify' => 'Stuur mij notificaties van antwoorden',
     ],
 
-    'auth' => 'Je moet <a href="/:home/login">inloggen</a>
-                of <a href="/:home/register">registreren</a>
+    'auth' => 'Je moet <a href="'.route(config('chatter.routes.login')).'">inloggen</a>
+                of <a href="'.route(config('chatter.routes.register')).'">registreren</a>
                 om een reactie te plaatsen.',
 
 ];

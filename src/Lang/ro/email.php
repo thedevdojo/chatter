@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'subject'         => 'Răspunsul la discuții',
     'preheader'       => 'Vreau doar să știi că cineva a răspuns unui postări de pe forum.',
     'greeting'        => 'Salutare,',
     'body'            => 'Vreau doar să știi că cineva a răspuns unei postări de pe forum la',

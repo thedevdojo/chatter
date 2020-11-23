@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'subject'         => 'Discussion Reply',
     'preheader'       => 'Just wanted to let you know that someone has responded to a forum post.',
     'greeting'        => 'Hi there,',
     'body'            => 'Just wanted to let you know that someone has responded to a forum post at',
